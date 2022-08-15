@@ -66,7 +66,7 @@ export default class OnboardingScreen extends React.Component {
           source={item.illustration}
           resizeMode="contain"
           style={{
-            height: Window.height < 800 ? '60%' : '70%',
+            height: Window.height < 800 ? '55%' : '65%',
             width: '100%',
             margin: 0,
           }}
@@ -79,7 +79,7 @@ export default class OnboardingScreen extends React.Component {
         </CardContainer>
         {/* Display login/get started buttons */}
         {index === 3 && (
-          <CardContainer style={{ marginTop: 12 }}>
+          <CardContainer style={{ marginTop: 10 }}>
             <FilledButtonContainer
               width="100%"
               onPress={() => this.navigateAuth()}>
