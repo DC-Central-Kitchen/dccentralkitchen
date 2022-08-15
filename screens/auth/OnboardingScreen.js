@@ -4,7 +4,7 @@
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
@@ -12,7 +12,7 @@ import {
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
-  Title
+  Title,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
@@ -22,7 +22,7 @@ import { setAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   OnboardingContainer,
   OnboardingContentContainer,
-  styles
+  styles,
 } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 
@@ -40,7 +40,7 @@ export default class OnboardingScreen extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ loading: false });
+      this.setState({ loading: false, pageIndex: 0 });
     }, 10);
   }
 
@@ -76,9 +76,6 @@ export default class OnboardingScreen extends React.Component {
           <Body style={{ marginTop: 12, textAlign: 'center' }}>
             {item.body}
           </Body>
-          <ButtonContainer onPress={this.nextPage}>
-            <Text>Next</Text>
-          </ButtonContainer>
         </CardContainer>
         {/* Display login/get started buttons */}
         {index === 3 && (
@@ -117,11 +114,8 @@ export default class OnboardingScreen extends React.Component {
     this.props.navigation.navigate('PhoneNumber');
   }
 
-  nextPage() {
-    // this.setState((prev) => ({
-    //   pageIndex: prev.pageIndex + 1,
-    // }));
-    console.log(this.state);
+  goToPage(newIndex) {
+    this._carousel.snapToItem(newIndex);
   }
 
   render() {
@@ -148,6 +142,28 @@ export default class OnboardingScreen extends React.Component {
 
         {/* Display pagination dots */}
         {this.pagination}
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'space-between',
+          }}>
+          {this.state.pageIndex > 0 && (
+            <ButtonContainer
+              onPress={() => this.goToPage(this.state.pageIndex - 1)}>
+              <Text>Back</Text>
+            </ButtonContainer>
+          )}
+
+          {this.state.pageIndex < ONBOARDING_CONTENT.length && (
+            <ButtonContainer
+              style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}
+              onPress={() => this.goToPage(this.state.pageIndex + 1)}>
+              <Text>Next</Text>
+            </ButtonContainer>
+          )}
+        </View>
       </OnboardingContainer>
     );
   }
