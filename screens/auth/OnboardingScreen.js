@@ -4,7 +4,8 @@
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
+import { Text } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   Body,
@@ -33,11 +34,13 @@ export default class OnboardingScreen extends React.Component {
       loading: true,
       pageIndex: 0,
     };
+    this.setState = this.setState.bind(this);
+    this.state = this.setState.bind(this);
   }
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ loading: false });
+      this.setState({ loading: false, pageIndex: 0 });
     }, 10);
   }
 
@@ -63,7 +66,7 @@ export default class OnboardingScreen extends React.Component {
           source={item.illustration}
           resizeMode="contain"
           style={{
-            height: Window.height < 800 ? '60%' : '70%',
+            height: Window.height < 800 ? '55%' : '65%',
             width: '100%',
             margin: 0,
           }}
@@ -76,7 +79,7 @@ export default class OnboardingScreen extends React.Component {
         </CardContainer>
         {/* Display login/get started buttons */}
         {index === 3 && (
-          <CardContainer style={{ marginTop: 12 }}>
+          <CardContainer style={{ marginTop: 10 }}>
             <FilledButtonContainer
               width="100%"
               onPress={() => this.navigateAuth()}>
@@ -111,6 +114,10 @@ export default class OnboardingScreen extends React.Component {
     this.props.navigation.navigate('PhoneNumber');
   }
 
+  goToPage(newIndex) {
+    this._carousel.snapToItem(newIndex);
+  }
+
   render() {
     if (this.state.loading) {
       return null;
@@ -119,10 +126,9 @@ export default class OnboardingScreen extends React.Component {
       <OnboardingContainer>
         {/* Display sliding content: 80 = 2 * 40px for marginWidth
         containerCustomStyle height: 337 to bound the size of carousel
-        */}
+      */}
         <Carousel
           data={ONBOARDING_CONTENT}
-          useScrollView
           ref={(c) => {
             this._carousel = c;
           }}
@@ -136,6 +142,28 @@ export default class OnboardingScreen extends React.Component {
 
         {/* Display pagination dots */}
         {this.pagination}
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'space-between',
+          }}>
+          {this.state.pageIndex > 0 && (
+            <ButtonContainer
+              onPress={() => this.goToPage(this.state.pageIndex - 1)}>
+              <Text>Back</Text>
+            </ButtonContainer>
+          )}
+
+          {this.state.pageIndex < ONBOARDING_CONTENT.length && (
+            <ButtonContainer
+              style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}
+              onPress={() => this.goToPage(this.state.pageIndex + 1)}>
+              <Text>Next</Text>
+            </ButtonContainer>
+          )}
+        </View>
       </OnboardingContainer>
     );
   }

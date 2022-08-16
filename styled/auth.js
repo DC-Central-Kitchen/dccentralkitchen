@@ -35,6 +35,7 @@ export const PermissionsContainer = styled.View`
 
 export const OnboardingContentContainer = styled.View`
   flex: 1;
+  z-index: 1000;
 `;
 
 // Used in AuthTextField

@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import * as firebase from 'firebase';
+import firebase from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard } from 'react-native';

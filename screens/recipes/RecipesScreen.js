@@ -37,9 +37,10 @@ export default class RecipesScreen extends React.Component {
 
   updateSearch = async (search) => {
     const { allRecipes } = this.state;
-    const filteredSearch = allRecipes.filter((recipe) =>
-      recipe.title.includes(search)
-    );
+    const filteredSearch = allRecipes.filter((recipe) => {
+      const lowerTitle = recipe.title.toLowerCase();
+      return lowerTitle.includes(search.toLowerCase());
+    });
     this.setState({ search, recipes: filteredSearch });
   };
 
