@@ -17,7 +17,7 @@ if (env === 'dev') {
   // IDs from PROD base
 } else if (env === 'prod') {
   RecordIds.testCustomerId = 'recomWMtzSUQCcIvr';
-  RecordIds.guestCustomerId = 'recFe6vXNf0duQkcZ';
+  RecordIds.guestCustomerId = 'recFe6vXNf0duQkcZ'; // Make sure Guest id exsists in PROD Airtable
   RecordIds.defaultStoreId = 'recwQ6SoM5pEj37xl';
   RecordIds.surveyStoreId = 'recQa6jv9KGqobDAZ';
 }
