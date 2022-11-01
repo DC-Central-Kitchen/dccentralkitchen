@@ -14,11 +14,10 @@ if (env === 'dev') {
   RecordIds.guestCustomerId = 'recLKK7cZHboMPEB8';
   RecordIds.defaultStoreId = 'rec6C14onap95XOK8';
   RecordIds.surveyStoreId = 'recfB0SrHB8b6a3Bb';
-
   // IDs from PROD base
 } else if (env === 'prod') {
   RecordIds.testCustomerId = 'recomWMtzSUQCcIvr';
-  RecordIds.guestCustomerId = 'recxEGfvExP4Dv8nr';
+  RecordIds.guestCustomerId = 'recFe6vXNf0duQkcZ';
   RecordIds.defaultStoreId = 'recwQ6SoM5pEj37xl';
   RecordIds.surveyStoreId = 'recQa6jv9KGqobDAZ';
 }
