@@ -31,7 +31,8 @@
           "uber",
           "lyft",
           "waze"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": "NO"
       },
       "config": {
         "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU",
