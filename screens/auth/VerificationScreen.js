@@ -79,7 +79,7 @@ export default class VerificationScreen extends React.Component {
   verifyCode = async (code) => {
     try {
       const { verificationId, callBack } = this.props.route.params;
-      const credential = auth.PhoneAuthProvider.credential(
+      const credential = firebase.auth.PhoneAuthProvider.credential(
         verificationId,
         code
       );
