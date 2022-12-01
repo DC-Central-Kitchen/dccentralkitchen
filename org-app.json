@@ -3,11 +3,7 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.6.0",
     "primaryColor": "#008550",
     "orientation": "portrait",
@@ -21,9 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 3000
     },
-    "assetBundlePatterns": [
-      "assets/images/*"
-    ],
+    "assetBundlePatterns": ["assets/images/*"],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -37,7 +31,8 @@
           "uber",
           "lyft",
           "waze"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": "NO"
       },
       "config": {
         "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU",
@@ -62,7 +57,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 9
+      "versionCode": 13
     },
     "hooks": {
       "postPublish": [
