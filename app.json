@@ -4,7 +4,7 @@
     "slug": "healthy-corners",
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
-    "version": "1.6.15",
+    "version": "1.6.16",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
