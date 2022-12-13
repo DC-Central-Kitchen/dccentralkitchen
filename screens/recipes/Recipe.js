@@ -10,7 +10,6 @@ import {
   NavTitle,
 } from '../../components/BaseComponents';
 import Window from '../../constants/Layout';
-import { IconContainer } from '../../styled/resources';
 
 const Recipe = (props) => {
   const { item } = props.route.params;
@@ -38,7 +37,7 @@ const Recipe = (props) => {
             }}
           />
           <Text style={styles.heading}>{item.title}</Text>
-          <IconContainer>
+          <View style={{ alignItems: 'center' }}>
             <Image
               style={styles.bigPicture}
               source={{
@@ -46,7 +45,7 @@ const Recipe = (props) => {
               }}
               alt={`${item.title}`}
             />
-          </IconContainer>
+          </View>
           <NavTitle style={styles.subHeading}>Ingredients</NavTitle>
           <Text style={styles.textContainer}>{item.ingredients}</Text>
           <NavTitle style={styles.subHeading}>Instructions</NavTitle>
