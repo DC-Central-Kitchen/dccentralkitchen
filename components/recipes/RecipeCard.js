@@ -4,7 +4,7 @@ import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ContentContainer, RecipeItemCard } from '../../styled/recipes';
 import { IconContainer } from '../../styled/resources';
-import { Body, Subtitle } from '../BaseComponents';
+import { Subtitle } from '../BaseComponents';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -25,19 +25,26 @@ function RecipeCard({ navigation, item }) {
         config,
       }}>
       <RecipeItemCard>
-        <ContentContainer style={styles.subtitle}>
-          <Subtitle style={styles.subtitle}>{item.title}</Subtitle>
-          <Body color={Colors.secondaryText}>{item.description}</Body>
-        </ContentContainer>
         <IconContainer>
           <Image
-            style={styles.tinyLogo}
+            resizeMode="cover"
+            style={{
+              height: 170,
+              display: 'flex',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              width: '100%',
+            }}
             source={{
-              uri: item.image[0].thumbnails.small.url,
+              uri: item.image[0].thumbnails.large.url,
             }}
             alt={`${item.description}`}
           />
         </IconContainer>
+        <ContentContainer style={styles.subtitle}>
+          <Subtitle style={{ color: 'white' }}>{item.title}</Subtitle>
+          {/* <Body color={Colors.secondaryText}>{item.description}</Body> */}
+        </ContentContainer>
       </RecipeItemCard>
     </TouchableOpacity>
   );
@@ -52,13 +59,15 @@ const styles = StyleSheet.create({
   subtitle: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
   },
   container: {
     paddingTop: 50,
   },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: '100%',
+    height: 100,
   },
   logo: {
     width: 66,
