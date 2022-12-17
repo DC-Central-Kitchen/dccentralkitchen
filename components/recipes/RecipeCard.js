@@ -1,3 +1,4 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
@@ -42,9 +43,16 @@ function RecipeCard({ navigation, item }) {
           />
         </IconContainer>
         <ContentContainer style={styles.subtitle}>
-          <Subtitle numberOfLines={2} style={{ color: 'white' }}>
+          <Subtitle numberOfLines={2} style={{ color: 'white', flex: 3 }}>
             {item.title}
           </Subtitle>
+          <FontAwesome5
+            flex={1}
+            name="arrow-right"
+            solid
+            size={25}
+            color="white"
+          />
           {/* <Body color={Colors.secondaryText}>{item.description}</Body> */}
         </ContentContainer>
       </RecipeItemCard>
@@ -59,9 +67,10 @@ RecipeCard.propTypes = {
 
 const styles = StyleSheet.create({
   subtitle: {
+    maxWidth: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     padding: 8,
   },
   container: {
