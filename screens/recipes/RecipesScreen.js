@@ -82,7 +82,6 @@ export default class RecipesScreen extends React.Component {
           onChangeText={this.updateSearch}
           value={this.state.search}
         />
-
         <FlatList
           contentContainerStyle={styles.list}
           data={this.state.recipes}
@@ -115,18 +114,15 @@ const styles = StyleSheet.create({
   slideContainer: {
     flex: 1,
   },
-  listView: {
-    width: '100%',
-    justifyContent: 'flex-start',
-    elevation: 1,
-  },
+  listView: {},
   listContainer: {
     // flexDirection: 'row',
     // flexWrap: 'wrap',
   },
   list: {
     elevation: 1,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    padding: 10,
   },
   container: {
     position: 'absolute',
