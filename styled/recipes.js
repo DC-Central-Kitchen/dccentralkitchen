@@ -2,7 +2,7 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
-const width = Dimensions.get('window').width - 40;
+const width = Dimensions.get('window').width - 50;
 
 export const RecipeItemCard = styled.View`
   border-bottom-width: 1px;
