@@ -77,7 +77,7 @@
     "expo-asset": "~8.5.0",
     "expo-branch": "~5.2.0",
     "expo-camera": "~12.2.0",
-    "expo-cli": "^5.0.3",
+    "expo-cli": "^6.0.8",
     "expo-clipboard": "~3.0.1",
     "expo-constants": "~13.1.1",
     "expo-crypto": "~10.2.0",

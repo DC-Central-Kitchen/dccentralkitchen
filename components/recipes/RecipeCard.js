@@ -1,10 +1,11 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ContentContainer, RecipeItemCard } from '../../styled/recipes';
 import { IconContainer } from '../../styled/resources';
-import { Body, Subtitle } from '../BaseComponents';
+import { Subtitle } from '../BaseComponents';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -25,19 +26,35 @@ function RecipeCard({ navigation, item }) {
         config,
       }}>
       <RecipeItemCard>
-        <ContentContainer style={styles.subtitle}>
-          <Subtitle style={styles.subtitle}>{item.title}</Subtitle>
-          <Body color={Colors.secondaryText}>{item.description}</Body>
-        </ContentContainer>
         <IconContainer>
           <Image
-            style={styles.tinyLogo}
+            resizeMode="cover"
+            style={{
+              height: 170,
+              display: 'flex',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              width: '100%',
+            }}
             source={{
-              uri: item.image[0].thumbnails.small.url,
+              uri: item.image[0].thumbnails.large.url,
             }}
             alt={`${item.description}`}
           />
         </IconContainer>
+        <ContentContainer style={styles.subtitle}>
+          <Subtitle numberOfLines={2} style={{ color: 'white', flex: 3 }}>
+            {item.title}
+          </Subtitle>
+          <FontAwesome5
+            flex={1}
+            name="arrow-right"
+            solid
+            size={25}
+            color="white"
+          />
+          {/* <Body color={Colors.secondaryText}>{item.description}</Body> */}
+        </ContentContainer>
       </RecipeItemCard>
     </TouchableOpacity>
   );
@@ -50,15 +67,18 @@ RecipeCard.propTypes = {
 
 const styles = StyleSheet.create({
   subtitle: {
+    maxWidth: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 8,
   },
   container: {
     paddingTop: 50,
   },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: '100%',
+    height: 100,
   },
   logo: {
     width: 66,

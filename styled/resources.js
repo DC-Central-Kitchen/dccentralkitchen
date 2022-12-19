@@ -17,9 +17,7 @@ export const ContentContainer = styled.View`
 `;
 
 export const IconContainer = styled.View`
-  align-items: center;
-  justify-content: center;
-  margin: 0px 4px 0px 8px;
+  align-items: flex-start;
 `;
 
 export const CategoryCard = styled.View`

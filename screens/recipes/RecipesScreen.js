@@ -82,9 +82,12 @@ export default class RecipesScreen extends React.Component {
           onChangeText={this.updateSearch}
           value={this.state.search}
         />
+
         <FlatList
           contentContainerStyle={styles.list}
           data={this.state.recipes}
+          numColumns={2}
+          initialNumToRender={8}
           renderItem={({ item }) => (
             <RecipeCard navigation={this.props.navigation} item={item} />
           )}
@@ -118,11 +121,12 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   listContainer: {
-    elevation: 1,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
   },
   list: {
-    justifyContent: 'flex-end',
     elevation: 1,
+    alignItems: 'center',
   },
   container: {
     position: 'absolute',

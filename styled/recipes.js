@@ -1,13 +1,17 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
+
+const width = Dimensions.get('window').width - 40;
 
 export const RecipeItemCard = styled.View`
   border-bottom-width: 1px;
   border-color: ${Colors.lightestGray};
-  margin: 12px 24px 0 24px;
-  padding-bottom: 12px;
-  flex-direction: row;
-  justify-content: space-between;
+  margin: 10px;
+  background-color: green;
+  height: 240px;
+  width: ${width / 2 - 5}px;
+  border-radius: 10px;
 `;
 
 export const ContentContainer = styled.View`
