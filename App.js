@@ -6,6 +6,7 @@ import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
@@ -42,8 +43,10 @@ export default function App(props) {
     <PaperProvider theme={theme}>
       <SafeAreaProvider>
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar style="dark" />}
-          <AppNavigator />
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            {Platform.OS === 'ios' && <StatusBar style="dark" />}
+            <AppNavigator />
+          </GestureHandlerRootView>
         </View>
       </SafeAreaProvider>
     </PaperProvider>

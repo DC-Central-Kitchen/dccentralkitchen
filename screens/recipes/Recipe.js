@@ -1,8 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import {
+  Animated,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { Gesture, GestureDetector, State } from 'react-native-gesture-handler';
 import bannerLogo from '../../assets/images/banner_logo.png';
 import {
   NavButtonContainer,
@@ -13,6 +20,22 @@ import Window from '../../constants/Layout';
 
 const Recipe = (props) => {
   const { item } = props.route.params;
+  const [scale, setScale] = useState(1);
+
+  const pinchGesture = Gesture.Pinch()
+    .onUpdate((e) => {
+      // console.log(e.scale, 'scale');
+      if (e.scale >= 0.5 && e.scale <= 2) {
+        setScale(e.scale);
+      }
+      if (e.state === State.END) {
+        setScale(1);
+      }
+    })
+    .onEnd(() => {
+      setScale(1);
+    });
+
   return (
     <View>
       <NavHeaderContainer>
@@ -25,31 +48,77 @@ const Recipe = (props) => {
 
       <View style={styles.listView}>
         <ScrollView style={styles.container}>
-          <Image
-            source={bannerLogo}
-            resizeMode="contain"
-            style={{
-              height: 100,
-              display: 'flex',
-              marginRight: 'auto',
-              marginLeft: 'auto',
-              width: 250,
-            }}
-          />
-          <Text style={styles.heading}>{item.title}</Text>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              style={styles.bigPicture}
-              source={{
-                uri: item.image[0].thumbnails.large.url,
-              }}
-              alt={`${item.title}`}
-            />
-          </View>
-          <NavTitle style={styles.subHeading}>Ingredients</NavTitle>
-          <Text style={styles.textContainer}>{item.ingredients}</Text>
-          <NavTitle style={styles.subHeading}>Instructions</NavTitle>
-          <Text style={styles.textContainer}>{item.instructions}</Text>
+          <GestureDetector gesture={pinchGesture}>
+            <Animated.View
+              style={[
+                styles.container,
+                {
+                  transform: [{ scale }],
+                },
+              ]}>
+              <Image
+                source={bannerLogo}
+                resizeMode="contain"
+                style={{
+                  height: 100,
+                  display: 'flex',
+                  marginRight: 'auto',
+                  marginLeft: 'auto',
+                  width: 250,
+                }}
+              />
+
+              <Text style={styles.heading}>{item.title}</Text>
+              <View style={{ alignItems: 'center' }}>
+                <Image
+                  style={styles.bigPicture}
+                  source={{
+                    uri: item.image[0].thumbnails.large.url,
+                  }}
+                  alt={`${item.title}`}
+                />
+              </View>
+              <View style={styles.timeContainer}>
+                <View style={styles.col}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                    }}>
+                    Prep Time:
+                  </Text>
+                  <Text>{`${item.prepTimeminutes} min`}</Text>
+                </View>
+                {item.cookTimeminutes && (
+                  <View style={styles.col}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                      }}>
+                      Cook Time:
+                    </Text>
+                    <Text>{`${item.cookTimeminutes} min`}</Text>
+                  </View>
+                )}
+                <View style={styles.col}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                    }}>
+                    Servings:
+                  </Text>
+                  <Text>{item.servings}</Text>
+                </View>
+              </View>
+
+              <Text style={[styles.subHeading]}>Ingredients</Text>
+
+              <Text style={styles.textContainer}>{item.ingredients}</Text>
+
+              <Text style={[styles.subHeading]}>Instructions</Text>
+
+              <Text style={styles.textContainer}>{item.instructions}</Text>
+            </Animated.View>
+          </GestureDetector>
         </ScrollView>
       </View>
     </View>
@@ -71,7 +140,6 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 20,
-    paddingBottom: 100,
     paddingHorizontal: 20,
   },
   heading: {
@@ -95,6 +163,17 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     margin: 30,
+  },
+  col: {
+    flexDirection: 'column',
+    padding: 10,
+  },
+  timeContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 15,
+    justifyContent: 'space-between',
+    // backgroundColor: 'red',
   },
 });
 
