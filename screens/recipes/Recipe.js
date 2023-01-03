@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Animated,
   Image,
@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { Gesture, GestureDetector, State } from 'react-native-gesture-handler';
+import { runOnJS } from 'react-native-reanimated';
 import bannerLogo from '../../assets/images/banner_logo.png';
 import {
   NavButtonContainer,
@@ -22,18 +23,22 @@ const Recipe = (props) => {
   const { item } = props.route.params;
   const [scale, setScale] = useState(1);
 
+  function updateShare(arg) {
+    setScale(arg);
+  }
+
   const pinchGesture = Gesture.Pinch()
     .onUpdate((e) => {
       // console.log(e.scale, 'scale');
       if (e.scale >= 0.5 && e.scale <= 2) {
-        setScale(e.scale);
+        runOnJS(updateShare)(e.scale);
       }
       if (e.state === State.END) {
-        setScale(1);
+        runOnJS(updateShare)(1);
       }
     })
-    .onEnd(() => {
-      setScale(1);
+    .onEnd((e) => {
+      runOnJS(updateShare)(1);
     });
 
   return (
