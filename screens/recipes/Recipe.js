@@ -70,6 +70,45 @@ const Recipe = (props) => {
               alt={`${item.title}`}
             />
           </View>
+          <View style={styles.timeContainer}>
+            <View style={styles.col}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginBottom: 4,
+                }}>
+                Prep Time:
+              </Text>
+              <Text style={styles.timeText}>
+                {`${item.prepTimeminutes} min`}
+              </Text>
+            </View>
+            {item.cookTimeminutes && (
+              <View style={styles.col}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginBottom: 4,
+                  }}>
+                  Cook Time:
+                </Text>
+                <Text style={styles.timeText}>
+                  {`${item.cookTimeminutes} min`}
+                </Text>
+              </View>
+            )}
+            <View style={styles.col}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginBottom: 4,
+                }}>
+                Servings:
+              </Text>
+              <Text style={styles.timeText}>{item.servings}</Text>
+            </View>
+          </View>
+
           <NavTitle style={styles.subHeading}>Ingredients</NavTitle>
           {ingredientsList.map((ingredient) => {
             return (
@@ -78,14 +117,18 @@ const Recipe = (props) => {
               </View>
             );
           })}
-          <NavTitle style={styles.subHeading}>Instructions</NavTitle>
-          {instructionsList.map((instruction) => {
-            return (
-              <View style={styles.instructionsContainer} key={`${instruction}`}>
-                <Text style={styles.instruction}>{instruction}</Text>
-              </View>
-            );
-          })}
+          <View style={{ marginBottom: 40 }}>
+            <NavTitle style={styles.subHeading}>Instructions</NavTitle>
+            {instructionsList.map((instruction) => {
+              return (
+                <View
+                  style={styles.instructionsContainer}
+                  key={`${instruction}`}>
+                  <Text style={styles.instruction}>{instruction}</Text>
+                </View>
+              );
+            })}
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -99,15 +142,15 @@ Recipe.propTypes = {
 
 const styles = StyleSheet.create({
   listView: {
-    height: Window.height - 120, // calc
+    height: Window.height, // calc
     width: '100%',
     flexGrow: 1,
     justifyContent: 'flex-start',
     elevation: 1,
   },
   container: {
-    paddingTop: 20,
-    paddingBottom: 100,
+    paddingBottom: 800,
+    marginBottom: 500,
     paddingHorizontal: 20,
   },
   heading: {
@@ -119,7 +162,7 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 25,
     marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 7,
   },
   bigPicture: {
     marginVertical: 20,
@@ -152,6 +195,19 @@ const styles = StyleSheet.create({
   ingredient: {
     margin: 10,
     color: 'black',
+    fontSize: 18,
+  },
+  col: {
+    flexDirection: 'column',
+    padding: 10,
+  },
+  timeContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 15,
+    justifyContent: 'space-between',
+  },
+  timeText: {
     fontSize: 15,
   },
 });
