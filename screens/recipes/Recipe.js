@@ -113,7 +113,7 @@ const Recipe = (props) => {
           {ingredientsList.map((ingredient) => {
             return (
               <View style={styles.ingredientsContainer} key={`${ingredient}`}>
-                <Text style={styles.ingredient}>{ingredient}</Text>
+                <Text style={styles.ingredient}>{`• ${ingredient}`}</Text>
               </View>
             );
           })}
