@@ -117,7 +117,7 @@ const Recipe = (props) => {
               </View>
             );
           })}
-          <View style={{ marginBottom: 40 }}>
+          <View style={{ marginBottom: 90 }}>
             <NavTitle style={styles.subHeading}>Instructions</NavTitle>
             {instructionsList.map((instruction) => {
               return (
@@ -142,15 +142,15 @@ Recipe.propTypes = {
 
 const styles = StyleSheet.create({
   listView: {
-    height: Window.height, // calc
+    height: Window.height - 120, // calc
     width: '100%',
     flexGrow: 1,
     justifyContent: 'flex-start',
     elevation: 1,
   },
   container: {
-    paddingBottom: 800,
-    marginBottom: 500,
+    paddingTop: 20,
+    paddingBottom: 100,
     paddingHorizontal: 20,
   },
   heading: {
