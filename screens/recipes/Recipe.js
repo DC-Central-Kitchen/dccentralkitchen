@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import bannerLogo from '../../assets/images/banner_logo.png';
@@ -9,10 +9,34 @@ import {
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 
 const Recipe = (props) => {
   const { item } = props.route.params;
+  const [instructionsList, setInstructionsList] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
+
+  useEffect(() => {
+    if (item.instructions) {
+      setInstructionsList(
+        item.instructions
+          .split(/\r?\n|\r|\n/g)
+          .filter((instruction) => instruction)
+      );
+    }
+  }, [item.instructions]);
+
+  useEffect(() => {
+    if (item.ingredients) {
+      setIngredientsList(
+        item.ingredients
+          .split(/\r?\n|\r|\n/g)
+          .filter((ingredient) => ingredient)
+      );
+    }
+  }, [item.ingredients]);
+
   return (
     <View>
       <NavHeaderContainer>
@@ -47,9 +71,21 @@ const Recipe = (props) => {
             />
           </View>
           <NavTitle style={styles.subHeading}>Ingredients</NavTitle>
-          <Text style={styles.textContainer}>{item.ingredients}</Text>
+          {ingredientsList.map((ingredient) => {
+            return (
+              <View style={styles.ingredientsContainer} key={`${ingredient}`}>
+                <Text style={styles.ingredient}>{ingredient}</Text>
+              </View>
+            );
+          })}
           <NavTitle style={styles.subHeading}>Instructions</NavTitle>
-          <Text style={styles.textContainer}>{item.instructions}</Text>
+          {instructionsList.map((instruction) => {
+            return (
+              <View style={styles.instructionsContainer} key={`${instruction}`}>
+                <Text style={styles.instruction}>{instruction}</Text>
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
     </View>
@@ -81,7 +117,9 @@ const styles = StyleSheet.create({
   subHeading: {
     textAlign: 'center',
     width: '100%',
-    fontSize: 20,
+    fontSize: 25,
+    marginTop: 20,
+    marginBottom: 10,
   },
   bigPicture: {
     marginVertical: 20,
@@ -93,8 +131,28 @@ const styles = StyleSheet.create({
     width: 66,
     height: 58,
   },
-  textContainer: {
-    margin: 30,
+  instruction: {
+    margin: 20,
+    color: 'white',
+    fontSize: 18,
+    lineHeight: 30,
+  },
+  instructionsContainer: {
+    margin: 3,
+    borderRadius: 20,
+    backgroundColor: Colors.primaryGreen,
+    padding: 1,
+  },
+  ingredientsContainer: {
+    margin: 3,
+    borderBottomColor: Colors.primaryGreen,
+    borderBottomWidth: 2,
+    padding: 1,
+  },
+  ingredient: {
+    margin: 10,
+    color: 'black',
+    fontSize: 15,
   },
 });
 
