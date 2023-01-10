@@ -35,6 +35,7 @@ const Recipe = (props) => {
           .filter((ingredient) => ingredient)
       );
     }
+    console.log('test');
   }, [item.ingredients]);
 
   return (
