@@ -16,6 +16,7 @@ const Recipe = (props) => {
   const { item } = props.route.params;
   const [instructionsList, setInstructionsList] = useState([]);
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [notes, setNotes] = useState(item.notes);
 
   useEffect(() => {
     if (item.instructions) {
@@ -117,18 +118,22 @@ const Recipe = (props) => {
               </View>
             );
           })}
-          <View style={{ marginBottom: 90 }}>
+          <View style={!notes ? { marginBottom: 80 } : {}}>
             <NavTitle style={styles.subHeading}>Instructions</NavTitle>
             {instructionsList.map((instruction) => {
               return (
-                <View
-                  style={styles.instructionsContainer}
-                  key={`${instruction}`}>
-                  <Text style={styles.instruction}>{instruction}</Text>
-                </View>
+                <Text key={`${instruction}`} style={styles.instruction}>
+                  {instruction}
+                </Text>
               );
             })}
           </View>
+          {notes && <NavTitle style={styles.subHeading}>Notes</NavTitle>}
+          {notes && (
+            <View style={{ marginBottom: 100 }}>
+              <Text style={styles.notes}>{item.notes}</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     </View>
@@ -175,8 +180,12 @@ const styles = StyleSheet.create({
     height: 58,
   },
   instruction: {
-    margin: 20,
-    color: 'white',
+    margin: 10,
+    fontSize: 18,
+    lineHeight: 30,
+  },
+  notes: {
+    margin: 10,
     fontSize: 18,
     lineHeight: 30,
   },
