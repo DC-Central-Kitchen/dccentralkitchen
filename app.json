@@ -3,7 +3,11 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.6.18",
     "primaryColor": "#008550",
     "orientation": "portrait",
@@ -17,7 +21,9 @@
     "updates": {
       "fallbackToCacheTimeout": 3000
     },
-    "assetBundlePatterns": ["assets/images/*"],
+    "assetBundlePatterns": [
+      "assets/images/*"
+    ],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -66,6 +72,11 @@
         }
       ]
     },
-    "description": ""
+    "description": "",
+    "extra": {
+      "eas": {
+        "projectId": "dca9a0a2-4c07-4f8d-98fc-a38b8cdfca70"
+      }
+    }
   }
 }
