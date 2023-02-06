@@ -4,7 +4,7 @@
     "slug": "healthy-corners",
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
-    "version": "1.6.16",
+    "version": "1.6.18",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -57,7 +57,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 16
+      "versionCode": 18
     },
     "hooks": {
       "postPublish": [

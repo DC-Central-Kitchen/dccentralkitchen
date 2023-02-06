@@ -57,7 +57,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 16
+      "versionCode": 18
     },
     "hooks": {
       "postPublish": [
