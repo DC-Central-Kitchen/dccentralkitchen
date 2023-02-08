@@ -5,6 +5,8 @@
     "build-prod-ios": "NODE_ENV=production expo build:ios --release-channel prod",
     "build-prod-ota": "NODE_ENV=production expo publish --release-channel prod",
     "build-prod-android": "NODE_ENV=production expo build:android --release-channel prod",
+    "eas-build-prod-ios": "eas build --platform ios",
+    "eas-build-prod-android": "eas build --platform android",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject",
@@ -22,6 +24,7 @@
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
     "postinstall": "jetify"
+    
   },
   "airtable-schema-generator": {
     "output": "lib/airtable",
@@ -63,13 +66,11 @@
     "@react-native-community/checkbox": "^0.5.9",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-firebase/app": "^15.2.0",
     "@react-navigation/core": "^5.16.1",
     "@react-navigation/drawer": "^5.12.9",
     "@react-navigation/native": "^5.9.8",
     "@react-navigation/stack": "^5.2.8",
     "@sentry/react-native": "^3.1.1",
-    "@unimodules/core": "^5.1.2",
     "airtable": "^0.11.1",
     "expo": "^45.0.0",
     "expo-app-loading": "~2.0.0",
@@ -117,7 +118,6 @@
     "react-native-alert-async": "^1.0.5",
     "react-native-autoheight-webview": "^1.5.1",
     "react-native-elements": "^3.4.1",
-    "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "~2.2.1",
     "react-native-global-props": "^1.1.5",
     "react-native-map-link": "^2.7.5",
@@ -166,9 +166,7 @@
     "yarnhook": "^0.4.3"
   },
   "private": true,
-  "peerDependencies": {
-    "@unimodules/core": "^5.1.2"
-  },
+  "peerDependencies": {},
   "name": "dccentralkitchen",
   "version": "1.0.0"
 }

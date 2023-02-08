@@ -53,7 +53,7 @@ export default function App(props) {
 async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([
-      require('./assets/images/hc_start.png'),
+      require('./assets/images/hc_start.jpg'),
       require('./assets/images/Marker_Focused.png'),
       require('./assets/images/Marker_Resting.png'),
       require('./assets/images/Onboarding_1.png'),

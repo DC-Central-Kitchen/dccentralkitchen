@@ -12,7 +12,16 @@ All documentation lives at <https://healthycorners-rewards.netlify.app> - for ne
 - Clerk-facing tablet application: [`dccentralkitchen-clerks`](https://github.com/calblueprint/dccentralkitchen-clerks)
 - Backend server: [`dccentralkitchen-node`](https://github.com/calblueprint/dccentralkitchen-node)
 
-
 Run sim build
-NODE_ENV=production expo build:ios
-NODE_ENV=production expo build:android
+eas build --platform ios
+eas build --platform android
+
+## Build Notes
+
+- Use EAS to make production build.
+- All project secrets are stored in a environment.js file
+- Before making builds,remove .environment.js from gitignore to make sure that the secrets are included with the build and do not raise errors.
+
+## EAS IGNORE
+
+- add all folders/files you do not want in your build inside .easignore
