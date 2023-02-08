@@ -23,7 +23,7 @@
     "prepare": "husky install",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
-    "postinstall": "jetify",
+    "postinstall": "jetify"
     
   },
   "airtable-schema-generator": {
