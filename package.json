@@ -5,6 +5,8 @@
     "build-prod-ios": "NODE_ENV=production expo build:ios --release-channel prod",
     "build-prod-ota": "NODE_ENV=production expo publish --release-channel prod",
     "build-prod-android": "NODE_ENV=production expo build:android --release-channel prod",
+    "eas-build-prod-ios": "eas build --platform ios",
+    "eas-build-prod-android": "eas build --platform android",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject",
@@ -21,7 +23,8 @@
     "prepare": "husky install",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
-    "postinstall": "jetify"
+    "postinstall": "jetify",
+    
   },
   "airtable-schema-generator": {
     "output": "lib/airtable",
