@@ -123,7 +123,9 @@ export default function MapScreen(props) {
   useEffect(() => {
     if (props.route.params) {
       const store = props.route.params.currentStore;
-      changeCurrentStore(store);
+      if (Object.keys(store).length) {
+        changeCurrentStore(store);
+      }
     } else {
       changeCurrentStore(stores[0]);
     }
@@ -138,13 +140,16 @@ export default function MapScreen(props) {
     animate = true
   ) => {
     Analytics.logEvent('view_store_products', {
-      store_name: store.storeName,
-      products_in_stock: 'productIds' in store ? store.productIds.length : 0,
+      store_name: store ? store.storeName : '',
+      products_in_stock:
+        store && 'productIds' in store ? store.productIds.length : 0,
     });
 
     const newRegion = {
-      latitude: store.latitude - deltas.latitudeDelta / 3.5,
-      longitude: store.longitude,
+      latitude: store
+        ? store.latitude - deltas.latitudeDelta / 3.5
+        : region.latitude,
+      longitude: store ? store.longitude : region.longitude,
       ...deltas,
     };
     setCurrentStore(store);

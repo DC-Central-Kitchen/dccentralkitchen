@@ -34,8 +34,8 @@ export default class OnboardingScreen extends React.Component {
       loading: true,
       pageIndex: 0,
     };
-    this.setState = this.setState.bind(this);
-    this.state = this.setState.bind(this);
+    // this.setState = this.setState.bind(this);
+    // this.state = this.setState.bind(this);
   }
 
   componentDidMount() {
