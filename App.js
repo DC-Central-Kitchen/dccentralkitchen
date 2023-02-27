@@ -1,10 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -20,8 +20,10 @@ Sentry.init({
   debug: false,
   environment: env,
 });
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
-export default function App(props) {
+export default function App() {
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.maxFontSizeMultiplier = 1.4;
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -29,19 +31,45 @@ export default function App(props) {
   // False to disable Analytics log and warning messages on the Expo client
   Analytics.setUnavailabilityLogging(false);
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
-    return (
-      <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
-      />
-    );
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await loadResourcesAsync();
+      } catch (e) {
+        console.warn(e);
+        handleLoadingError(e);
+      } finally {
+        // Tell the application to render
+        setLoadingComplete(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  // if (!isLoadingComplete) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={loadResourcesAsync}
+  //       onError={handleLoadingError}
+  //       onFinish={() => handleFinishLoading(setLoadingComplete)}
+  //     />
+  //   );
+  // }
+  const onLayoutRootView = useCallback(async () => {
+    if (isLoadingComplete) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isLoadingComplete]);
+
+  if (!isLoadingComplete) {
+    return null;
   }
+
   return (
     <PaperProvider theme={theme}>
       <SafeAreaProvider>
-        <View style={styles.container}>
+        <View style={styles.container} onLayout={onLayoutRootView}>
           {Platform.OS === 'ios' && <StatusBar style="dark" />}
           <AppNavigator />
         </View>
@@ -75,10 +103,6 @@ function handleLoadingError(error) {
     error: err,
   });
   // console.warn(error);
-}
-
-function handleFinishLoading(setLoadingComplete) {
-  setLoadingComplete(true);
 }
 
 const styles = StyleSheet.create({
