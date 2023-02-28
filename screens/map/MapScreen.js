@@ -4,7 +4,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  PermissionsAndroid,
+  PixelRatio,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
@@ -46,6 +53,7 @@ export default function MapScreen(props) {
   const [currentStore, setCurrentStore] = useState(null);
   const [mapFilterObj, setMapFilterObj] = useState();
   const [filteredStores, setFilteredStores] = useState([]);
+  const [androidPermission, setAndroidPermission] = useState(false);
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
@@ -116,6 +124,19 @@ export default function MapScreen(props) {
     const fetchUser = async () => {
       await getAsyncCustomerAuth();
     };
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      )
+        .then((granted) => {
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            setAndroidPermission(true);
+          }
+        })
+        .catch((e) => console.log(e));
+    } else {
+      setAndroidPermission(true);
+    }
 
     fetchUser();
   }, []); // eslint-disable-line
@@ -250,10 +271,10 @@ export default function MapScreen(props) {
         rotateEnabled={false}
         loadingEnabled
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        showsUserLocation
         ref={mapRef}
         mapType="standard"
         initialRegion={region}
+        showsUserLocation={androidPermission}
         onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
         {/* Display Non-focused store markers */}
         {filteredStores
