@@ -135,7 +135,9 @@ export default function StoreDetailsScreen(props) {
                     store.storeName
                   )
                 }
-                onLongPress={() => writeToClipboard(store.address)}>
+                onLongPress={async () => {
+                  await writeToClipboard(store.address);
+                }}>
                 <Body>{store.address}</Body>
               </ButtonContainer>
               <Body>{`Ward ${store.ward}`}</Body>
@@ -182,7 +184,9 @@ export default function StoreDetailsScreen(props) {
               'tel://'.concat(store.phoneNumber.replace(/\D/g, ''))
             );
           }}
-          onLongPress={() => writeToClipboard(store.phoneNumber)}>
+          onLongPress={async () => {
+            await writeToClipboard(store.phoneNumber);
+          }}>
           <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>
             <FontAwesome5
               name="phone"
