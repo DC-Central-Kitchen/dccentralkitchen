@@ -4,8 +4,9 @@
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, Platform, View } from 'react-native';
 import { Text } from 'react-native-elements';
+import 'react-native-gesture-handler';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   Body,
@@ -132,6 +133,7 @@ export default class OnboardingScreen extends React.Component {
           ref={(c) => {
             this._carousel = c;
           }}
+          scrollEnabled={Platform.OS !== 'android'}
           renderItem={this._renderItem}
           onSnapToItem={(index) => {
             this.setState({ pageIndex: index });
