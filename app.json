@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.6.23",
+    "version": "1.6.24",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -63,7 +63,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 23
+      "versionCode": 24
     },
     "hooks": {
       "postPublish": [
