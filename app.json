@@ -27,7 +27,7 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.6.12",
+      "buildNumber": "1.6.13",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
