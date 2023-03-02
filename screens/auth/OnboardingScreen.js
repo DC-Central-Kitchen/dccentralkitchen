@@ -158,7 +158,7 @@ export default class OnboardingScreen extends React.Component {
             </ButtonContainer>
           )}
 
-          {this.state.pageIndex < ONBOARDING_CONTENT.length && (
+          {this.state.pageIndex < ONBOARDING_CONTENT.length - 1 && (
             <ButtonContainer
               style={{ display: 'flex', flex: 1, alignItems: 'flex-end' }}
               onPress={() => this.goToPage(this.state.pageIndex + 1)}>
