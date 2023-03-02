@@ -257,7 +257,7 @@ export default function MapScreen(props) {
       {/* Display Map */}
       <MapView
         style={{
-          marginTop: -170,
+          marginTop: -200,
           flex: 100,
           zIndex: -1,
         }}
