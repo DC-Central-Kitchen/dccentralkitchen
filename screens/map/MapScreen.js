@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
   NavHeaderContainer,
@@ -263,7 +263,6 @@ export default function MapScreen(props) {
         }}
         rotateEnabled={false}
         loadingEnabled
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         ref={mapRef}
         mapType="standard"
         initialRegion={region}

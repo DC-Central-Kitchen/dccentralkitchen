@@ -89,7 +89,6 @@ export default function StoreListScreen(props) {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        nestedScrollEnabled
         style={{ height: PixelRatio.getFontScale() < 1.2 ? 52 : 58 }}>
         {/* Filter Chips */}
         <ProgramTag
