@@ -255,60 +255,62 @@ export default function MapScreen(props) {
       </View>
 
       {/* Display Map */}
-      <MapView
-        style={{
-          marginTop: -200,
-          flex: 100,
-          zIndex: -1,
-        }}
-        rotateEnabled={false}
-        loadingEnabled
-        ref={mapRef}
-        mapType="standard"
-        initialRegion={region}
-        showsUserLocation
-        onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
-        {/* Display Non-focused store markers */}
-        {filteredStores
-          .filter((store) => currentStore.id !== store.id)
-          .map((store) => (
-            <Marker
-              key={store.id}
-              coordinate={{
-                latitude: store.latitude,
-                longitude: store.longitude,
-              }}
-              onPress={() => changeCurrentStore(store)}>
-              <StoreMarker
-                showName={region.longitudeDelta < 0.07}
-                storeName={store.storeName ?? ''}
-                focused={currentStore && currentStore.id === store.id}
-                wic={mapFilterObj.wic}
-                couponProgramPartner={mapFilterObj.couponProgramPartner}
-              />
-            </Marker>
-          ))}
-        {/* Display Focused store markers */}
-        {filteredStores
-          .filter((store) => currentStore && currentStore.id === store.id)
-          .map((store) => (
-            <Marker
-              key={store.id}
-              coordinate={{
-                latitude: store.latitude,
-                longitude: store.longitude,
-              }}
-              onPress={() => changeCurrentStore(store)}>
-              <StoreMarker
-                showName={region.longitudeDelta < 0.07}
-                storeName={store.storeName ?? ''}
-                focused={currentStore && currentStore.id === store.id}
-                wic={mapFilterObj.wic}
-                couponProgramPartner={mapFilterObj.couponProgramPartner}
-              />
-            </Marker>
-          ))}
-      </MapView>
+      {stores.length !== 0 && (
+        <MapView
+          style={{
+            marginTop: -200,
+            flex: 100,
+            zIndex: -1,
+          }}
+          rotateEnabled={false}
+          loadingEnabled
+          ref={mapRef}
+          mapType="standard"
+          initialRegion={region}
+          showsUserLocation
+          onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
+          {/* Display Non-focused store markers */}
+          {filteredStores
+            .filter((store) => currentStore.id !== store.id)
+            .map((store) => (
+              <Marker
+                key={store.id}
+                coordinate={{
+                  latitude: store ? store.latitude : 0,
+                  longitude: store ? store.longitude : 0,
+                }}
+                onPress={() => changeCurrentStore(store)}>
+                <StoreMarker
+                  showName={region.longitudeDelta < 0.07}
+                  storeName={store.storeName ?? ''}
+                  focused={currentStore && currentStore.id === store.id}
+                  wic={mapFilterObj.wic}
+                  couponProgramPartner={mapFilterObj.couponProgramPartner}
+                />
+              </Marker>
+            ))}
+          {/* Display Focused store markers */}
+          {filteredStores
+            .filter((store) => currentStore && currentStore.id === store.id)
+            .map((store) => (
+              <Marker
+                key={store.id}
+                coordinate={{
+                  latitude: store ? store.latitude : 0,
+                  longitude: store ? store.longitude : 0,
+                }}
+                onPress={() => changeCurrentStore(store)}>
+                <StoreMarker
+                  showName={region.longitudeDelta < 0.07}
+                  storeName={store.storeName ?? ''}
+                  focused={currentStore && currentStore.id === store.id}
+                  wic={mapFilterObj.wic}
+                  couponProgramPartner={mapFilterObj.couponProgramPartner}
+                />
+              </Marker>
+            ))}
+        </MapView>
+      )}
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
       <View style={{ flex: 1, marginBottom: 20 }}>
