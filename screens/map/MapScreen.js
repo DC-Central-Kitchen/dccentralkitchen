@@ -46,6 +46,7 @@ export default function MapScreen(props) {
   const [currentStore, setCurrentStore] = useState(null);
   const [mapFilterObj, setMapFilterObj] = useState();
   const [filteredStores, setFilteredStores] = useState([]);
+  //const [androidPermission, setAndroidPermission] = useState(false);
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
@@ -116,6 +117,19 @@ export default function MapScreen(props) {
     const fetchUser = async () => {
       await getAsyncCustomerAuth();
     };
+    // if (Platform.OS === 'android') {
+    //   PermissionsAndroid.request(
+    //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    //   )
+    //     .then((granted) => {
+    //       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //         setAndroidPermission(true);
+    //       }
+    //     })
+    //     .catch((e) => console.log(e));
+    // } else {
+    //   setAndroidPermission(true);
+    // }
 
     fetchUser();
   }, []); // eslint-disable-line
@@ -123,7 +137,9 @@ export default function MapScreen(props) {
   useEffect(() => {
     if (props.route.params) {
       const store = props.route.params.currentStore;
-      changeCurrentStore(store);
+      if (Object.keys(store).length) {
+        changeCurrentStore(store);
+      }
     } else {
       changeCurrentStore(stores[0]);
     }
@@ -138,13 +154,16 @@ export default function MapScreen(props) {
     animate = true
   ) => {
     Analytics.logEvent('view_store_products', {
-      store_name: store.storeName,
-      products_in_stock: 'productIds' in store ? store.productIds.length : 0,
+      store_name: store ? store.storeName : '',
+      products_in_stock:
+        store && 'productIds' in store ? store.productIds.length : 0,
     });
 
     const newRegion = {
-      latitude: store.latitude - deltas.latitudeDelta / 3.5,
-      longitude: store.longitude,
+      latitude: store
+        ? store.latitude - deltas.latitudeDelta / 3.5
+        : region.latitude,
+      longitude: store ? store.longitude : region.longitude,
       ...deltas,
     };
     setCurrentStore(store);
@@ -236,60 +255,62 @@ export default function MapScreen(props) {
       </View>
 
       {/* Display Map */}
-      <MapView
-        style={{
-          marginTop: -170,
-          flex: 100,
-          zIndex: -1,
-        }}
-        rotateEnabled={false}
-        loadingEnabled
-        showsUserLocation
-        ref={mapRef}
-        mapType="mutedStandard"
-        initialRegion={region}
-        onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
-        {/* Display Non-focused store markers */}
-        {filteredStores
-          .filter((store) => currentStore.id !== store.id)
-          .map((store) => (
-            <Marker
-              key={store.id}
-              coordinate={{
-                latitude: store.latitude,
-                longitude: store.longitude,
-              }}
-              onPress={() => changeCurrentStore(store)}>
-              <StoreMarker
-                showName={region.longitudeDelta < 0.07}
-                storeName={store.storeName ?? ''}
-                focused={currentStore && currentStore.id === store.id}
-                wic={mapFilterObj.wic}
-                couponProgramPartner={mapFilterObj.couponProgramPartner}
-              />
-            </Marker>
-          ))}
-        {/* Display Focused store markers */}
-        {filteredStores
-          .filter((store) => currentStore && currentStore.id === store.id)
-          .map((store) => (
-            <Marker
-              key={store.id}
-              coordinate={{
-                latitude: store.latitude,
-                longitude: store.longitude,
-              }}
-              onPress={() => changeCurrentStore(store)}>
-              <StoreMarker
-                showName={region.longitudeDelta < 0.07}
-                storeName={store.storeName ?? ''}
-                focused={currentStore && currentStore.id === store.id}
-                wic={mapFilterObj.wic}
-                couponProgramPartner={mapFilterObj.couponProgramPartner}
-              />
-            </Marker>
-          ))}
-      </MapView>
+      {stores.length !== 0 && (
+        <MapView
+          style={{
+            marginTop: -200,
+            flex: 100,
+            zIndex: -1,
+          }}
+          rotateEnabled={false}
+          loadingEnabled
+          ref={mapRef}
+          mapType="standard"
+          initialRegion={region}
+          showsUserLocation
+          onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
+          {/* Display Non-focused store markers */}
+          {filteredStores
+            .filter((store) => currentStore.id !== store.id)
+            .map((store) => (
+              <Marker
+                key={store.id}
+                coordinate={{
+                  latitude: store.latitude ? store.latitude : 0,
+                  longitude: store.longitude ? store.longitude : 0,
+                }}
+                onPress={() => changeCurrentStore(store)}>
+                <StoreMarker
+                  showName={region.longitudeDelta < 0.07}
+                  storeName={store.storeName ?? ''}
+                  focused={currentStore && currentStore.id === store.id}
+                  wic={mapFilterObj.wic}
+                  couponProgramPartner={mapFilterObj.couponProgramPartner}
+                />
+              </Marker>
+            ))}
+          {/* Display Focused store markers */}
+          {filteredStores
+            .filter((store) => currentStore && currentStore.id === store.id)
+            .map((store) => (
+              <Marker
+                key={store.id}
+                coordinate={{
+                  latitude: store.latitude ? store.latitude : 0,
+                  longitude: store.longitude ? store.longitude : 0,
+                }}
+                onPress={() => changeCurrentStore(store)}>
+                <StoreMarker
+                  showName={region.longitudeDelta < 0.07}
+                  storeName={store.storeName ?? ''}
+                  focused={currentStore && currentStore.id === store.id}
+                  wic={mapFilterObj.wic}
+                  couponProgramPartner={mapFilterObj.couponProgramPartner}
+                />
+              </Marker>
+            ))}
+        </MapView>
+      )}
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
       <View style={{ flex: 1, marginBottom: 20 }}>

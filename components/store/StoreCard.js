@@ -129,7 +129,9 @@ function StoreCard({ store, storeList }) {
         <ButtonContainer
           disabled={storeList}
           onPress={() => openDirections(latitude, longitude, storeName)}
-          onLongPress={() => writeToClipboard(address)}>
+          onLongPress={async () => {
+            await writeToClipboard(address);
+          }}>
           <Body>{address}</Body>
         </ButtonContainer>
         <RowContainer>

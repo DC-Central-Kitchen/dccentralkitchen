@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.6.18",
+    "version": "1.6.28",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -27,7 +27,7 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.6.10",
+      "buildNumber": "1.6.15",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
@@ -52,7 +52,7 @@
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU"
+          "apiKey": "AIzaSyCqiEzm4vbsiLxnba2Guq2AqGomoNZ-deI"
         },
         "branch": {
           "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
@@ -63,7 +63,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 18
+      "versionCode": 28
     },
     "hooks": {
       "postPublish": [
