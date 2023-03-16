@@ -20,8 +20,11 @@ eas build --platform android
 
 - Use EAS to make production build.
 - All project secrets are stored in a environment.js file
-- Before making builds,remove .environment.js from gitignore to make sure that the secrets are included with the build and do not raise errors.
+- Files/Folders not part of the build go inside .easignore. NOTE: Do not add environment secrets files in .easignore, as they will be ignored during the build process and throw erros.
 
-## EAS IGNORE
 
-- add all folders/files you do not want in your build inside .easignore
+## Current Build
+- Android : 1.6.28
+- IOS : 1.6.25
+NOTE: IOS and Android do not have matching versions, but code-base is up-to-date.
+
