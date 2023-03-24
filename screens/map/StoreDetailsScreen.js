@@ -115,63 +115,65 @@ export default function StoreDetailsScreen(props) {
           </CardContainer>
         </InLineContainer>
         {/* Directions */}
-        <View style={{ paddingBottom: 32 }}>
-          <InLineContainer>
-            <FontAwesome5
-              name="directions"
-              size={24}
-              color={Colors.activeText}
-            />
-            <CardContainer
-              style={{
-                paddingLeft: 12,
-                paddingRight: 50,
-              }}>
-              <ButtonContainer
-                onPress={() =>
-                  openDirections(
-                    store.latitude,
-                    store.longitude,
-                    store.storeName
-                  )
-                }
-                onLongPress={async () => {
-                  await writeToClipboard(store.address);
+        {store.address && (
+          <View style={{ paddingBottom: 32 }}>
+            <InLineContainer>
+              <FontAwesome5
+                name="directions"
+                size={24}
+                color={Colors.activeText}
+              />
+              <CardContainer
+                style={{
+                  paddingLeft: 12,
+                  paddingRight: 50,
                 }}>
-                <Body>{store.address}</Body>
-              </ButtonContainer>
-              <Body>{`Ward ${store.ward}`}</Body>
-              <View style={{ flex: 1, marginBottom: 10 }}>
-                {store.distance && (
-                  <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
-                    {`${store.distance} miles away · distance may vary by transportation`}
-                  </Caption>
-                )}
-              </View>
-              <ButtonContainer
-                style={{ flexDirection: 'row', alignItems: 'center' }}
-                onPress={() =>
-                  openDirections(
-                    store.latitude,
-                    store.longitude,
-                    store.storeName
-                  )
-                }>
-                <ButtonLabel
-                  noCaps
-                  color={Colors.primaryOrange}
-                  style={{ marginRight: 4 }}>
-                  Get Directions
-                </ButtonLabel>
-                <FontAwesome5
-                  name="external-link-alt"
-                  size={14}
-                  color={Colors.primaryOrange}
-                />
-              </ButtonContainer>
-            </CardContainer>
-          </InLineContainer>
-        </View>
+                <ButtonContainer
+                  onPress={() =>
+                    openDirections(
+                      store.latitude,
+                      store.longitude,
+                      store.storeName
+                    )
+                  }
+                  onLongPress={async () => {
+                    await writeToClipboard(store.address);
+                  }}>
+                  <Body>{store.address}</Body>
+                </ButtonContainer>
+                <Body>{`Ward ${store.ward}`}</Body>
+                <View style={{ flex: 1, marginBottom: 10 }}>
+                  {store.distance && (
+                    <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
+                      {`${store.distance} miles away · distance may vary by transportation`}
+                    </Caption>
+                  )}
+                </View>
+                <ButtonContainer
+                  style={{ flexDirection: 'row', alignItems: 'center' }}
+                  onPress={() =>
+                    openDirections(
+                      store.latitude,
+                      store.longitude,
+                      store.storeName
+                    )
+                  }>
+                  <ButtonLabel
+                    noCaps
+                    color={Colors.primaryOrange}
+                    style={{ marginRight: 4 }}>
+                    Get Directions
+                  </ButtonLabel>
+                  <FontAwesome5
+                    name="external-link-alt"
+                    size={14}
+                    color={Colors.primaryOrange}
+                  />
+                </ButtonContainer>
+              </CardContainer>
+            </InLineContainer>
+          </View>
+        )}
         {/* Phone Number */}
         <ButtonContainer
           disabled={!store.phoneNumber}
