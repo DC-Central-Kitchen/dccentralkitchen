@@ -16,10 +16,14 @@ if (env === 'dev') {
   RecordIds.surveyStoreId = 'recfB0SrHB8b6a3Bb';
   // IDs from PROD base
 } else if (env === 'prod') {
-  RecordIds.testCustomerId = 'recomWMtzSUQCcIvr';
-  RecordIds.guestCustomerId = 'recFe6vXNf0duQkcZ'; // Make sure Guest id exsists in PROD Airtable
-  RecordIds.defaultStoreId = 'recwQ6SoM5pEj37xl';
-  RecordIds.surveyStoreId = 'recQa6jv9KGqobDAZ';
+  // RecordIds.testCustomerId = 'recomWMtzSUQCcIvr';
+  // RecordIds.guestCustomerId = 'recFe6vXNf0duQkcZ'; // Make sure Guest id exsists in PROD Airtable
+  // RecordIds.defaultStoreId = 'recwQ6SoM5pEj37xl';
+  // RecordIds.surveyStoreId = 'recQa6jv9KGqobDAZ';
+  RecordIds.testCustomerId = 'recimV9zs2StWB2Mj';
+  RecordIds.guestCustomerId = 'recLKK7cZHboMPEB8';
+  RecordIds.defaultStoreId = 'rec6C14onap95XOK8';
+  RecordIds.surveyStoreId = 'recfB0SrHB8b6a3Bb';
 }
 
 export default RecordIds;
