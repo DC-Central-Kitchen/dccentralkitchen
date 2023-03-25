@@ -54,9 +54,11 @@ function ProductCard({
           </Caption>
         )}
         <RowContainer>
-          <Caption color={Colors.secondaryText}>
-            {`${displayDollarValue(product.customerCost)} ea`}
-          </Caption>
+          {product.customerCost && (
+            <Caption color={Colors.secondaryText}>
+              {`${displayDollarValue(product.customerCost)} ea`}
+            </Caption>
+          )}
 
           {displayPoints && (
             <Caption color={Colors.secondaryText}>
