@@ -51,6 +51,7 @@ export default function MapScreen(props) {
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
 
+  // eslint-disable-next-line no-underscore-dangle
   const _showDefaultStore =
     locationPermissions !== 'granted' ||
     (stores.length > 0 && !stores[0].distance);
