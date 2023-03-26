@@ -4,6 +4,16 @@
     "slug": "healthy-corners",
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
     "version": "1.6.30",
     "primaryColor": "#008550",
     "orientation": "portrait",
