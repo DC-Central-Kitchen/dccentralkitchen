@@ -5,6 +5,7 @@
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
     "plugins": [
+      "./react-native-maps-plugin",
       [
         "expo-build-properties",
         {
@@ -67,7 +68,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 30
+      "versionCode": 31
     },
     "hooks": {
       "postPublish": [
