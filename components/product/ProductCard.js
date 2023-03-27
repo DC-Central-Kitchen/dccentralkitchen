@@ -28,6 +28,7 @@ function ProductCard({
       }}>
       <CardContainer
         style={{
+          // eslint-disable-next-line no-nested-ternary
           width: productsScreen
             ? (Window.width - 32 - 40) / 2
             : PixelRatio.getFontScale() < 1.2

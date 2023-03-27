@@ -46,7 +46,7 @@ export default function MapScreen(props) {
   const [currentStore, setCurrentStore] = useState(null);
   const [mapFilterObj, setMapFilterObj] = useState();
   const [filteredStores, setFilteredStores] = useState([]);
-  //const [androidPermission, setAndroidPermission] = useState(false);
+  // const [androidPermission, setAndroidPermission] = useState(false);
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
