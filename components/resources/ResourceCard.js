@@ -42,12 +42,13 @@ ResourceCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   category: PropTypes.array,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
 
 ResourceCard.defaultProps = {
   description: '',
   category: [],
+  url: '',
 };
 
 export default ResourceCard;
