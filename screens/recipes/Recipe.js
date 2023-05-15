@@ -72,18 +72,20 @@ const Recipe = (props) => {
             />
           </View>
           <View style={styles.timeContainer}>
-            <View style={styles.col}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  marginBottom: 4,
-                }}>
-                Prep Time:
-              </Text>
-              <Text style={styles.timeText}>
-                {`${item.prepTimeminutes} min`}
-              </Text>
-            </View>
+            {item.prepTimeminutes && (
+              <View style={styles.col}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginBottom: 4,
+                  }}>
+                  Prep Time:
+                </Text>
+                <Text style={styles.timeText}>
+                  {`${item.prepTimeminutes} min`}
+                </Text>
+              </View>
+            )}
             {item.cookTimeminutes && (
               <View style={styles.col}>
                 <Text
@@ -98,16 +100,18 @@ const Recipe = (props) => {
                 </Text>
               </View>
             )}
-            <View style={styles.col}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  marginBottom: 4,
-                }}>
-                Servings:
-              </Text>
-              <Text style={styles.timeText}>{item.servings}</Text>
-            </View>
+            {item.servings && (
+              <View style={styles.col}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginBottom: 4,
+                  }}>
+                  Servings:
+                </Text>
+                <Text style={styles.timeText}>{item.servings}</Text>
+              </View>
+            )}
           </View>
 
           <NavTitle style={styles.subHeading}>Ingredients</NavTitle>
