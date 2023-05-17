@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
-export const ButtonContainer = styled.TouchableOpacity``;
+export const ButtonContainer = styled.Pressable``;
 
 export const ButtonLabel = styled.Text`
   font-family: opensans-semibold;
@@ -92,7 +92,7 @@ export const Overline = styled.Text`
   text-align: ${(props) => props.textAlign || 'left'};
 `;
 
-export const NavButtonContainer = styled.TouchableOpacity`
+export const NavButtonContainer = styled.Pressable`
   width: 40px;
   height: 40px;
   z-index: 100;

@@ -12,7 +12,7 @@ export const RewardsCardContainer = styled.View`
   background-color: ${Colors.lightestGreen};
 `;
 
-export const HowItWorksButton = styled.TouchableOpacity`
+export const HowItWorksButton = styled.Pressable`
   flex-direction: row;
   align-items: center;
   margin-bottom: ${PixelRatio.getFontScale() < 1.2 ? '12px' : '12px'};

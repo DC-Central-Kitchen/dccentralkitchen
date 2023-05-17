@@ -172,8 +172,8 @@ export default function MapScreen(props) {
     if (resetSheet) {
       bottomSheetRef.current.snapTo(1);
     }
-    if (animate) {
-      await mapRef.current.animateToRegion(newRegion, 1000);
+    if (animate && newRegion !== null) {
+      await mapRef.current?.animateToRegion(newRegion, 1000);
     } else {
       setRegion(newRegion);
     }
@@ -187,13 +187,13 @@ export default function MapScreen(props) {
             display: 'flex',
             alignItems: 'flex-end',
           }}>
-          {!showDefaultStore && (
+          {!showDefaultStore && currentLocation && (
             <CenterLocation
               callBack={async () => {
                 Analytics.logEvent('center_location', {
                   purpose: 'Centers map to current location',
                 });
-                await mapRef.current.animateToRegion(currentLocation, 1000);
+                await mapRef.current?.animateToRegion(currentLocation, 1000);
               }}
             />
           )}

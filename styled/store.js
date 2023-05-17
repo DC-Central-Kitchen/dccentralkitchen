@@ -52,7 +52,7 @@ export const StoreCardContainer = styled.View`
     props.includeMargins ? '0 16px 10px 16px' : '0 0 10px 0'};
 `;
 
-export const SearchBar = styled.TouchableOpacity`
+export const SearchBar = styled.Pressable`
   padding-top: 2px;
   display: flex;
   width: 200px;

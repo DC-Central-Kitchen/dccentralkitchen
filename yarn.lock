@@ -2959,7 +2959,7 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/geojson@^7946.0.8":
+"@types/geojson@^7946.0.10":
   version "7946.0.10"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.10.tgz#6dfbf5ea17142f7f9a043809f1cd4c448cb68249"
   integrity sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==
@@ -3281,9 +3281,9 @@
     "@types/yargs-parser" "*"
 
 "@types/yargs@^17.0.8":
-  version "17.0.23"
-  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.23.tgz#a7db3a2062c95ca1a5e0d5d5ddb6521cbc649e35"
-  integrity sha512-yuogunc04OnzGQCrfHx+Kk883Q4X0aSwmYZhKjI21m+SVYzjIbrWl8dOOwSv5hf2Um2pdCOXWo9isteZTNXUZQ==
+  version "17.0.24"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.24.tgz#b3ef8d50ad4aa6aecf6ddc97c580a00f5aa11902"
+  integrity sha512-6i0aC7jV6QzQB8ne1joVZ0eSFIstHsCrobmOtghM11yGlH0j43FKL2UhWdELkyps0zuf7qVTUVCCR+tgSlyLLw==
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -8005,10 +8005,10 @@ expo-asset@~8.7.0:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-build-properties@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/expo-build-properties/-/expo-build-properties-0.5.1.tgz#6221f6b93f4d21c16c94cb781da1ec5ba21d00ea"
-  integrity sha512-wa02F4dmQTCxZ7rEBtaZCU0rCzpoUYSKF51cKCRT8ECEEkHe/k78VN8wI9fj03L7cIqJA5CJb2ZYydxKTbRHxA==
+expo-build-properties@~0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/expo-build-properties/-/expo-build-properties-0.4.1.tgz#f2511d281898657b225710051860d71c63b9ad5e"
+  integrity sha512-Y492KoSfb8Jj5y8qA+J0Wu0HjuCmJuqCB7fxOAxqNDS5V8JJNUU9106ESDnlQ7xyxkjMlGmVZN1/oRUoC0zBJg==
   dependencies:
     ajv "^8.11.0"
     semver "^7.3.5"
@@ -15357,11 +15357,11 @@ react-native-map-link@^2.7.5:
     react-native-modal "^13.0.1"
 
 react-native-maps@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-1.4.0.tgz#e24133311c032447c35e55152841c4e0e9ddf2a5"
-  integrity sha512-asP6oVx9uF4E9U22j40q0AcSJ4v3hPBPCg1kPdlbckGXGj+z8dwwdPkQi3hUpl94odlR//v60Sw6PAEYv8zSxw==
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-1.7.1.tgz#e0b9d68542b4b59b5ca3df375ada7c860fb41f2e"
+  integrity sha512-CHVLzL+Q2jiUGgbt4/vosxVI1SukWyaLGjD62VLgR/wZpnH4Umi9ql1bmKDPWcfj2C1QZwMU0Yc7rXTbvZUIiw==
   dependencies:
-    "@types/geojson" "^7946.0.8"
+    "@types/geojson" "^7946.0.10"
 
 react-native-materialui-textfield@^0.13.2:
   version "0.13.2"
