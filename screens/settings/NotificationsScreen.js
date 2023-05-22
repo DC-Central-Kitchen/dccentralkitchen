@@ -125,7 +125,8 @@ export default class NotificationsScreen extends React.Component {
         generalNotifications: generalPrefs,
         deliveryNotifications: deliveryPrefs,
       });
-      await this.props.navigation.goBack();
+
+      await this.props.navigation.navigate('Settings');
     } catch (err) {
       // console.error(
       //   '[NotificationsScreen] (saveNotificationsSettings) Airtable:',
@@ -143,7 +144,8 @@ export default class NotificationsScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer withMargin>
-          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
+          <NavButtonContainer
+            onPress={() => this.props.navigation.navigate('Settings')}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButtonContainer>
           <NavTitle>Notifications</NavTitle>
