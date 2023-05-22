@@ -26,7 +26,7 @@ export default function StoresStackNavigator() {
         cardStyle: { backgroundColor: Colors.bgLight },
         config,
       }}>
-      <StoresStack.Screen name="Stores" component={MapScreen} />
+      <StoresStack.Screen name="StoresMap" component={MapScreen} />
       <StoresStack.Screen name="StoreList" component={StoreListScreen} />
       <StoresStack.Screen name="Products" component={ProductsScreen} />
       <StoresStack.Screen

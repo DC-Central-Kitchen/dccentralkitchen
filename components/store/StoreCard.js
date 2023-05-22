@@ -93,7 +93,7 @@ function StoreCard({ store, storeList }) {
     <ButtonContainer
       disabled={!storeList}
       onPress={() =>
-        navigation.navigate('Stores', {
+        navigation.navigate('StoresMap', {
           currentStore: store,
         })
       }>

@@ -36,22 +36,20 @@ function DrawerNavigator() {
     <Drawer.Navigator
       // eslint-disable-next-line react/jsx-props-no-spreading
       drawerContent={(props) => <DrawerContent {...props} />}
-      drawerContentOptions={{
-        labelStyle: {
+      screenOptions={{
+        drawerLabelStyle: {
           fontFamily: 'opensans-semibold',
           fontWeight: 'normal',
           fontSize: 20,
           color: Colors.activeText,
         },
-        activeTintColor: Colors.primaryGreen,
-        itemStyle: {
+        drawerActiveTintColor: Colors.primaryGreen,
+        drawerItemStyle: {
           marginVertical: 4,
           marginHorizontal: 0,
           paddingLeft: 16,
           borderRadius: 0,
         },
-      }}
-      screenOptions={{
         headerShown: false,
       }}>
       <Drawer.Screen
@@ -86,7 +84,7 @@ function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name="Settings"
+        name="SettingsStack"
         component={SettingsStackNavigator}
         options={{
           title: 'Settings',

@@ -35,7 +35,7 @@ export default function StoreListScreen(props) {
   );
 
   const mapTransition = (store) => {
-    props.navigation.navigate('Stores', {
+    props.navigation.navigate('StoresMap', {
       currentStore: store,
     });
   };
