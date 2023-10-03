@@ -66,6 +66,8 @@
     "@react-native-community/checkbox": "^0.5.9",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-firebase/analytics": "^18.5.0",
+    "@react-native-firebase/app": "^18.5.0",
     "@react-navigation/core": "^5.16.1",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
