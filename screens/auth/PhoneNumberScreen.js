@@ -1,7 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/app';
+import { initializeApp } from 'firebase/app';
+import {
+  PhoneAuthProvider,
+  getReactNativePersistence,
+  initializeAuth,
+} from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Keyboard, View } from 'react-native';
@@ -26,9 +32,7 @@ import { AuthScreenContainer, BackButton } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 import validate from './validation';
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const firebaseApp = initializeApp(firebaseConfig);
 
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
@@ -130,7 +134,10 @@ export default class PhoneNumberScreen extends React.Component {
 
   openRecaptcha = async () => {
     const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const firebaseAuth = initializeAuth(firebaseApp, {
+      persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+    });
+    const phoneProvider = new PhoneAuthProvider(firebaseAuth);
     try {
       const verificationId = await phoneProvider.verifyPhoneNumber(
         '+1'.concat(number),
@@ -140,6 +147,7 @@ export default class PhoneNumberScreen extends React.Component {
       this.props.navigation.navigate('Verify', {
         number,
         verificationId,
+        firebaseAuth,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
