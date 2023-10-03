@@ -1,6 +1,11 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
-import { PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
+import { getApp } from 'firebase/app';
+import {
+  PhoneAuthProvider,
+  getAuth,
+  signInWithCredential,
+} from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
@@ -78,11 +83,9 @@ export default class VerificationScreen extends React.Component {
 
   verifyCode = async (code) => {
     try {
-      const {
-        verificationId,
-        firebaseAuth,
-        callBack,
-      } = this.props.route.params;
+      const { verificationId, callBack } = this.props.route.params;
+      const firebaseApp = getApp();
+      const firebaseAuth = getAuth(firebaseApp);
       const phoneProvider = new PhoneAuthProvider(firebaseAuth);
       const credential = PhoneAuthProvider.credential(verificationId, code);
       await signInWithCredential(firebaseAuth, credential);

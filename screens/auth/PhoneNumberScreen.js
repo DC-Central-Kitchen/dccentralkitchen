@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import { initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import {
   PhoneAuthProvider,
   getReactNativePersistence,
@@ -32,7 +32,9 @@ import { AuthScreenContainer, BackButton } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 import validate from './validation';
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = !getApps().length
+  ? initializeApp(firebaseConfig)
+  : getApp();
 
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
@@ -147,11 +149,11 @@ export default class PhoneNumberScreen extends React.Component {
       this.props.navigation.navigate('Verify', {
         number,
         verificationId,
-        firebaseAuth,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
     } catch (err) {
+      console.log(err, 'error');
       this.setState({
         errors: {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
