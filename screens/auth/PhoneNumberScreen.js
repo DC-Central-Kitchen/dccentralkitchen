@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import {
@@ -207,7 +207,7 @@ export default class PhoneNumberScreen extends React.Component {
         name: customer.name,
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
-      Analytics.logEvent('log_in_complete', {
+      analytics().logEvent('log_in_complete', {
         customer_id: customer.id,
       });
     } else {

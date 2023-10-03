@@ -1,4 +1,4 @@
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, PixelRatio } from 'react-native';
@@ -18,7 +18,7 @@ function ProductCard({
   return (
     <ButtonContainer
       onPress={() => {
-        Analytics.logEvent('view_product_details', {
+        analytics().logEvent('view_product_details', {
           product_name: product.fullName,
         });
         navigation.navigate('ProductDetails', {

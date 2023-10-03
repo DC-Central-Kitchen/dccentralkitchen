@@ -1,4 +1,4 @@
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { Dimensions, ScrollView, View } from 'react-native';
@@ -48,7 +48,8 @@ function RewardsFAQ() {
             WebBrowser.openBrowserAsync(
               'https://healthycorners.calblueprint.org/faq.html'
             );
-            Analytics.logEvent('open_full_faqs', {
+
+            analytics().logEvent('open_full_faqs', {
               purpose: 'Clicked More Healthy Corners FAQs link',
             });
           }}>

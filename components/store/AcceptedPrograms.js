@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -33,7 +33,7 @@ function Program({ programName }) {
           <ButtonContainer
             style={{ flexDirection: 'row', alignItems: 'center' }}
             onPress={() => {
-              Analytics.logEvent('snap_match_learn_more', {
+              analytics().logEvent('snap_match_learn_more', {
                 purpose: 'Clicked Learn More link about SNAP matching',
               });
               WebBrowser.openBrowserAsync(snapMatchURL);

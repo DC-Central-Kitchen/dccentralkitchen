@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -12,7 +12,7 @@ import {
 import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
 function cardPressed(title, category, url) {
-  Analytics.logEvent('open_resource_link', {
+  analytics().logEvent('open_resource_link', {
     resource_name: title,
     resource_category: category.toString(),
   });

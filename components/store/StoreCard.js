@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import analytics from '@react-native-firebase/analytics';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Colors from '../../constants/Colors';
@@ -72,7 +72,7 @@ function StoreCard({ store, storeList }) {
   );
 
   const favoriteStore = async () => {
-    Analytics.logEvent('toggle_favorite_store', {
+    analytics().logEvent('toggle_favorite_store', {
       store_name: storeName,
     });
     const updateFavorite = await toggleFavoriteStore(navigation, id);

@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
+import analytics from '@react-native-firebase/analytics';
 import { useNavigation } from '@react-navigation/native';
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
@@ -51,7 +51,7 @@ function StoreSelectCard({ store, selectStore, favorited }) {
             </RowContainer>
             <ButtonContainer
               onPress={() => {
-                Analytics.logEvent('view_store_details', {
+                analytics().logEvent('view_store_details', {
                   store_name: storeName,
                 });
                 navigation.navigate('App', {

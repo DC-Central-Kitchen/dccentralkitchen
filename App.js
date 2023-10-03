@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
-import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -29,7 +28,7 @@ export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   // False to disable Analytics log and warning messages on the Expo client
-  Analytics.setUnavailabilityLogging(false);
+  // Analytics.setUnavailabilityLogging(false);
 
   useEffect(() => {
     async function prepare() {

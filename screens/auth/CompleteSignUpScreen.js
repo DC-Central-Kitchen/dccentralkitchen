@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard, View } from 'react-native';
@@ -112,7 +112,7 @@ export default class CompleteSignUpScreen extends React.Component {
       });
       // If signup succeeds, register the user for analytics and logging
       setUserLog({ id: customerId, name, phoneNumber });
-      Analytics.logEvent('sign_up_complete', {
+      analytics().logEvent('sign_up_complete', {
         customer_id: customerId,
       });
       Sentry.Native.captureMessage('Sign Up Successful');

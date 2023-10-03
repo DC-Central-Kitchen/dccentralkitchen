@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
-import * as Analytics from 'expo-firebase-analytics';
+
+import analytics from '@react-native-firebase/analytics';
 import * as Updates from 'expo-updates';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
@@ -30,7 +31,7 @@ function DrawerContent(props) {
   const logout = async () => {
     // Show the loading indicator
     setLogoutIsLoading(true);
-    await Analytics.logEvent('logout', {
+    await analytics().logEvent('logout', {
       is_guest: true,
       redirect_to: 'PhoneNumber',
     });
@@ -55,12 +56,13 @@ function DrawerContent(props) {
             setUserLog(cust);
             if (cust.name === 'Guest') {
               Sentry.Native.captureMessage('Guest Login Successful');
-              Analytics.logEvent('drawer_load', {
+              analytics().logEvent('drawer_load', {
                 purpose: 'Guest Login Successful',
               });
             } else {
               Sentry.Native.captureMessage('Returning User');
-              Analytics.logEvent('drawer_load', {
+
+              analytics().logEvent('drawer_load', {
                 purpose: 'Returning User',
               });
             }

@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
+
+import analytics from '@react-native-firebase/analytics';
 import { getApp } from 'firebase/app';
 import {
   PhoneAuthProvider,
@@ -90,7 +91,9 @@ export default class VerificationScreen extends React.Component {
       const credential = PhoneAuthProvider.credential(verificationId, code);
       await signInWithCredential(firebaseAuth, credential);
       console.log('phone_number_verified');
-      Analytics.logEvent('phone_number_verified');
+
+      analytics().logEvent('phone_number_verified');
+
       await callBack();
       this.setState({ isVerifyLoading: false });
     } catch (err) {

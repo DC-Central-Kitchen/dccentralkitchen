@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Analytics from 'expo-firebase-analytics';
+import analytics from '@react-native-firebase/analytics';
 import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -91,10 +91,11 @@ export default class RewardsScreen extends React.Component {
   _logout = async () => {
     // Show the loading indicator
     this.setState({ logoutIsLoading: true });
-    await Analytics.logEvent('logout', {
+    await analytics().logEvent('logout', {
       is_guest: true,
       redirect_to: 'PhoneNumber',
     });
+
     completeLogout(this.props.navigation, true);
   };
 
