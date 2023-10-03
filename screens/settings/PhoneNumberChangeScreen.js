@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/auth';
+import { getApp } from 'firebase/app';
+import { PhoneAuthProvider, getAuth } from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard } from 'react-native';
@@ -163,7 +164,9 @@ export default class PhoneNumberChangeScreen extends React.Component {
       });
     }
     const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const firebaseApp = getApp();
+    const firebaseAuth = getAuth(firebaseApp);
+    const phoneProvider = new PhoneAuthProvider(firebaseAuth);
     try {
       const verificationId = await phoneProvider.verifyPhoneNumber(
         '+1'.concat(number),
@@ -178,6 +181,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         callBack: this.completeVerification,
       });
     } catch (err) {
+      console.log(err);
       this.setState({
         errors: {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
