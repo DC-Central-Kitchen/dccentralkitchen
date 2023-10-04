@@ -82,9 +82,9 @@ function StoreCard({ store, storeList }) {
   };
 
   const navigateStoreDetails = () => {
-    Analytics.logEvent('view_store_details', {
-      store_name: storeName,
-    });
+    // Analytics.logEvent('view_store_details', {
+    //   store_name: storeName,
+    // });
     navigation.navigate('StoreDetailsScreen', {
       store,
     });
