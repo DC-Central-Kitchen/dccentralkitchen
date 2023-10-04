@@ -197,7 +197,7 @@ export default class RewardsScreen extends React.Component {
             onIndexChange={(index) => {
               // eslint-disable-next-line react/no-unused-state
               this.setState({ index });
-              Analytics.logEvent('screen_view', {
+              // Analytics.logEvent('screen_view', {
                 screen_name: routes[index].title,
               });
             }}
