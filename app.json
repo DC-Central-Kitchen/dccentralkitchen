@@ -6,6 +6,8 @@
     "platforms": ["ios", "android", "web"],
     "plugins": [
       "./react-native-maps-plugin",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
