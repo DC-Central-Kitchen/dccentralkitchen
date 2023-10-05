@@ -1,35 +1,44 @@
+
 {
   "project_info": {
-    "project_number": "683063775827",
-    "firebase_url": "https://quickstart-1587887313757.firebaseio.com",
-    "project_id": "quickstart-1587887313757",
-    "storage_bucket": "quickstart-1587887313757.appspot.com"
+    "project_number": "861017041940",
+    "firebase_url": "https://healthy-corners.firebaseio.com",
+    "project_id": "healthy-corners",
+    "storage_bucket": "healthy-corners.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:683063775827:android:e879ad9eebf81a1ecf6ca6",
+        "mobilesdk_app_id": "1:861017041940:android:0b22c0e7f88ee0206ecb01",
         "android_client_info": {
           "package_name": "org.calblueprint.HealthyCornersRewards"
         }
       },
       "oauth_client": [
         {
-          "client_id": "683063775827-b62ni46crodvu3qmqcv69urt9jqtomje.apps.googleusercontent.com",
+          "client_id": "861017041940-b6i9ne8a6slkm8qctp9tvd8ve0rqqj7v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA49XqGp-0XSsYH_w2jpAjV_nTKZVsEqJ8"
+          "current_key": "AIzaSyDEB_C9iLEUm52WQ5NHa_71iy_3sG_t2_E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "683063775827-b62ni46crodvu3qmqcv69urt9jqtomje.apps.googleusercontent.com",
+              "client_id": "861017041940-b6i9ne8a6slkm8qctp9tvd8ve0rqqj7v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "861017041940-f2quu607rtr36onmdda34bgigast6k57.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.calblueprint.HealthyCornersRewards",
+                "app_store_id": "1503424404"
+              }
             }
           ]
         }
