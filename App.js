@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import firebase from '@react-native-firebase/app';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -10,7 +9,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import Colors from './constants/Colors';
-import { env, firebaseConfig } from './environment';
+import { env } from './environment';
 import { logErrorToSentry } from './lib/logUtils';
 import AppNavigator from './navigation/AppNavigator';
 
@@ -23,15 +22,14 @@ Sentry.init({
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
-let firebaseApp;
-if (firebase.apps.length === 0) {
-  firebaseApp = firebase.initializeApp(firebaseConfig);
-  console.log(firebaseApp, 'firebaseApp');
-} else {
-  firebaseApp = firebase.app();
-  console.log(firebaseApp);
-  console.log(firebaseApp, 'firebaseApp');
-}
+// let firebaseApp;
+// if (firebase.apps.length === 0) {
+//   firebaseApp = firebase.initializeApp(firebaseConfig);
+//   console.log(firebaseApp, 'firebaseApp');
+// } else {
+//   firebaseApp = firebase.app();
+//   console.log(firebaseApp, 'firebaseApp already Initialized');
+// }
 
 export default function App() {
   Text.defaultProps = Text.defaultProps || {};

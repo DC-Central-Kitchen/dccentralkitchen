@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/app';
+
+import firebase from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Keyboard, View } from 'react-native';
@@ -43,6 +43,8 @@ export default class PhoneNumberScreen extends React.Component {
         [inputFields.PHONENUM]: '',
         submit: '',
       },
+      confirm: null,
+      code: '',
     };
     this.completeVerification = this.completeVerification.bind(this);
   }
@@ -129,21 +131,21 @@ export default class PhoneNumberScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
-    const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const number = '+1'.concat(this.state.values[inputFields.PHONENUM]);
+    // const phoneProvider = new firebase.auth.PhoneAuthProvider();
+
     try {
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        '+1'.concat(number),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.recaptchaVerifier.current
-      );
+      const confirmation = await auth().signInWithPhoneNumber(number);
+      this.setState((prevState) => ({
+        confirm: confirmation,
+      }));
       this.props.navigation.navigate('Verify', {
         number,
-        verificationId,
-        resend: this.openRecaptcha,
+        confirm: this.state.confirm,
         callBack: this.completeVerification,
       });
     } catch (err) {
+      console.log(err);
       this.setState({
         errors: {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
@@ -155,6 +157,30 @@ export default class PhoneNumberScreen extends React.Component {
         error: err,
       });
     }
+    // try {
+    //   const verificationId = await phoneProvider.verifyPhoneNumber(
+    //     '+1'.concat(number),
+    //     // eslint-disable-next-line react/no-access-state-in-setstate
+    //     this.state.recaptchaVerifier.current
+    //   );
+    //   this.props.navigation.navigate('Verify', {
+    //     number,
+    //     verificationId,
+    //     resend: this.openRecaptcha,
+    //     callBack: this.completeVerification,
+    //   });
+    // } catch (err) {
+    //   this.setState({
+    //     errors: {
+    //       submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
+    //     },
+    //   });
+    //   logErrorToSentry({
+    //     screen: 'PhoneNumberScreen',
+    //     action: 'openRecaptcha',
+    //     error: err,
+    //   });
+    // }
   };
 
   findCustomer = async () => {
@@ -197,9 +223,9 @@ export default class PhoneNumberScreen extends React.Component {
         name: customer.name,
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
-      Analytics.logEvent('log_in_complete', {
-        customer_id: customer.id,
-      });
+      // Analytics.logEvent('log_in_complete', {
+      //   customer_id: customer.id,
+      // });
     } else {
       this.props.navigation.navigate('CompleteSignUp', {
         number: this.state.values[inputFields.PHONENUM],
@@ -215,10 +241,10 @@ export default class PhoneNumberScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
+        {/* <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-        />
+        /> */}
         <BackButton onPress={() => this.props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>
