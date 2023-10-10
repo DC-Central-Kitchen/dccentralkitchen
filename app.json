@@ -20,7 +20,7 @@
         }
       ]
     ],
-    "version": "1.6.32",
+    "version": "1.6.34",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -73,7 +73,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 33
+      "versionCode": 34
     },
     "hooks": {
       "postPublish": [
