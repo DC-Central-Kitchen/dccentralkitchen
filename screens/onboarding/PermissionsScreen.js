@@ -10,6 +10,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { APP, STORE_SELECT } from '../../constants/ScreenNames';
 import { updateCustomer } from '../../lib/airtable/request';
 import {
   getAsyncCustomerAuth,
@@ -48,7 +49,7 @@ export default function PermissionsScreen(props) {
   };
 
   const navigateStoreSelect = () => {
-    props.navigation.navigate('StoreSelect', {
+    props.navigation.navigate(STORE_SELECT, {
       navigation: props.navigation,
       updateStep: () => {
         setStep(2);
@@ -57,7 +58,7 @@ export default function PermissionsScreen(props) {
   };
 
   const navigateMapScreen = async () => {
-    props.navigation.navigate('App');
+    props.navigation.navigate(APP);
   };
 
   return (

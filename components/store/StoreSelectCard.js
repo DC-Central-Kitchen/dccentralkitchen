@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { APP } from '../../constants/ScreenNames';
 import { getMaxWidth } from '../../lib/mapUtils';
 import {
   CardContainer,
@@ -54,7 +55,7 @@ function StoreSelectCard({ store, selectStore, favorited }) {
                 Analytics.logEvent('view_store_details', {
                   store_name: storeName,
                 });
-                navigation.navigate('App', {
+                navigation.navigate(APP, {
                   screen: 'Stores',
                   params: {
                     screen: 'StoreDetailsScreen',

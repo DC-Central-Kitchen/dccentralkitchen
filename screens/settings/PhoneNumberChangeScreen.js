@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard } from 'react-native';
@@ -11,6 +10,7 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import { VERIFY } from '../../constants/ScreenNames';
 import { firebaseConfig } from '../../environment';
 import {
   getCustomerById,
@@ -171,7 +171,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         this.state.recaptchaVerifier.current
       );
 
-      this.props.navigation.navigate('Verify', {
+      this.props.navigation.navigate(VERIFY, {
         number,
         verificationId,
         resend: this.openRecaptcha,

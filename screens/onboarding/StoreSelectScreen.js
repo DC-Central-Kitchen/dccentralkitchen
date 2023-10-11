@@ -13,6 +13,7 @@ import {
 } from '../../components/BaseComponents';
 import StoreSelectCard from '../../components/store/StoreSelectCard';
 import Colors from '../../constants/Colors';
+import { PERMISSIONS } from '../../constants/ScreenNames';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
@@ -95,7 +96,7 @@ export default function StoreSelectScreen(props) {
   const navigatePermissions = async () => {
     // TODO fix this Non-serializable values were found in the navigation state warning
     props.route.params.updateStep();
-    props.navigation.navigate('Permissions');
+    props.navigation.navigate(PERMISSIONS);
   };
 
   return (

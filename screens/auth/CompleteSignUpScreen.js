@@ -12,6 +12,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { newSignUpBonus } from '../../constants/Rewards';
+import { PERMISSIONS } from '../../constants/ScreenNames';
 import { createCustomer, createPushToken } from '../../lib/airtable/request';
 import { inputFields, setAsyncCustomerAuth } from '../../lib/authUtils';
 import {
@@ -135,7 +136,7 @@ export default class CompleteSignUpScreen extends React.Component {
     };
     await setAsyncCustomerAuth(customerObj);
     Keyboard.dismiss();
-    this.props.navigation.navigate('Permissions');
+    this.props.navigation.navigate(PERMISSIONS);
   };
 
   completeSignUp = async () => {

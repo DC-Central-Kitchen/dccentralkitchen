@@ -19,6 +19,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import ONBOARDING_CONTENT from '../../constants/Onboarding';
 import RecordIds from '../../constants/RecordIds';
+import { APP, PHONE_NUMBER } from '../../constants/ScreenNames';
 import { setAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   OnboardingContainer,
@@ -108,11 +109,11 @@ export default class OnboardingScreen extends React.Component {
     Analytics.logEvent('guest_login_complete', {
       installation_id: RecordIds.guestCustomerId,
     });
-    this.props.navigation.navigate('App');
+    this.props.navigation.navigate(APP);
   };
 
   navigateAuth() {
-    this.props.navigation.navigate('PhoneNumber');
+    this.props.navigation.navigate(PHONE_NUMBER);
   }
 
   goToPage(newIndex) {

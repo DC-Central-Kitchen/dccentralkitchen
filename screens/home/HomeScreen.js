@@ -10,6 +10,7 @@ import {
   NavTitle,
 } from '../../components/BaseComponents';
 import Window from '../../constants/Layout';
+import { RESOURCES, STORES } from '../../constants/ScreenNames';
 import {
   HowItWorksButton,
   HowItWorksView,
@@ -44,7 +45,7 @@ const HomeScreen = (props) => {
           height: Window.height * (75 / 100),
         }}>
         <View>
-          <HowItWorksButton onPress={() => props.navigation.navigate('Stores')}>
+          <HowItWorksButton onPress={() => props.navigation.navigate(STORES)}>
             <Image
               source={require('../../assets/images/Carrot_White.png')}
               style={{
@@ -97,7 +98,7 @@ const HomeScreen = (props) => {
           </HowItWorksButton>
 
           <HowItWorksButton
-            onPress={() => props.navigation.navigate('Resources')}>
+            onPress={() => props.navigation.navigate(RESOURCES)}>
             <Image
               source={require('../../assets/images/Stay_Informed_White.png')}
               style={{
@@ -124,7 +125,7 @@ const HomeScreen = (props) => {
           </HowItWorksButton>
           <HowItWorksView
             style={{ paddingBottom: 0, marginBottom: 12 }}
-            onPress={() => props.navigation.navigate('Stores')}>
+            onPress={() => props.navigation.navigate(STORES)}>
             <Text
               style={{
                 height: '100%',

@@ -14,6 +14,12 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import {
+  APP,
+  COMPLETE_SIGN_UP,
+  PERMISSIONS,
+  VERIFY,
+} from '../../constants/ScreenNames';
 import { env, firebaseConfig } from '../../environment';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
@@ -63,7 +69,7 @@ export default class PhoneNumberScreen extends React.Component {
     };
     await setAsyncCustomerAuth(customerObj);
     Keyboard.dismiss();
-    this.props.navigation.navigate('App');
+    this.props.navigation.navigate(APP);
   };
 
   _favoriteBypass = async () => {
@@ -74,7 +80,7 @@ export default class PhoneNumberScreen extends React.Component {
     };
     await setAsyncCustomerAuth(customerObj);
     Keyboard.dismiss();
-    this.props.navigation.navigate('Permissions');
+    this.props.navigation.navigate(PERMISSIONS);
   };
 
   // Check for an error with updated text
@@ -137,7 +143,7 @@ export default class PhoneNumberScreen extends React.Component {
         // eslint-disable-next-line react/no-access-state-in-setstate
         this.state.recaptchaVerifier.current
       );
-      this.props.navigation.navigate('Verify', {
+      this.props.navigation.navigate(VERIFY, {
         number,
         verificationId,
         resend: this.openRecaptcha,
@@ -188,9 +194,9 @@ export default class PhoneNumberScreen extends React.Component {
       await setAsyncCustomerAuth(customerObj);
       Keyboard.dismiss();
       if ('favoriteStoreIds' in customer) {
-        this.props.navigation.navigate('App');
+        this.props.navigation.navigate(APP);
       } else {
-        this.props.navigation.navigate('Permissions');
+        this.props.navigation.navigate(PERMISSIONS);
       }
       setUserLog({
         id: customer.id,
@@ -201,7 +207,7 @@ export default class PhoneNumberScreen extends React.Component {
         customer_id: customer.id,
       });
     } else {
-      this.props.navigation.navigate('CompleteSignUp', {
+      this.props.navigation.navigate(COMPLETE_SIGN_UP, {
         number: this.state.values[inputFields.PHONENUM],
       });
     }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { NEWS_DETAILS } from '../../constants/ScreenNames';
 import {
   Card,
   ContentContainer,
@@ -24,7 +25,7 @@ class NewsItem extends React.Component {
     return (
       <ButtonContainer
         onPress={() =>
-          this.props.navigation.navigate('NewsDetails', {
+          this.props.navigation.navigate(NEWS_DETAILS, {
             currentNewsItem: this.props.newsItem,
           })
         }>

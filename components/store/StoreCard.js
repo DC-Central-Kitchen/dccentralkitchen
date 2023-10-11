@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { STORES_MAP, STORE_DETIALS_SCREEN } from '../../constants/ScreenNames';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
   getMaxWidth,
@@ -85,7 +86,7 @@ function StoreCard({ store, storeList }) {
     Analytics.logEvent('view_store_details', {
       store_name: storeName,
     });
-    navigation.navigate('StoreDetailsScreen', {
+    navigation.navigate(STORE_DETIALS_SCREEN, {
       store,
     });
   };
@@ -93,7 +94,7 @@ function StoreCard({ store, storeList }) {
     <ButtonContainer
       disabled={!storeList}
       onPress={() =>
-        navigation.navigate('StoresMap', {
+        navigation.navigate(STORES_MAP, {
           currentStore: store,
         })
       }>

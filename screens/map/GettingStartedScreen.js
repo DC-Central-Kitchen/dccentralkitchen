@@ -6,6 +6,7 @@ import { Text } from 'react-native-elements';
 import bannerLogo from '../../assets/images/banner_logo.png';
 import { NavHeaderContainer } from '../../components/BaseComponents';
 import Window from '../../constants/Layout';
+import { STORES } from '../../constants/ScreenNames';
 import {
   HowItWorksButton,
   HowItWorksView,
@@ -48,7 +49,7 @@ export default function GettingStartedScreen({ navigation }) {
           padding: '2%',
           height: Window.height * (69 / 100),
         }}>
-        <HowItWorksView onPress={() => navigation.navigate('Stores')}>
+        <HowItWorksView onPress={() => navigation.navigate(STORES)}>
           <Text
             style={{
               fontSize: 18,

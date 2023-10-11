@@ -4,6 +4,7 @@ import React from 'react';
 import { Image, PixelRatio } from 'react-native';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { PRODUCT_DETAILS } from '../../constants/ScreenNames';
 import { displayDollarValue } from '../../lib/common';
 import { CardContainer, RowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Caption } from '../BaseComponents';
@@ -21,7 +22,7 @@ function ProductCard({
         Analytics.logEvent('view_product_details', {
           product_name: product.fullName,
         });
-        navigation.navigate('ProductDetails', {
+        navigation.navigate(PRODUCT_DETAILS, {
           currentProduct: product,
           store,
         });
