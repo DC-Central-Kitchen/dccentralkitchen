@@ -20,7 +20,6 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
-import { STORE_LIST } from '../../constants/ScreenNames';
 import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   findStoreDistance,
@@ -228,7 +227,7 @@ export default function MapScreen(props) {
 
         {/* Display search bar */}
         <SearchBar
-          onPress={() => props.navigation.navigate(STORE_LIST, { stores })}>
+          onPress={() => props.navigation.navigate('StoreList', { stores })}>
           <FontAwesome5
             name="search"
             size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}

@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { STORES } from '../../constants/ScreenNames';
 import { CardContainer } from '../../styled/shared';
 import { ButtonContainer, Overline, Subtitle } from '../BaseComponents';
 
@@ -25,7 +24,7 @@ export default function ParticipatingStores({ participating, guest }) {
                 Analytics.logEvent('participating_store_clicked', {
                   store_name: store.storeName,
                 });
-                navigation.navigate(STORES, {
+                navigation.navigate('Stores', {
                   currentStore: store,
                 });
               }}>

@@ -9,7 +9,6 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { rewardPointValue } from '../../constants/Rewards';
-import { REWARDS_OVERLAY } from '../../constants/ScreenNames';
 import { getCustomerById } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { ButtonContainer, Subtitle } from '../BaseComponents';
@@ -68,7 +67,7 @@ export default function RewardsFooter({ navigation }) {
         elevation: 5,
         backgroundColor: Colors.primaryGreen,
       }}
-      onPress={() => navigation.navigate(REWARDS_OVERLAY)}>
+      onPress={() => navigation.navigate('RewardsOverlay')}>
       {customer && (
         <View
           style={{

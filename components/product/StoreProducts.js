@@ -6,12 +6,7 @@ import { PixelRatio, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { PRODUCTS } from '../../constants/ScreenNames';
-import {
-  CardContainer,
-  RowContainer,
-  SpaceBetweenRowContainer,
-} from '../../styled/shared';
+import { CardContainer, RowContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 import { StoreDetailText } from '../../styled/store';
 import {
   Body,
@@ -46,7 +41,7 @@ export default function StoreProducts({ navigation, store, products }) {
                   store_name: store.storeName,
                   products_in_stock: store.productIds.length,
                 });
-                navigation.navigate(PRODUCTS, {
+                navigation.navigate('Products', {
                   products,
                   store,
                 });

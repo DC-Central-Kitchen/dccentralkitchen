@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, Platform, Pressable, StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
-import { RECIPE } from '../../constants/ScreenNames';
 import { ContentContainer, RecipeItemCard } from '../../styled/recipes';
 import { IconContainer } from '../../styled/resources';
 import { Subtitle } from '../BaseComponents';
@@ -18,7 +17,7 @@ function RecipeCard({ navigation, item }) {
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate(RECIPE, { item });
+        navigation.navigate('Recipe', { item });
       }}
       screenOptions={{
         drawerLabel: `${item.title}`,

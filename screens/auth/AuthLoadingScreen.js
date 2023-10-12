@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { APP, AUTH } from '../../constants/ScreenNames';
 import { getAsyncCustomerAuth } from '../../lib/authUtils';
 
 // TODO: combine with AuthLoading?
@@ -20,8 +19,8 @@ export default class AuthLoadingScreen extends React.Component {
     // Correct version
 
     userToken !== null && userToken.id
-      ? this.props.navigation.navigate(APP)
-      : this.props.navigation.navigate(AUTH);
+      ? this.props.navigation.navigate('App')
+      : this.props.navigation.navigate('Auth');
 
     // Auth/App testing purpose
     // this.props.navigation.navigate('Auth');
