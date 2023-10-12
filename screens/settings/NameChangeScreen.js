@@ -116,7 +116,7 @@ export default class NameChangeScreen extends React.Component {
           <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
-          <FormContainer style={{ flex: 1 }}>
+          <FormContainer>
             <AuthTextField
               fieldType="Name"
               value={this.state.values[inputFields.NAME]}

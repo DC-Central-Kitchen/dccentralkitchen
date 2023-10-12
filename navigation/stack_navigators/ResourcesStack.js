@@ -22,7 +22,10 @@ export default function ResourcesStackNavigator() {
         cardStyle: { backgroundColor: Colors.bgLight },
         config,
       }}>
-      <ResourcesStack.Screen name="Resources" component={ResourcesScreen} />
+      <ResourcesStack.Screen
+        name="ResourcesScreen"
+        component={ResourcesScreen}
+      />
     </ResourcesStack.Navigator>
   );
 }

@@ -16,7 +16,9 @@ function ProductInfo({ product }) {
       <Title>{name}</Title>
       <Subtitle>{detail}</Subtitle>
       <SpaceBetweenRowContainer style={{ marginTop: 12, paddingBottom: 16 }}>
-        <Body>{`${displayDollarValue(customerCost)} each`}</Body>
+        {customerCost && (
+          <Body>{`${displayDollarValue(customerCost)} each`}</Body>
+        )}
         {/* request hide healthy rewards */}
         {/* <Body>{`Earns ${Math.round(points)} pts`}</Body> */}
       </SpaceBetweenRowContainer>

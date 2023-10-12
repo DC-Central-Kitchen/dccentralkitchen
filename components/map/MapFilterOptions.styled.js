@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import Colors from '../../constants/Colors';
 
 // eslint-disable-next-line import/prefer-default-export
-export const MapFilterTouchableButtonStyling = styled.TouchableOpacity`
+export const MapFilterTouchableButtonStyling = styled.Pressable`
   margin: 0 auto 6px 0;
   padding: 5px 10px;
   border: 1.5px solid ${Colors.primaryOrange};

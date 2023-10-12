@@ -93,7 +93,7 @@ function StoreCard({ store, storeList }) {
     <ButtonContainer
       disabled={!storeList}
       onPress={() =>
-        navigation.navigate('Stores', {
+        navigation.navigate('StoresMap', {
           currentStore: store,
         })
       }>
@@ -126,14 +126,16 @@ function StoreCard({ store, storeList }) {
             />
           </ButtonContainer>
         </SpaceBetweenRowContainer>
-        <ButtonContainer
-          disabled={storeList}
-          onPress={() => openDirections(latitude, longitude, storeName)}
-          onLongPress={async () => {
-            await writeToClipboard(address);
-          }}>
-          <Body>{address}</Body>
-        </ButtonContainer>
+        {address && (
+          <ButtonContainer
+            disabled={storeList}
+            onPress={() => openDirections(latitude, longitude, storeName)}
+            onLongPress={async () => {
+              await writeToClipboard(address);
+            }}>
+            <Body>{address}</Body>
+          </ButtonContainer>
+        )}
         <RowContainer>
           {distance && (
             <Caption

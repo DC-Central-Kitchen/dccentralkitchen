@@ -3,12 +3,24 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
+    "platforms": ["ios", "android", "web"],
+    "plugins": [
+      "./react-native-maps-plugin",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+          "compileSdkVersion": 33,
+          "targetSdkVersion": 33,
+          "buildToolsVersion": "33.0.0"
+        },
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
-    "version": "1.6.28",
+    "version": "1.6.38",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -21,13 +33,11 @@
     "updates": {
       "fallbackToCacheTimeout": 3000
     },
-    "assetBundlePatterns": [
-      "assets/images/*"
-    ],
+    "assetBundlePatterns": ["assets/images/*"],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.6.15",
+      "buildNumber": "1.6.21",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
@@ -52,7 +62,7 @@
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyCqiEzm4vbsiLxnba2Guq2AqGomoNZ-deI"
+          "apiKey": "AIzaSyDlGN8NprlbMezFbPt_emrGgTcadW8MPio"
         },
         "branch": {
           "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
@@ -63,7 +73,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 28
+      "versionCode": 38
     },
     "hooks": {
       "postPublish": [

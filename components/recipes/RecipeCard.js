@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Platform, Pressable, StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ContentContainer, RecipeItemCard } from '../../styled/recipes';
 import { IconContainer } from '../../styled/resources';
@@ -15,7 +15,7 @@ const config = Platform.select({
 });
 function RecipeCard({ navigation, item }) {
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => {
         navigation.navigate('Recipe', { item });
       }}
@@ -56,7 +56,7 @@ function RecipeCard({ navigation, item }) {
           {/* <Body color={Colors.secondaryText}>{item.description}</Body> */}
         </ContentContainer>
       </RecipeItemCard>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

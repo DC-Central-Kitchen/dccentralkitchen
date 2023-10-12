@@ -46,11 +46,12 @@ export default function MapScreen(props) {
   const [currentStore, setCurrentStore] = useState(null);
   const [mapFilterObj, setMapFilterObj] = useState();
   const [filteredStores, setFilteredStores] = useState([]);
-  //const [androidPermission, setAndroidPermission] = useState(false);
+  // const [androidPermission, setAndroidPermission] = useState(false);
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
 
+  // eslint-disable-next-line no-underscore-dangle
   const _showDefaultStore =
     locationPermissions !== 'granted' ||
     (stores.length > 0 && !stores[0].distance);
@@ -171,8 +172,8 @@ export default function MapScreen(props) {
     if (resetSheet) {
       bottomSheetRef.current.snapTo(1);
     }
-    if (animate) {
-      await mapRef.current.animateToRegion(newRegion, 1000);
+    if (animate && newRegion !== null) {
+      await mapRef.current?.animateToRegion(newRegion, 1000);
     } else {
       setRegion(newRegion);
     }
@@ -186,13 +187,13 @@ export default function MapScreen(props) {
             display: 'flex',
             alignItems: 'flex-end',
           }}>
-          {!showDefaultStore && (
+          {!showDefaultStore && currentLocation && (
             <CenterLocation
               callBack={async () => {
                 Analytics.logEvent('center_location', {
                   purpose: 'Centers map to current location',
                 });
-                await mapRef.current.animateToRegion(currentLocation, 1000);
+                await mapRef.current?.animateToRegion(currentLocation, 1000);
               }}
             />
           )}
