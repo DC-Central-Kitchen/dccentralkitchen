@@ -20,7 +20,7 @@
         }
       ]
     ],
-    "version": "1.6.35",
+    "version": "1.6.36",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,7 +37,7 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.6.19",
+      "buildNumber": "1.6.20",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
@@ -73,7 +73,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 35
+      "versionCode": 36
     },
     "hooks": {
       "postPublish": [
