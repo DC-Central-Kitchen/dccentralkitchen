@@ -25,3 +25,6 @@ eas build --platform android
 ## EAS IGNORE
 
 - add all folders/files you do not want in your build inside .easignore
+
+## Google Maps API key
+- React native maps package requires an API key for Android Platform. Please remember to use the PROD API key for production builds in your app.json. You can find the API key in [DCCK's GOOGLE CLOUD PLATFORM](https://console.cloud.google.com/apis/credentials?project=quickstart-1587887313757) under project - Healty Corners Prod.
