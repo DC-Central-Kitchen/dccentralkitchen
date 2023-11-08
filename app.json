@@ -20,7 +20,7 @@
         }
       ]
     ],
-    "version": "1.6.38",
+    "version": "1.6.40",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -62,7 +62,7 @@
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDlGN8NprlbMezFbPt_emrGgTcadW8MPio"
+          "apiKey": "YOUR GCP API KEY HERE"
         },
         "branch": {
           "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
@@ -73,7 +73,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 38
+      "versionCode": 40
     },
     "hooks": {
       "postPublish": [

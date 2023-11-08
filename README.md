@@ -20,8 +20,11 @@ eas build --platform android
 
 - Use EAS to make production build.
 - All project secrets are stored in a environment.js file
-- Before making builds,remove .environment.js from gitignore to make sure that the secrets are included with the build and do not raise errors.
+- Files/Folders not part of the build go inside .easignore. NOTE: Do not add environment secrets files in .easignore, as they will be ignored during the build process and throw erros.
 
 ## EAS IGNORE
 
 - add all folders/files you do not want in your build inside .easignore
+
+## Google Maps API key
+- React native maps package requires an API key for Android Platform. Please remember to use the PROD API key for production builds in your app.json. You can find the API key in [DCCK's GOOGLE CLOUD PLATFORM](https://console.cloud.google.com/apis/credentials?project=quickstart-1587887313757) under project - Healty Corners Prod, look for "Android Maps PROD Key".
