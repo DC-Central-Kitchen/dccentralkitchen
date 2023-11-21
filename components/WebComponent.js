@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import {
@@ -9,26 +10,23 @@ import {
   NavTitle,
 } from './BaseComponents';
 
-export default function WebComponent({ navigation }) {
+export default function WebComponent({ URL, title }) {
   const webViewRef = useRef();
-  const uri = 'https://healthycorners.calblueprint.org/faq.html';
+  const navigation = useNavigation();
+  const uri = URL;
   const [currrentUrl, setCurrentUrl] = useState(uri);
-
-  const goBack = () => webViewRef.current.goBack();
+  useEffect(() => {
+    setCurrentUrl(URL);
+  }, [URL]);
 
   return (
     <View style={{ flex: 1 }}>
       <NavHeaderContainer>
-        {currrentUrl.includes(uri) ? (
-          <NavButtonContainer onPress={() => navigation.toggleDrawer()}>
-            <FontAwesome5 name="bars" solid size={24} />
-          </NavButtonContainer>
-        ) : (
-          <NavButtonContainer onPress={goBack}>
-            <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButtonContainer>
-        )}
-        <NavTitle>FAQ</NavTitle>
+        <NavButtonContainer onPress={() => navigation.toggleDrawer()}>
+          <FontAwesome5 name="bars" solid size={24} />
+        </NavButtonContainer>
+
+        <NavTitle>{title}</NavTitle>
       </NavHeaderContainer>
       <WebView
         onNavigationStateChange={({ url }) => setCurrentUrl(url)}
@@ -40,5 +38,6 @@ export default function WebComponent({ navigation }) {
   );
 }
 WebComponent.propTypes = {
-  navigation: PropTypes.object.isRequired,
+  URL: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };

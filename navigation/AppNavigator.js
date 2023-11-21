@@ -10,7 +10,6 @@ import VerificationScreen from '../screens/auth/VerificationScreen';
 import LandingScreen from '../screens/map/LandingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
-import GettingStartedStack from './stack_navigators/GettingStartedStack';
 import RecipesStackNavigator from './stack_navigators/RecipesStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
 import SettingsStackNavigator from './stack_navigators/SettingsStack';
@@ -52,11 +51,11 @@ function DrawerNavigator() {
         },
         headerShown: false,
       }}>
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Home"
         component={GettingStartedStack}
         options={{ title: 'Home', swipeEnabled: false }}
-      />
+      /> */}
       <Drawer.Screen
         name="Stores"
         component={StoresStackNavigator}
@@ -64,11 +63,17 @@ function DrawerNavigator() {
       />
       <Drawer.Screen
         name="WebComponent"
-        component={WebComponent}
         options={{
           title: 'About',
-        }}
-      />
+        }}>
+        {(props) => (
+          <WebComponent
+            URL="https://healthycorners.calblueprint.org/faq.html"
+            title="FAQ"
+            props={props}
+          />
+        )}
+      </Drawer.Screen>
       <Drawer.Screen
         name="Recipes"
         component={RecipesStackNavigator}
@@ -83,18 +88,32 @@ function DrawerNavigator() {
           title: 'Resources',
         }}
       />
+
       <Drawer.Screen
-        name="SettingsStack"
-        component={SettingsStackNavigator}
+        name="WebComponentFeedback"
         options={{
-          title: 'Settings',
-        }}
-      />
+          title: 'Submit Feedback',
+        }}>
+        {(props) => (
+          <WebComponent
+            URL="http://tiny.cc/RewardsFeedback"
+            title="Submit Feedback"
+            props={props}
+          />
+        )}
+      </Drawer.Screen>
       <Drawer.Screen
         name="LandingScreenOverlay"
         component={LandingScreen}
         options={{
           title: 'How Our App Works',
+        }}
+      />
+      <Drawer.Screen
+        name="SettingsStack"
+        component={SettingsStackNavigator}
+        options={{
+          title: 'Settings',
         }}
       />
     </Drawer.Navigator>
