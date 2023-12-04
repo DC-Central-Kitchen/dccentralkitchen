@@ -106,7 +106,7 @@ export default function SettingsScreen(props) {
           </NavButtonContainer>
           <NavTitle>Settings</NavTitle>
         </NavHeaderContainer>
-        <ScrollView>
+        <ScrollView scrollIndicatorInsets={{ right: 1 }}>
           <CategoryBar title="Account" />
           {isGuest && (
             <SettingsCard

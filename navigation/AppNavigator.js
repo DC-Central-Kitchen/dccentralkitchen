@@ -106,7 +106,7 @@ function DrawerNavigator() {
         name="LandingScreenOverlay"
         component={LandingScreen}
         options={{
-          title: 'How Our App Works',
+          title: 'Using This App',
         }}
       />
       <Drawer.Screen

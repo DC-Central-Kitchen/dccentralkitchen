@@ -20,7 +20,9 @@ export default function LandingScreen(props) {
         </NavButtonContainer>
         <NavTitle>How Our App Works</NavTitle>
       </NavHeaderContainer>
-      <ScrollView style={{ backgroundColor: 'white' }}>
+      <ScrollView
+        style={{ backgroundColor: 'white' }}
+        scrollIndicatorInsets={{ right: 1 }}>
         <HowAppWorks isGuest={true} />
       </ScrollView>
     </View>
