@@ -329,7 +329,7 @@ Pregnant women, new mothers, or infants and children under 5 years old may be el
 :::
 
 :::faq How do I apply for WIC?
-Apply for WIC by contacting your local [WIC clinic](https://www.dcwic.org/wic-locations) or calling (202)442-9397.
+Apply for WIC by contacting your local WIC clinic or calling (202)442-9397.
 :::
 
 :::faq How do I know which Healthy Corners stores can accept my WIC benefits?
