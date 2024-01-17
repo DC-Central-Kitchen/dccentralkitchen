@@ -10,17 +10,17 @@
         "expo-build-properties",
         {
           "android": {
-          "compileSdkVersion": 33,
-          "targetSdkVersion": 33,
-          "buildToolsVersion": "33.0.0"
-        },
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          },
           "ios": {
             "useFrameworks": "static"
           }
         }
       ]
     ],
-    "version": "1.6.43",
+    "version": "1.6.44",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,7 +37,7 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.6.24",
+      "buildNumber": "1.6.25",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
@@ -73,7 +73,7 @@
         "ACCESS_FINE_LOCATION",
         "VIBRATE"
       ],
-      "versionCode": 43
+      "versionCode": 44
     },
     "hooks": {
       "postPublish": [
