@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import {
   NavButtonContainer,
@@ -14,11 +14,44 @@ export default function WebComponent({ URL, title }) {
   const webViewRef = useRef();
   const navigation = useNavigation();
   const uri = URL;
-  const [currrentUrl, setCurrentUrl] = useState(uri);
+  const [currentUrl, setCurrentUrl] = useState(uri);
+  const [canGoBack, setCanGoBack] = useState(false);
+  const [canGoForward, setCanGoForward] = useState(false);
+
   useEffect(() => {
     setCurrentUrl(URL);
   }, [URL]);
 
+  const backButtonHandler = () => {
+    if (webViewRef.current) webViewRef.current.goBack();
+  };
+
+  const frontButtonHandler = () => {
+    if (webViewRef.current) webViewRef.current.goForward();
+  };
+
+  useEffect(() => {
+    if (canGoBack == true) {
+      console.log(currentUrl, 'url');
+    }
+  }, [canGoBack]);
+
+  const styles = StyleSheet.create({
+    flexContainer: {
+      flex: 1,
+    },
+    tabBarContainer: { flexDirection: 'row' },
+    btnBackgroud: {
+      backgroundColor: '#008550',
+      padding: 20,
+      width: '100%',
+      alignItems: 'center',
+    },
+
+    button: {
+      color: 'white',
+    },
+  });
   return (
     <View style={{ flex: 1 }}>
       <NavHeaderContainer>
@@ -29,11 +62,50 @@ export default function WebComponent({ URL, title }) {
         <NavTitle>{title}</NavTitle>
       </NavHeaderContainer>
       <WebView
-        onNavigationStateChange={({ url }) => setCurrentUrl(url)}
+        onNavigationStateChange={(navState) => {
+          setCanGoBack(navState.canGoBack);
+          setCanGoForward(navState.canGoForward);
+          setCurrentUrl(navState.url);
+        }}
         ref={webViewRef}
         allowsBackForwardNavigationGestures
-        source={{ uri }}
+        source={{ uri: currentUrl }}
+        startInLoadingState
       />
+      {currentUrl !== 'https://healthycorners.calblueprint.org/faq.html' &&
+        canGoBack && (
+          <View style={styles.tabBarContainer}>
+            <TouchableOpacity
+              onPress={backButtonHandler}
+              disabled={!canGoBack}
+              style={styles.btnBackgroud}>
+              <FontAwesome5
+                flex={1}
+                name="arrow-left"
+                solid
+                size={25}
+                color="white"
+                style={{ alignSelf: 'center' }}
+              />
+              <Text style={styles.button}>Back</Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity
+              onPress={frontButtonHandler}
+              disabled={!canGoForward}
+              style={
+                !canGoForward
+                  ? {
+                      backgroundColor: '#BDBDBD',
+                      padding: 20,
+                      width: '50%',
+                      alignItems: 'center',
+                    }
+                  : styles.btnBackgroud
+              }>
+              <Text style={styles.button}>Forward</Text>
+            </TouchableOpacity> */}
+          </View>
+        )}
     </View>
   );
 }
