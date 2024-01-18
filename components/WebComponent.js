@@ -40,16 +40,20 @@ export default function WebComponent({ URL, title }) {
     flexContainer: {
       flex: 1,
     },
-    tabBarContainer: { flexDirection: 'row' },
+    tabBarContainer: { backgroundColor: '#008550' },
     btnBackgroud: {
       backgroundColor: '#008550',
       padding: 20,
       width: '100%',
-      alignItems: 'center',
+      flexDirection: 'row',
+      gap: 10,
     },
 
     button: {
       color: 'white',
+      paddingLeft: 5,
+      paddingRight: 5,
+      alignItems: 'center',
     },
   });
   return (
@@ -79,15 +83,29 @@ export default function WebComponent({ URL, title }) {
               onPress={backButtonHandler}
               disabled={!canGoBack}
               style={styles.btnBackgroud}>
-              <FontAwesome5
-                flex={1}
-                name="arrow-left"
-                solid
-                size={25}
-                color="white"
-                style={{ alignSelf: 'center' }}
-              />
-              <Text style={styles.button}>Back</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+
+                  width: '100%',
+                  alignItems: 'center',
+
+                  justifyContent: 'center',
+                }}>
+                <FontAwesome5
+                  flex={1}
+                  name="arrow-left"
+                  solid
+                  size={20}
+                  color="white"
+                  style={{
+                    alignItems: 'center',
+                    paddingLeft: 5,
+                    paddingRight: 5,
+                  }}
+                />
+                <Text style={styles.button}>Back</Text>
+              </View>
             </TouchableOpacity>
             {/* <TouchableOpacity
               onPress={frontButtonHandler}
