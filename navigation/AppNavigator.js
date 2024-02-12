@@ -1,7 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import WebComponent from '../components/WebComponent';
 import Colors from '../constants/Colors';
@@ -138,9 +137,9 @@ export default function AppContainer() {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = getActiveRouteName(state);
         if (previousRouteName !== currentRouteName) {
-          Analytics.logEvent('screen_view', {
-            screen_name: currentRouteName,
-          });
+          // Analytics.logEvent('screen_view', {
+          //   screen_name: currentRouteName,
+          // });
         }
         routeNameRef.current = currentRouteName;
       }}>

@@ -1,7 +1,6 @@
 /* eslint-disable no-else-return */
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
@@ -154,11 +153,11 @@ export default function MapScreen(props) {
     resetSheet = false,
     animate = true
   ) => {
-    Analytics.logEvent('view_store_products', {
-      store_name: store ? store.storeName : '',
-      products_in_stock:
-        store && 'productIds' in store ? store.productIds.length : 0,
-    });
+    // Analytics.logEvent('view_store_products', {
+    //   store_name: store ? store.storeName : '',
+    //   products_in_stock:
+    //     store && 'productIds' in store ? store.productIds.length : 0,
+    // });
 
     const newRegion = {
       latitude: store
@@ -190,9 +189,9 @@ export default function MapScreen(props) {
           {!showDefaultStore && currentLocation && (
             <CenterLocation
               callBack={async () => {
-                Analytics.logEvent('center_location', {
-                  purpose: 'Centers map to current location',
-                });
+                // Analytics.logEvent('center_location', {
+                //   purpose: 'Centers map to current location',
+                // });
                 await mapRef.current?.animateToRegion(currentLocation, 1000);
               }}
             />

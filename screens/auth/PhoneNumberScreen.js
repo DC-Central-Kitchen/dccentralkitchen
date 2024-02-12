@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
@@ -197,9 +196,9 @@ export default class PhoneNumberScreen extends React.Component {
         name: customer.name,
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
-      Analytics.logEvent('log_in_complete', {
-        customer_id: customer.id,
-      });
+      // Analytics.logEvent('log_in_complete', {
+      //   customer_id: customer.id,
+      // });
     } else {
       this.props.navigation.navigate('CompleteSignUp', {
         number: this.state.values[inputFields.PHONENUM],

@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -84,7 +83,7 @@ export default class VerificationScreen extends React.Component {
         code
       );
       await firebase.auth().signInWithCredential(credential);
-      Analytics.logEvent('phone_number_verified');
+      // Analytics.logEvent('phone_number_verified');
       await callBack();
       this.setState({ isVerifyLoading: false });
     } catch (err) {

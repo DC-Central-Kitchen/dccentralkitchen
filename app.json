@@ -20,7 +20,7 @@
         }
       ]
     ],
-    "version": "1.6.45",
+    "version": "1.6.48",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -71,9 +71,10 @@
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE",
         "VIBRATE"
       ],
-      "versionCode": 45
+      "versionCode": 48
     },
     "hooks": {
       "postPublish": [

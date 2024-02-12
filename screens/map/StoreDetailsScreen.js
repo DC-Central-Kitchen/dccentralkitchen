@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -175,10 +174,10 @@ export default function StoreDetailsScreen(props) {
         <ButtonContainer
           disabled={!store.phoneNumber}
           onPress={() => {
-            Analytics.logEvent('click_phone_number', {
-              store_name: store.storeName,
-              store_phone_number: store.phoneNumber,
-            });
+            // Analytics.logEvent('click_phone_number', {
+            //   store_name: store.storeName,
+            //   store_phone_number: store.phoneNumber,
+            // });
             Linking.openURL(
               'tel://'.concat(store.phoneNumber.replace(/\D/g, ''))
             );
