@@ -10,9 +10,9 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 34,
-            "targetSdkVersion": 34,
-            "buildToolsVersion": "34.0.0"
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
           },
           "ios": {
             "useFrameworks": "static"
@@ -20,7 +20,7 @@
         }
       ]
     ],
-    "version": "1.6.48",
+    "version": "1.6.49",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -74,7 +74,7 @@
         "FOREGROUND_SERVICE",
         "VIBRATE"
       ],
-      "versionCode": 48
+      "versionCode": 49
     },
     "hooks": {
       "postPublish": [
