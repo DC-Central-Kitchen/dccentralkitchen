@@ -18,9 +18,11 @@ export default function LandingScreen(props) {
         <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
           <FontAwesome5 name="bars" solid size={24} />
         </NavButtonContainer>
-        <NavTitle>How Our App Works</NavTitle>
+        <NavTitle>Using This App</NavTitle>
       </NavHeaderContainer>
-      <ScrollView style={{ backgroundColor: 'white' }}>
+      <ScrollView
+        style={{ backgroundColor: 'white' }}
+        scrollIndicatorInsets={{ right: 1 }}>
         <HowAppWorks isGuest={true} />
       </ScrollView>
     </View>

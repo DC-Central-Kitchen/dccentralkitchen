@@ -1,7 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
@@ -59,10 +58,10 @@ export default function SettingsScreen(props) {
     if (confirm) {
       // Show the loading indicator
       setLogoutIsLoading(true);
-      await Analytics.logEvent('logout', {
-        is_guest: isGuest,
-        redirect_to: signUp ? 'Sign Up' : 'Welcome',
-      });
+      // await Analytics.logEvent('logout', {
+      //   is_guest: isGuest,
+      //   redirect_to: signUp ? 'Sign Up' : 'Welcome',
+      // });
       completeLogout(props.navigation, signUp);
     }
   };
@@ -106,7 +105,7 @@ export default function SettingsScreen(props) {
           </NavButtonContainer>
           <NavTitle>Settings</NavTitle>
         </NavHeaderContainer>
-        <ScrollView>
+        <ScrollView scrollIndicatorInsets={{ right: 1 }}>
           <CategoryBar title="Account" />
           {isGuest && (
             <SettingsCard

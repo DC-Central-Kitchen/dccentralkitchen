@@ -1,4 +1,3 @@
-import * as Analytics from 'expo-firebase-analytics';
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { Dimensions, ScrollView, View } from 'react-native';
@@ -48,9 +47,9 @@ function RewardsFAQ() {
             WebBrowser.openBrowserAsync(
               'https://healthycorners.calblueprint.org/faq.html'
             );
-            Analytics.logEvent('open_full_faqs', {
-              purpose: 'Clicked More Healthy Corners FAQs link',
-            });
+            // Analytics.logEvent('open_full_faqs', {
+            //   purpose: 'Clicked More Healthy Corners FAQs link',
+            // });
           }}>
           More Healthy Corners FAQs
         </ButtonLabel>

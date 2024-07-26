@@ -10,7 +10,9 @@ import RewardsFAQ from './RewardsFAQ';
 
 function HowAppWorks() {
   return (
-    <ScrollView style={{ display: 'flex' }}>
+    <ScrollView
+      style={{ display: 'flex' }}
+      scrollIndicatorInsets={{ right: 1 }}>
       <View
         style={{
           display: 'flex',

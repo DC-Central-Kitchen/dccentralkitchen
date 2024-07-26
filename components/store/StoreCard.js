@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Colors from '../../constants/Colors';
@@ -72,9 +71,9 @@ function StoreCard({ store, storeList }) {
   );
 
   const favoriteStore = async () => {
-    Analytics.logEvent('toggle_favorite_store', {
-      store_name: storeName,
-    });
+    // Analytics.logEvent('toggle_favorite_store', {
+    //   store_name: storeName,
+    // });
     const updateFavorite = await toggleFavoriteStore(navigation, id);
     if (updateFavorite) {
       setFavorite(!favorite);
@@ -82,9 +81,9 @@ function StoreCard({ store, storeList }) {
   };
 
   const navigateStoreDetails = () => {
-    Analytics.logEvent('view_store_details', {
-      store_name: storeName,
-    });
+    // Analytics.logEvent('view_store_details', {
+    //   store_name: storeName,
+    // });
     navigation.navigate('StoreDetailsScreen', {
       store,
     });

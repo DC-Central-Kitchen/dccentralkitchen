@@ -87,6 +87,7 @@ export default class RecipesScreen extends React.Component {
           data={this.state.recipes}
           numColumns={2}
           initialNumToRender={8}
+          scrollIndicatorInsets={{ right: 1 }}
           renderItem={({ item }) => (
             <RecipeCard navigation={this.props.navigation} item={item} />
           )}

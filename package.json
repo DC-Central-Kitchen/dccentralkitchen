@@ -2,7 +2,7 @@
   "scripts": {
     "start": "expo start --dev-client",
     "postinstall": "patch-package",
-    "android": "expo start --android",
+    "android": "expo run:android",
     "build-prod-ios": "NODE_ENV=production expo build:ios --release-channel prod",
     "build-prod-ota": "NODE_ENV=production expo publish --release-channel prod",
     "build-prod-android": "NODE_ENV=production expo build:android --release-channel prod",
@@ -117,7 +117,7 @@
     "react-dom": "18.1.0",
     "react-geocode": "^0.2.0",
     "react-is": "^16.12.0",
-    "react-native": "0.70.5",
+    "react-native": "0.70.8",
     "react-native-alert-async": "^1.0.5",
     "react-native-autoheight-webview": "^1.5.1",
     "react-native-elements": "^3.4.1",

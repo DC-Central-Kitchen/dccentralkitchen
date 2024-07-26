@@ -1,12 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { PixelRatio, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { CardContainer, RowContainer, SpaceBetweenRowContainer } from '../../styled/shared';
+import {
+  CardContainer,
+  RowContainer,
+  SpaceBetweenRowContainer,
+} from '../../styled/shared';
 import { StoreDetailText } from '../../styled/store';
 import {
   Body,
@@ -37,10 +40,10 @@ export default function StoreProducts({ navigation, store, products }) {
             </RowContainer>
             <ButtonContainer
               onPress={() => {
-                Analytics.logEvent('view_all_products', {
-                  store_name: store.storeName,
-                  products_in_stock: store.productIds.length,
-                });
+                // Analytics.logEvent('view_all_products', {
+                //   store_name: store.storeName,
+                //   products_in_stock: store.productIds.length,
+                // });
                 navigation.navigate('Products', {
                   products,
                   store,

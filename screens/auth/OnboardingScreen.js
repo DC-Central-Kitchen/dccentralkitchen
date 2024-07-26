@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/no-string-refs */
 /* eslint-disable react/jsx-curly-brace-presence */
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, Platform, View } from 'react-native';
@@ -105,9 +104,9 @@ export default class OnboardingScreen extends React.Component {
       showLandingScreen: true,
     };
     await setAsyncCustomerAuth(customerObj);
-    Analytics.logEvent('guest_login_complete', {
-      installation_id: RecordIds.guestCustomerId,
-    });
+    // Analytics.logEvent('guest_login_complete', {
+    //   installation_id: RecordIds.guestCustomerId,
+    // });
     this.props.navigation.navigate('App');
   };
 

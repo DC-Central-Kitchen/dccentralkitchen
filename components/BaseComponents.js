@@ -60,7 +60,8 @@ export const Title = styled.Text`
 
 export const Subtitle = styled.Text`
   font-family: opensans-regular;
-  font-size: 16px;
+  font-size: ${(props) => props.fontSize || '16px'};
+  font-weight: ${(props) => props.fontWeight || 'normal'};
   line-height: 24px;
   color: ${(props) => props.color || Colors.activeText};
   text-align: ${(props) => props.textAlign || 'left'};
