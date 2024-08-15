@@ -1,6 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard } from 'react-native';
@@ -11,7 +9,6 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { firebaseConfig } from '../../environment';
 import {
   getCustomerById,
   getCustomersByPhoneNumber,
@@ -225,10 +222,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
+        {/* <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-        />
+        /> */}
         <BackButton onPress={() => this.props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>

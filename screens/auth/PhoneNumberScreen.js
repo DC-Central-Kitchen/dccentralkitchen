@@ -1,6 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/app';
+import { initializeApp } from 'firebase/app';
+import {
+  RecaptchaVerifier,
+  getAuth,
+  signInWithPhoneNumber,
+} from 'firebase/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Keyboard, View } from 'react-native';
@@ -24,20 +28,32 @@ import { logErrorToSentry, setUserLog } from '../../lib/logUtils';
 import { AuthScreenContainer, BackButton } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 import validate from './validation';
-
+// Initialize Firebase (if not already done)
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+  const firebaseApp = initializeApp({ firebaseConfig });
 }
+const auth = getAuth();
 
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
     super(props);
-    const recaptchaVerifier = React.createRef();
+    const recaptchaVerifier = new RecaptchaVerifier(
+      'recaptcha-container',
+      {
+        size: 'invisible',
+        callback: (response) => {
+          // reCAPTCHA solved - will proceed with submit function
+        },
+      },
+      auth
+    );
     this.state = {
       recaptchaVerifier,
       values: {
         [inputFields.PHONENUM]: '',
       },
+      verificationId: '',
+      verificationCode: '',
       errors: {
         [inputFields.PHONENUM]: '',
         submit: '',
@@ -129,16 +145,19 @@ export default class PhoneNumberScreen extends React.Component {
 
   openRecaptcha = async () => {
     const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+
     try {
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        '+1'.concat(number),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.recaptchaVerifier.current
+      const confirmation = await signInWithPhoneNumber(
+        auth,
+        number,
+        this.state.recaptchaVerifier
       );
+      this.setState((prevState) => ({
+        verificationId: confirmation.verificationId,
+      }));
       this.props.navigation.navigate('Verify', {
         number,
-        verificationId,
+        verificationId: confirmation.verificationId,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
@@ -214,10 +233,10 @@ export default class PhoneNumberScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
+        {/* <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-        />
+        /> */}
         <BackButton onPress={() => this.props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>
