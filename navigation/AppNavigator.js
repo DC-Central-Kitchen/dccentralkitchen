@@ -5,7 +5,6 @@ import React from 'react';
 import WebComponent from '../components/WebComponent';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
-import VerificationScreen from '../screens/auth/VerificationScreen';
 import LandingScreen from '../screens/map/LandingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
@@ -158,7 +157,7 @@ export default function AppContainer() {
         />
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
-        <AppStack.Screen name="Verify" component={VerificationScreen} />
+        {/* <AppStack.Screen name="Verify" component={VerificationScreen} /> */}
       </AppStack.Navigator>
     </NavigationContainer>
   );

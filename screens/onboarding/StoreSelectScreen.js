@@ -99,8 +99,7 @@ export default function StoreSelectScreen(props) {
   };
 
   return (
-    locationPermissions &&
-    !isLoading && (
+    
       <View style={{ flex: 1 }}>
         <NavHeaderContainer vertical backgroundColor={Colors.bgLight}>
           <CardContainer
@@ -198,7 +197,7 @@ export default function StoreSelectScreen(props) {
           </ButtonContainer>
         </View>
       </View>
-    )
+    
   );
 }
 

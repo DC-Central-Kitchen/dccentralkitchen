@@ -3,20 +3,14 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { PixelRatio, StyleSheet, View } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {
-  NavHeaderContainer,
-  Subtitle,
-  Title,
-} from '../../components/BaseComponents';
+import { NavHeaderContainer, Subtitle } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import MapFilterBlank from '../../components/map/MapFilterBlank';
 import MapFilterOptions from '../../components/map/MapFilterOptions';
 import StoreProducts from '../../components/product/StoreProducts';
-import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
 import { getAsyncCustomerAuth } from '../../lib/authUtils';
@@ -255,62 +249,7 @@ export default function MapScreen(props) {
       </View>
 
       {/* Display Map */}
-      {stores.length !== 0 && (
-        <MapView
-          style={{
-            marginTop: -200,
-            flex: 100,
-            zIndex: -1,
-          }}
-          rotateEnabled={false}
-          loadingEnabled
-          ref={mapRef}
-          mapType="standard"
-          initialRegion={region}
-          showsUserLocation
-          onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
-          {/* Display Non-focused store markers */}
-          {filteredStores
-            .filter((store) => currentStore.id !== store.id)
-            .map((store) => (
-              <Marker
-                key={store.id}
-                coordinate={{
-                  latitude: store.latitude ? store.latitude : 0,
-                  longitude: store.longitude ? store.longitude : 0,
-                }}
-                onPress={() => changeCurrentStore(store)}>
-                <StoreMarker
-                  showName={region.longitudeDelta < 0.07}
-                  storeName={store.storeName ?? ''}
-                  focused={currentStore && currentStore.id === store.id}
-                  wic={mapFilterObj.wic}
-                  couponProgramPartner={mapFilterObj.couponProgramPartner}
-                />
-              </Marker>
-            ))}
-          {/* Display Focused store markers */}
-          {filteredStores
-            .filter((store) => currentStore && currentStore.id === store.id)
-            .map((store) => (
-              <Marker
-                key={store.id}
-                coordinate={{
-                  latitude: store.latitude ? store.latitude : 0,
-                  longitude: store.longitude ? store.longitude : 0,
-                }}
-                onPress={() => changeCurrentStore(store)}>
-                <StoreMarker
-                  showName={region.longitudeDelta < 0.07}
-                  storeName={store.storeName ?? ''}
-                  focused={currentStore && currentStore.id === store.id}
-                  wic={mapFilterObj.wic}
-                  couponProgramPartner={mapFilterObj.couponProgramPartner}
-                />
-              </Marker>
-            ))}
-        </MapView>
-      )}
+
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
       <View style={{ flex: 1, marginBottom: 20 }}>
@@ -328,7 +267,7 @@ export default function MapScreen(props) {
       {/* request hide healthy rewards */}
 
       {/* <RewardsFooter navigation={props.navigation} /> */}
-      {(!locationPermissions || stores.length === 0) && (
+      {/* {(!locationPermissions || stores.length === 0) && (
         <View
           style={{
             position: 'absolute',
@@ -344,7 +283,7 @@ export default function MapScreen(props) {
           <Title style={{ marginBottom: 24 }}>Loading stores</Title>
           <ActivityIndicator size="large" color={Colors.bgDark} />
         </View>
-      )}
+      )} */}
     </View>
   );
 }

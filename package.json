@@ -95,7 +95,7 @@
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.16.4",
     "expo-web-browser": "~12.1.1",
-    "firebase": "9.0",
+    "firebase": "9.6.5",
     "geo2zip": "^2.0.2",
     "geolib": "^3.1.0",
     "global": "^4.4.0",
