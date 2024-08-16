@@ -29,10 +29,9 @@ import { AuthScreenContainer, BackButton } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 import validate from './validation';
 // Initialize Firebase (if not already done)
-if (!firebase.apps.length) {
-  const firebaseApp = initializeApp({ firebaseConfig });
-}
-const auth = getAuth();
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
 
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
