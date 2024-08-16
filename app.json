@@ -3,11 +3,7 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "plugins": [
       "./react-native-maps-plugin",
       [
@@ -38,9 +34,7 @@
     "updates": {
       "fallbackToCacheTimeout": 3000
     },
-    "assetBundlePatterns": [
-      "assets/images/*"
-    ],
+    "assetBundlePatterns": ["assets/images/*"],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -48,6 +42,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app requires access to your location even when closed.",
+        "NSLocationAlwaysUsageDescription": "This app requires access to your location when open.",
         "LSApplicationQueriesSchemes": [
           "comgooglemaps",
           "citymapper",
