@@ -16,7 +16,7 @@ export default function AuthStackNavigator() {
         cardStyle: { backgroundColor: Colors.bgLight },
       }}>
       <AuthStack.Screen name="Onboarding" component={OnboardingScreen} />
-      {/* <AuthStack.Screen name="PhoneNumber" component={PhoneNumberScreen} /> */}
+      <AuthStack.Screen name="PhoneNumber" component={PhoneNumberScreen} />
       <AuthStack.Screen name="Permissions" component={PermissionsScreen} />
       <AuthStack.Screen name="StoreSelect" component={StoreSelectScreen} />
       <AuthStack.Screen
