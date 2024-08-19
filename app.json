@@ -3,23 +3,25 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "plugins": [
       "./react-native-maps-plugin",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
-          "android": {
-            "compileSdkVersion": 33,
-            "targetSdkVersion": 33,
-            "buildToolsVersion": "33.0.0"
-          },
           "ios": {
             "useFrameworks": "static"
           }
         }
       ],
-      "sentry-expo"
+      "sentry-expo",
+      "expo-font"
     ],
     "version": "1.6.49",
     "primaryColor": "#008550",
@@ -34,7 +36,9 @@
     "updates": {
       "fallbackToCacheTimeout": 3000
     },
-    "assetBundlePatterns": ["assets/images/*"],
+    "assetBundlePatterns": [
+      "assets/images/*"
+    ],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",

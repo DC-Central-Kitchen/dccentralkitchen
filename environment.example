@@ -75,7 +75,7 @@ const ENV_VARIABLES = {
 
 // If releaseChannel not set, use process.env.NODE_ENV as substitute
 const env =
-  Constants.manifest.releaseChannel || process.env.NODE_ENV === 'production'
+ process.env.NODE_ENV === 'production'
     ? 'prod'
     : 'dev';
 
