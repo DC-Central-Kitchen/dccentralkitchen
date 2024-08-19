@@ -1,10 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { initializeApp } from 'firebase/app';
-import {
-  RecaptchaVerifier,
-  getAuth,
-  signInWithPhoneNumber,
-} from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Keyboard, View } from 'react-native';
@@ -17,7 +13,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
-import { env, firebaseConfig } from '../../environment';
+import { env } from '../../environment';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
   formatPhoneNumberInput,
@@ -30,28 +26,16 @@ import { CardContainer } from '../../styled/shared';
 import validate from './validation';
 // Initialize Firebase (if not already done)
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
     super(props);
-    const recaptchaVerifier = new RecaptchaVerifier(
-      'recaptcha-container',
-      {
-        size: 'invisible',
-        callback: (response) => {
-          // reCAPTCHA solved - will proceed with submit function
-        },
-      },
-      auth
-    );
+    const recaptchaVerifier = React.createRef();
     this.state = {
       recaptchaVerifier,
       values: {
         [inputFields.PHONENUM]: '',
       },
-      verificationId: '',
+      confirmation: '',
       verificationCode: '',
       errors: {
         [inputFields.PHONENUM]: '',
@@ -146,21 +130,18 @@ export default class PhoneNumberScreen extends React.Component {
     const number = this.state.values[inputFields.PHONENUM];
 
     try {
-      const confirmation = await signInWithPhoneNumber(
-        auth,
-        number,
-        this.state.recaptchaVerifier
-      );
+      const confirmation = await auth().signInWithPhoneNumber('+1' + number);
       this.setState((prevState) => ({
-        verificationId: confirmation.verificationId,
+        confirmation: confirmation,
       }));
       this.props.navigation.navigate('Verify', {
         number,
-        verificationId: confirmation.verificationId,
+        confirmation: confirmation,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
     } catch (err) {
+      console.error(err, '+1' + number);
       this.setState({
         errors: {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
