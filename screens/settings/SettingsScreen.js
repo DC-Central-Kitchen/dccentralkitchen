@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import Constants from 'expo-constants';
+import * as Application from 'expo-application';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
@@ -226,7 +226,7 @@ export default function SettingsScreen(props) {
               marginTop: 8,
               marginBottom: 200,
             }}>
-            {`Version ${Constants.manifest.version}`}
+            {`Version ${Application.nativeApplicationVersion}`}
           </Body>
         </ScrollView>
         {logoutIsLoading && (

@@ -10,9 +10,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { PixelRatio, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { NavHeaderContainer, Subtitle } from '../../components/BaseComponents';
+import {
+  NavHeaderContainer,
+  Subtitle,
+  Title,
+} from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import MapFilterBlank from '../../components/map/MapFilterBlank';
