@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import * as Application from 'expo-application';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
@@ -219,7 +218,7 @@ export default function SettingsScreen(props) {
             titleColor={Colors.error}
             navigation={() => logout()}
           />
-          <Body
+          {/* <Body
             color={Colors.secondaryText}
             style={{
               marginLeft: 24,
@@ -227,7 +226,7 @@ export default function SettingsScreen(props) {
               marginBottom: 200,
             }}>
             {`Version ${Application.nativeApplicationVersion}`}
-          </Body>
+          </Body> */}
         </ScrollView>
         {logoutIsLoading && (
           <View
