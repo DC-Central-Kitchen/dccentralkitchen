@@ -4,7 +4,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { PixelRatio, StyleSheet, View } from 'react-native';
-import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subtitle } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
@@ -253,7 +252,7 @@ export default function MapScreen(props) {
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
       <View style={{ flex: 1, marginBottom: 20 }}>
-        <BottomSheet
+        {/* <BottomSheet
           initialSnap={1}
           enabledInnerScrolling={false}
           enabledBottomClamp
@@ -262,7 +261,7 @@ export default function MapScreen(props) {
           snapPoints={snapPoints}
           renderContent={renderContent}
           ref={bottomSheetRef}
-        />
+        /> */}
       </View>
       {/* request hide healthy rewards */}
 
