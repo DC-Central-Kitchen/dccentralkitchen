@@ -1,15 +1,18 @@
 /* eslint-disable no-else-return */
 import { FontAwesome5 } from '@expo/vector-icons';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { useFocusEffect } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import {
-  NavHeaderContainer,
-  Subtitle,
-  Title,
-} from '../../components/BaseComponents';
+import { NavHeaderContainer, Subtitle } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import MapFilterBlank from '../../components/map/MapFilterBlank';
@@ -28,15 +31,11 @@ import {
   useStoreProducts,
   useStores,
 } from '../../lib/mapUtils';
-import {
-  BottomSheetContainer,
-  BottomSheetHeaderContainer,
-  DragBar,
-  SearchBar,
-} from '../../styled/store';
 
-const snapPoints = [185, 325, 488];
+import { BottomSheetContainer, SearchBar } from '../../styled/store';
+
 export default function MapScreen(props) {
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
   const stores = useStores();
 
   const [_stores, setStores] = useState();
@@ -177,41 +176,6 @@ export default function MapScreen(props) {
     }
   };
 
-  const renderContent = () => {
-    return (
-      <View>
-        <View
-          style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-          }}>
-          {!showDefaultStore && currentLocation && (
-            <CenterLocation
-              callBack={async () => {
-                // Analytics.logEvent('center_location', {
-                //   purpose: 'Centers map to current location',
-                // });
-                await mapRef.current?.animateToRegion(currentLocation, 1000);
-              }}
-            />
-          )}
-        </View>
-        <BottomSheetContainer>
-          <BottomSheetHeaderContainer>
-            <DragBar />
-          </BottomSheetHeaderContainer>
-          {currentStore && (
-            <StoreProducts
-              navigation={props.navigation}
-              store={currentStore}
-              products={storeProducts}
-            />
-          )}
-        </BottomSheetContainer>
-      </View>
-    );
-  };
-
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <NavHeaderContainer
@@ -259,7 +223,6 @@ export default function MapScreen(props) {
           style={{
             marginTop: -200,
             flex: 100,
-            zIndex: -1,
           }}
           rotateEnabled={false}
           loadingEnabled
@@ -312,18 +275,43 @@ export default function MapScreen(props) {
       )}
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-      <View style={{ flex: 1, marginBottom: 20 }}>
-        {/* <BottomSheet
-          initialSnap={1}
-          enabledInnerScrolling={false}
-          enabledBottomClamp
-          overdragResistanceFactor={1}
-          enabledContentTapInteraction={false}
-          snapPoints={snapPoints}
-          renderContent={renderContent}
-          ref={bottomSheetRef}
-        /> */}
-      </View>
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        handleIndicatorStyle={{ backgroundColor: 'black' }}
+        backgroundStyle={{ backgroundColor: 'white' }}>
+        <View
+          style={{
+            flex: 1,
+
+            alignItems: 'center',
+          }}>
+          <View>
+            {!showDefaultStore && currentLocation && (
+              <CenterLocation
+                callBack={async () => {
+                  // Analytics.logEvent('center_location', {
+                  //   purpose: 'Centers map to current location',
+                  // });
+                  await mapRef.current?.animateToRegion(currentLocation, 1000);
+                }}
+              />
+            )}
+          </View>
+          <BottomSheetContainer>
+            {currentStore && (
+              <StoreProducts
+                navigation={props.navigation}
+                store={currentStore}
+                products={storeProducts}
+              />
+            )}
+          </BottomSheetContainer>
+        </View>
+      </BottomSheet>
+
       {/* request hide healthy rewards */}
 
       {/* <RewardsFooter navigation={props.navigation} /> */}
