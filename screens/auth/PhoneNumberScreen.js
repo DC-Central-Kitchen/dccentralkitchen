@@ -20,7 +20,6 @@ import {
   inputFields,
   setAsyncCustomerAuth,
 } from '../../lib/authUtils';
-import { logErrorToSentry, setUserLog } from '../../lib/logUtils';
 import { AuthScreenContainer, BackButton } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 import validate from './validation';
@@ -147,11 +146,11 @@ export default class PhoneNumberScreen extends React.Component {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
         },
       });
-      logErrorToSentry({
-        screen: 'PhoneNumberScreen',
-        action: 'openRecaptcha',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberScreen',
+      //   action: 'openRecaptcha',
+      //   error: err,
+      // });
     }
   };
 
@@ -166,11 +165,11 @@ export default class PhoneNumberScreen extends React.Component {
       }
       return null;
     } catch (err) {
-      logErrorToSentry({
-        screen: 'PhoneNumberScreen',
-        action: 'findCustomer',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberScreen',
+      //   action: 'findCustomer',
+      //   error: err,
+      // });
     }
     return true;
   };
@@ -190,11 +189,11 @@ export default class PhoneNumberScreen extends React.Component {
       } else {
         this.props.navigation.navigate('Permissions');
       }
-      setUserLog({
-        id: customer.id,
-        name: customer.name,
-        phoneNumber: this.state.values[inputFields.PHONENUM],
-      });
+      // setUserLog({
+      //   id: customer.id,
+      //   name: customer.name,
+      //   phoneNumber: this.state.values[inputFields.PHONENUM],
+      // });
       // Analytics.logEvent('log_in_complete', {
       //   customer_id: customer.id,
       // });

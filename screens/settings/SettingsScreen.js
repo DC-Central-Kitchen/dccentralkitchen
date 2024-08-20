@@ -25,7 +25,6 @@ import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomerById } from '../../lib/airtable/request';
 import { completeLogout, getAsyncCustomerAuth } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 
 export default function SettingsScreen(props) {
   const [customer, setCustomer] = useState(null);
@@ -79,11 +78,11 @@ export default function SettingsScreen(props) {
           }
         } catch (err) {
           // console.error('[SettingsScreen] Airtable:', err);
-          logErrorToSentry({
-            screen: 'SettingsScreen',
-            action: 'useFocusEffect',
-            error: err,
-          });
+          // logErrorToSentry({
+          //   screen: 'SettingsScreen',
+          //   action: 'useFocusEffect',
+          //   error: err,
+          // });
         }
       };
 

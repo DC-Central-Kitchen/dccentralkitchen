@@ -22,7 +22,6 @@ import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomerById } from '../../lib/airtable/request';
 import { completeLogout, getAsyncCustomerAuth } from '../../lib/authUtils';
-import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
@@ -69,16 +68,16 @@ export default class RewardsScreen extends React.Component {
       });
     } catch (err) {
       // console.error(err);
-      logErrorToSentry({
-        screen: 'RewardsScreem',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'RewardsScreem',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
       Alert.alert('Session Expired', 'Refresh the app and log in again.', [
         {
           text: 'OK',
           onPress: async () => {
-            clearUserLog();
+            // clearUserLog();
             await AsyncStorage.removeItem('customerId');
             await Updates.reloadAsync();
           },

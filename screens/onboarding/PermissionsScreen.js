@@ -16,7 +16,6 @@ import {
   notificationTypes,
   sendTextMessage,
 } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 import { PermissionsContainer } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 
@@ -39,11 +38,11 @@ export default function PermissionsScreen(props) {
       );
       navigateMapScreen();
     } catch (err) {
-      logErrorToSentry({
-        screen: 'PermissionsScreen',
-        action: 'enableNotifications',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PermissionsScreen',
+      //   action: 'enableNotifications',
+      //   error: err,
+      // });
     }
   };
 

@@ -16,7 +16,6 @@ import {
 import AcceptedPrograms from '../../components/store/AcceptedPrograms';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   isFavorite,
   openDirections,
@@ -39,11 +38,11 @@ export default function StoreDetailsScreen(props) {
           }
         } catch (err) {
           // console.error('[StoreDetailsScreen] Airtable:', err);
-          logErrorToSentry({
-            screen: 'StoreDetailsScreen',
-            action: 'useFocusEffect',
-            error: err,
-          });
+          // logErrorToSentry({
+          //   screen: 'StoreDetailsScreen',
+          //   action: 'useFocusEffect',
+          //   error: err,
+          // });
         }
       };
 

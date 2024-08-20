@@ -10,7 +10,6 @@ import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { rewardPointValue } from '../../constants/Rewards';
 import { getCustomerById } from '../../lib/airtable/request';
-import { logErrorToSentry } from '../../lib/logUtils';
 import { ButtonContainer, Subtitle } from '../BaseComponents';
 
 /**
@@ -38,11 +37,11 @@ export default function RewardsFooter({ navigation }) {
           }
         } catch (err) {
           // console.error('[RewardsFooter] Airtable:', err);
-          logErrorToSentry({
-            screen: 'RewardsFooter',
-            action: 'useFocusEffect',
-            error: err,
-          });
+          // logErrorToSentry({
+          //   screen: 'RewardsFooter',
+          //   action: 'useFocusEffect',
+          //   error: err,
+          // });
         }
       };
 

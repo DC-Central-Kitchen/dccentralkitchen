@@ -72,7 +72,6 @@
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^5.2.8",
-    "@sentry/react-native": "~5.20.0",
     "airtable": "^0.12.2",
     "deprecated-react-native-prop-types": "^4.0.0",
     "expo": "^50.0.0",
@@ -133,7 +132,6 @@
     "react-native-webview": "13.6.4",
     "react-phone-number-input": "^2.3.24",
     "reanimated-bottom-sheet": "^1.0.0-alpha.15",
-    "sentry-expo": "~7.2.0",
     "styled-components": "^5.0.1",
     "validate.js": "^0.13.1"
   },

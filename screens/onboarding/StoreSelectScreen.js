@@ -15,7 +15,6 @@ import StoreSelectCard from '../../components/store/StoreSelectCard';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { getAsyncCustomerAuth } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   findStoreDistance,
   sortByDistance,
@@ -56,11 +55,11 @@ export default function StoreSelectScreen(props) {
         setLoading(false);
       } catch (err) {
         // console.log('[StoreSelectScreen](loadCustomer) Airtable:', err);
-        logErrorToSentry({
-          screen: 'StoreSelectScreen',
-          action: 'loadCustomer',
-          error: err,
-        });
+        // logErrorToSentry({
+        //   screen: 'StoreSelectScreen',
+        //   action: 'loadCustomer',
+        //   error: err,
+        // });
       }
     };
     loadCustomer();
@@ -84,11 +83,11 @@ export default function StoreSelectScreen(props) {
       await navigatePermissions();
     } catch (err) {
       // console.error('[StoreSelectScreen] (saveFavoriteStores) Airtable:', err);
-      logErrorToSentry({
-        screen: 'StoreSelectScreen',
-        action: 'saveFavoriteStores',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'StoreSelectScreen',
+      //   action: 'saveFavoriteStores',
+      //   error: err,
+      // });
     }
   };
 
@@ -99,105 +98,96 @@ export default function StoreSelectScreen(props) {
   };
 
   return (
-    
-      <View style={{ flex: 1 }}>
-        <NavHeaderContainer vertical backgroundColor={Colors.bgLight}>
-          <CardContainer
+    <View style={{ flex: 1 }}>
+      <NavHeaderContainer vertical backgroundColor={Colors.bgLight}>
+        <CardContainer
+          style={{
+            width: '100%',
+            paddingHorizontal: 8,
+          }}>
+          <RowContainer
             style={{
               width: '100%',
-              paddingHorizontal: 8,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
-            <RowContainer
-              style={{
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Title color={Colors.activeText} style={{ textAlign: 'center' }}>
-                Select your favorite stores
-              </Title>
-            </RowContainer>
-            <SearchBar
-              maxFontSizeMultiplier={1.4}
-              autoCapitalize="words"
-              autoCorrect={false}
-              placeholder="Store name, ZIP, or address"
-              onChangeText={(text) => setSearchStr(text)}
-              value={searchStr}
-              containerStyle={styles.container}
-              inputContainerStyle={styles.inputContainer}
-              selectionColor={Colors.primaryGreen}
-              returnKeyType="search"
-              searchIcon={
-                <FontAwesome5
-                  name="search"
-                  size={16}
-                  color={Colors.activeText}
-                />
-              }
-              inputStyle={styles.input}
-              ref={searchRef}
+            <Title color={Colors.activeText} style={{ textAlign: 'center' }}>
+              Select your favorite stores
+            </Title>
+          </RowContainer>
+          <SearchBar
+            maxFontSizeMultiplier={1.4}
+            autoCapitalize="words"
+            autoCorrect={false}
+            placeholder="Store name, ZIP, or address"
+            onChangeText={(text) => setSearchStr(text)}
+            value={searchStr}
+            containerStyle={styles.container}
+            inputContainerStyle={styles.inputContainer}
+            selectionColor={Colors.primaryGreen}
+            returnKeyType="search"
+            searchIcon={
+              <FontAwesome5 name="search" size={16} color={Colors.activeText} />
+            }
+            inputStyle={styles.input}
+            ref={searchRef}
+          />
+        </CardContainer>
+      </NavHeaderContainer>
+      <FlatList
+        data={filteredStores}
+        renderItem={({ item }) => (
+          <StoreSelectCard
+            key={item.id}
+            store={item}
+            favorited={selectedStores.includes(item.id)}
+            selectStore={() => selectStore(item.id)}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        // 16px top margin from heading
+        ListHeaderComponent={<View style={{ height: 16 }} />}
+        // 150 bottom margin to make sure all search results show with the keyboard activated.
+        ListFooterComponent={<View style={{ height: 150 }} />}
+        ListEmptyComponent={
+          <View
+            style={{
+              alignItems: 'center',
+              marginTop: 100,
+            }}>
+            <FontAwesome5
+              name="store"
+              size={64}
+              color={Colors.primaryGray}
+              style={{ marginBottom: 12 }}
             />
-          </CardContainer>
-        </NavHeaderContainer>
-        <FlatList
-          data={filteredStores}
-          renderItem={({ item }) => (
-            <StoreSelectCard
-              key={item.id}
-              store={item}
-              favorited={selectedStores.includes(item.id)}
-              selectStore={() => selectStore(item.id)}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          // 16px top margin from heading
-          ListHeaderComponent={<View style={{ height: 16 }} />}
-          // 150 bottom margin to make sure all search results show with the keyboard activated.
-          ListFooterComponent={<View style={{ height: 150 }} />}
-          ListEmptyComponent={
-            <View
-              style={{
-                alignItems: 'center',
-                marginTop: 100,
-              }}>
-              <FontAwesome5
-                name="store"
-                size={64}
-                color={Colors.primaryGray}
-                style={{ marginBottom: 12 }}
-              />
-              <Body color={Colors.secondaryText}>
-                No stores matched your search.
-              </Body>
-            </View>
-          }
-        />
-        <View
-          style={{
-            paddingHorizontal: 24,
-            paddingVertical: 12,
-            justifyContent: 'flex-end',
-            backgroundColor: Colors.lightestGray,
-          }}>
-          <FilledButtonContainer onPress={() => saveFavoriteStores()}>
-            <ButtonLabel color={Colors.lightText}>
-              {`Save ${selectedStores.length} store${(selectedStores.length >
-                1 &&
-                's') ||
-                ''}`}
-            </ButtonLabel>
-          </FilledButtonContainer>
-          <ButtonContainer
-            style={{ paddingVertical: 12 }}
-            onPress={() => navigatePermissions()}>
-            <ButtonLabel color={Colors.secondaryText}>
-              Skip this step
-            </ButtonLabel>
-          </ButtonContainer>
-        </View>
+            <Body color={Colors.secondaryText}>
+              No stores matched your search.
+            </Body>
+          </View>
+        }
+      />
+      <View
+        style={{
+          paddingHorizontal: 24,
+          paddingVertical: 12,
+          justifyContent: 'flex-end',
+          backgroundColor: Colors.lightestGray,
+        }}>
+        <FilledButtonContainer onPress={() => saveFavoriteStores()}>
+          <ButtonLabel color={Colors.lightText}>
+            {`Save ${selectedStores.length} store${(selectedStores.length > 1 &&
+              's') ||
+              ''}`}
+          </ButtonLabel>
+        </FilledButtonContainer>
+        <ButtonContainer
+          style={{ paddingVertical: 12 }}
+          onPress={() => navigatePermissions()}>
+          <ButtonLabel color={Colors.secondaryText}>Skip this step</ButtonLabel>
+        </ButtonContainer>
       </View>
-    
+    </View>
   );
 }
 

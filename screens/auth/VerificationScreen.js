@@ -12,7 +12,6 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { inputFields } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -93,11 +92,11 @@ export default class VerificationScreen extends React.Component {
         },
         isVerifyLoading: false,
       }));
-      logErrorToSentry({
-        screen: 'VerificationScreen',
-        action: 'verifyCode',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'VerificationScreen',
+      //   action: 'verifyCode',
+      //   error: err,
+      // });
     }
   };
 

@@ -22,7 +22,6 @@ import {
   getAsyncCustomerAuth,
   inputFields,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -58,11 +57,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       // console.error(err);
-      logErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   }
 
@@ -136,12 +135,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
         }
         // console.log('Phone number already in use');
         const errorMsg = 'Phone number already in use';
-        logAuthErrorToSentry({
-          screen: 'PhoneNumberChangeScreen',
-          action: 'updatePhoneNumber',
-          attemptedPhone: this.state.values[inputFields.PHONENUM],
-          error: errorMsg,
-        });
+        // logAuthErrorToSentry({
+        //   screen: 'PhoneNumberChangeScreen',
+        //   action: 'updatePhoneNumber',
+        //   attemptedPhone: this.state.values[inputFields.PHONENUM],
+        //   error: errorMsg,
+        // });
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
@@ -155,12 +154,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
       //   '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
       //   err
       // );
-      logAuthErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'checkDuplicateCustomers',
-        attemptedPhone: this.state.values[inputFields.PHONENUM],
-        error: err,
-      });
+      // logAuthErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'checkDuplicateCustomers',
+      //   attemptedPhone: this.state.values[inputFields.PHONENUM],
+      //   error: err,
+      // });
     }
     const number = this.state.values[inputFields.PHONENUM];
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
@@ -184,11 +183,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
         },
       });
       // console.log(err);
-      logErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   };
 
@@ -202,12 +201,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
       //   '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
       //   err
       // );
-      logAuthErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'updatePhoneNumber',
-        attemptedPhone: this.state.values[inputFields.PHONENUM],
-        error: err,
-      });
+      // logAuthErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'updatePhoneNumber',
+      //   attemptedPhone: this.state.values[inputFields.PHONENUM],
+      //   error: err,
+      // });
     }
   };
 

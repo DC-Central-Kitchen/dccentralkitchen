@@ -5,7 +5,6 @@ import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, Alert, View } from 'react-native';
-import * as Sentry from 'sentry-expo';
 import {
   BigTitle,
   ButtonContainer,
@@ -17,7 +16,6 @@ import Colors from '../constants/Colors';
 import { env } from '../environment';
 import { getCustomerById } from '../lib/airtable/request';
 import { completeLogout, getAsyncCustomerAuth } from '../lib/authUtils';
-import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
 import { CardContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
@@ -50,14 +48,14 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
-            setUserLog(cust);
+            // setUserLog(cust);
             if (cust.name === 'Guest') {
-              Sentry.Native.captureMessage('Guest Login Successful');
+              // Sentry.Native.captureMessage('Guest Login Successful');
               // Analytics.logEvent('drawer_load', {
               //   purpose: 'Guest Login Successful',
               // });
             } else {
-              Sentry.Native.captureMessage('Returning User');
+              // Sentry.Native.captureMessage('Returning User');
               // Analytics.logEvent('drawer_load', {
               //   purpose: 'Returning User',
               // });
@@ -67,16 +65,16 @@ function DrawerContent(props) {
           }
         } catch (err) {
           // console.error('[DrawerContent] Airtable:', err);
-          logErrorToSentry({
-            screen: 'DrawerContent',
-            action: 'componentDidMount',
-            error: err,
-          });
+          // logErrorToSentry({
+          //   screen: 'DrawerContent',
+          //   action: 'componentDidMount',
+          //   error: err,
+          // });
           Alert.alert('Session Expired', 'Refresh the app and log in again.', [
             {
               text: 'OK',
               onPress: async () => {
-                clearUserLog();
+                // clearUserLog();
                 await AsyncStorage.removeItem('customerId');
                 await Updates.reloadAsync();
               },

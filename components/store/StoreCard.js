@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   getMaxWidth,
   isFavorite,
@@ -54,11 +53,11 @@ function StoreCard({ store, storeList }) {
           }
         } catch (err) {
           // console.error('[StoreCard] Airtable:', err);
-          logErrorToSentry({
-            screen: 'StoreCard',
-            action: 'useFocusEffect',
-            error: err,
-          });
+          // logErrorToSentry({
+          //   screen: 'StoreCard',
+          //   action: 'useFocusEffect',
+          //   error: err,
+          // });
         }
       };
 

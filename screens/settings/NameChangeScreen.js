@@ -10,7 +10,6 @@ import {
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { getAsyncCustomerAuth, inputFields } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -41,11 +40,11 @@ export default class NameChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       // console.error(err);
-      logErrorToSentry({
-        screen: 'NameChangeScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'NameChangeScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   }
 
@@ -97,11 +96,11 @@ export default class NameChangeScreen extends React.Component {
       this.props.navigation.navigate('Settings');
     } catch (err) {
       // console.log('[NameChangeScreen] (changeName) Airtable:', err);
-      logErrorToSentry({
-        screen: 'NameChangeScreen',
-        action: 'changeName',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'NameChangeScreen',
+      //   action: 'changeName',
+      //   error: err,
+      // });
     }
   };
 

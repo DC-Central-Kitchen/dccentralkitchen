@@ -16,7 +16,6 @@
           }
         }
       ],
-      "sentry-expo",
       "expo-font"
     ],
     "version": "1.6.49",
@@ -73,13 +72,6 @@
         "VIBRATE"
       ],
       "versionCode": 49
-    },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps"
-        }
-      ]
     },
     "description": "",
     "extra": {
