@@ -15,7 +15,8 @@
           }
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-asset"
     ],
     "version": "1.6.49",
     "primaryColor": "#008550",
@@ -57,7 +58,7 @@
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR GCP API KEY HERE"
+          "apiKey": "AIzaSyBBIG3diSgp3gpqARxs8onV4dmzXDE69D0"
         }
       },
       "permissions": [
