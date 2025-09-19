@@ -5,6 +5,7 @@
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
     "plugins": [
+      "./plugins/ios-podfile-mods",
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       [
