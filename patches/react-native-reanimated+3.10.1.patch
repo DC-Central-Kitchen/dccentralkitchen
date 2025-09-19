@@ -1,0 +1,73 @@
+diff --git a/node_modules/react-native-reanimated/apple/REASlowAnimations.mm b/node_modules/react-native-reanimated/apple/REASlowAnimations.mm
+index 445a86b..dc89415 100644
+--- a/node_modules/react-native-reanimated/apple/REASlowAnimations.mm
++++ b/node_modules/react-native-reanimated/apple/REASlowAnimations.mm
+@@ -1,6 +1,7 @@
+ #import <QuartzCore/QuartzCore.h>
+ #import <RNReanimated/REASlowAnimations.h>
+-#if TARGET_IPHONE_SIMULATOR
++#import <TargetConditionals.h>
++#if TARGET_OS_SIMULATOR
+ #import <dlfcn.h>
+ #endif
+ 
+@@ -9,7 +10,7 @@ namespace reanimated {
+ CGFloat getUIAnimationDragCoefficient(void)
+ {
+   static float (*UIAnimationDragCoefficient)(void) = NULL;
+-#if TARGET_IPHONE_SIMULATOR
++#if TARGET_OS_SIMULATOR
+   static dispatch_once_t onceToken;
+   dispatch_once(&onceToken, ^{
+     UIAnimationDragCoefficient = (float (*)(void))dlsym(RTLD_DEFAULT, "UIAnimationDragCoefficient");
+@@ -20,7 +21,7 @@ CGFloat getUIAnimationDragCoefficient(void)
+ 
+ CFTimeInterval calculateTimestampWithSlowAnimations(CFTimeInterval currentTimestamp)
+ {
+-#if TARGET_IPHONE_SIMULATOR
++#if TARGET_OS_SIMULATOR
+   static CFTimeInterval dragCoefChangedTimestamp = CACurrentMediaTime();
+   static CGFloat previousDragCoef = getUIAnimationDragCoefficient();
+ 
+diff --git a/node_modules/react-native-reanimated/apple/native/NativeProxy.mm b/node_modules/react-native-reanimated/apple/native/NativeProxy.mm
+index a703bdf..38376b9 100644
+--- a/node_modules/react-native-reanimated/apple/native/NativeProxy.mm
++++ b/node_modules/react-native-reanimated/apple/native/NativeProxy.mm
+@@ -15,6 +15,7 @@
+ #import <RNReanimated/RNGestureHandlerStateManager.h>
+ #import <RNReanimated/ReanimatedRuntime.h>
+ #import <RNReanimated/ReanimatedSensorContainer.h>
++#import <TargetConditionals.h>
+ 
+ #ifndef NDEBUG
+ #import <RNReanimated/REAScreensHelper.h>
+@@ -30,7 +31,7 @@
+ 
+ #import <React/RCTUIManager.h>
+ 
+-#if TARGET_IPHONE_SIMULATOR
++#if TARGET_OS_SIMULATOR
+ #import <dlfcn.h>
+ #endif
+ 
+diff --git a/node_modules/react-native-reanimated/apple/native/PlatformDepMethodsHolderImpl.mm b/node_modules/react-native-reanimated/apple/native/PlatformDepMethodsHolderImpl.mm
+index b8e458f..a7e3135 100644
+--- a/node_modules/react-native-reanimated/apple/native/PlatformDepMethodsHolderImpl.mm
++++ b/node_modules/react-native-reanimated/apple/native/PlatformDepMethodsHolderImpl.mm
+@@ -14,6 +14,7 @@
+ #import <RNReanimated/RNGestureHandlerStateManager.h>
+ #import <RNReanimated/ReanimatedRuntime.h>
+ #import <RNReanimated/ReanimatedSensorContainer.h>
++#import <TargetConditionals.h>
+ 
+ #ifndef NDEBUG
+ #import <RNReanimated/REAScreensHelper.h>
+@@ -29,7 +30,7 @@
+ 
+ #import <React/RCTUIManager.h>
+ 
+-#if TARGET_IPHONE_SIMULATOR
++#if TARGET_OS_SIMULATOR
+ #import <dlfcn.h>
+ #endif
+ 

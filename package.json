@@ -103,7 +103,7 @@
     "libphonenumber-js": "^1.7.52",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
-    "patch-package": "^6.5.1",
+    "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",
     "prop-types": "^15.0",
     "react": "18.2.0",
