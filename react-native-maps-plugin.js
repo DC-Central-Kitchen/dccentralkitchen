@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const generateCode = require('@expo/config-plugins/build/utils/generateCode');
-const configPlugins = require('@expo/config-plugins');
+const generateCode = require('expo/config-plugins/build/utils/generateCode');
+const configPlugins = require('expo/config-plugins');
 
 const code = `# Note you don't need to add RNBootSplash or react-native-app-auth if unused
 $static_library = [
