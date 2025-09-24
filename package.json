@@ -1,4 +1,13 @@
 {
+  "engines": {
+    "node": "20.19.4",
+    "yarn": "1.22.22"
+  },
+  "volta": {
+    "node": "20.19.4",
+    "yarn": "1.22.22"
+  },
+  "packageManager": "yarn@1.22.22",
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
@@ -16,6 +25,7 @@
   },
   "scripts": {
     "start": "expo start --dev-client",
+    "preinstall": "echo Node: $(node -v); echo Yarn: $(yarn -v)",
     "postinstall": "patch-package",
     "android": "expo run:android",
     "build-prod-ios": "NODE_ENV=production expo build:ios --release-channel prod",
