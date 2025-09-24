@@ -242,8 +242,8 @@ export default function MapScreen(props) {
               <Marker
                 key={store.id}
                 coordinate={{
-                  latitude: store.latitude ? store.latitude : 0,
-                  longitude: store.longitude ? store.longitude : 0,
+                  latitude: store.latitude ? Number(store.latitude) : 0,
+                  longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
                 onPress={() => changeCurrentStore(store)}>
                 <StoreMarker
@@ -262,8 +262,8 @@ export default function MapScreen(props) {
               <Marker
                 key={store.id}
                 coordinate={{
-                  latitude: store.latitude ? store.latitude : 0,
-                  longitude: store.longitude ? store.longitude : 0,
+                  latitude: store.latitude ? Number(store.latitude) : 0,
+                  longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
                 onPress={() => changeCurrentStore(store)}>
                 <StoreMarker
