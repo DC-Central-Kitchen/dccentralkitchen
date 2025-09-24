@@ -29,7 +29,7 @@ export const OnboardingContainer = styled.View`
 export const PermissionsContainer = styled.View`
   display: flex;
   flex: 1;
-  justify-content: space-between
+  justify-content: space-between;
   margin: 40px 24px;
 `;
 
