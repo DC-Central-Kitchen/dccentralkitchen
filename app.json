@@ -4,9 +4,6 @@
     "slug": "healthy-corners",
     "platforms": ["ios", "android", "web"],
     "plugins": [
-      "./plugins/ios-podfile-mods",
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
@@ -16,7 +13,6 @@
             "buildToolsVersion": "35.0.0",
             "minSdkVersion": 24
           },
-
           "ios": {
             "useFrameworks": "static",
             "deploymentTarget": "15.1"
@@ -24,7 +20,8 @@
         }
       ],
       "expo-font",
-      "expo-asset"
+      "expo-asset",
+      "expo-web-browser"
     ],
     "version": "1.6.49",
     "primaryColor": "#008550",
