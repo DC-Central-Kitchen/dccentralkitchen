@@ -143,7 +143,7 @@
     "react-native-web": "^0.20.0",
     "react-native-webview": "13.13.5",
     "reanimated-bottom-sheet": "^1.0.0-alpha.15",
-    "styled-components": "^5.0.1",
+    "styled-components": "6.1.18",
     "validate.js": "^0.13.1"
   },
   "devDependencies": {

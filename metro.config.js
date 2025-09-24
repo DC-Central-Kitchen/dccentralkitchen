@@ -1,8 +1,12 @@
 const { getDefaultConfig } = require('expo/metro-config');
 
-module.exports = (async () => {
-  const config = await getDefaultConfig(__dirname);
-  // Prefer native entries; do NOT pick "browser" on native
-  config.resolver.resolverMainFields = ['react-native', 'main'];
+module.exports = (() => {
+  const config = getDefaultConfig(__dirname);
+  config.resolver = config.resolver || {};
+  // Force native bundle of styled-components
+  config.resolver.alias = {
+    ...(config.resolver.alias || {}),
+    'styled-components': 'styled-components/native',
+  };
   return config;
 })();

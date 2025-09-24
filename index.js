@@ -1,6 +1,6 @@
-import 'expo-dev-client';
+/* eslint-disable no-console */
 import 'react-native-gesture-handler';
-
+import 'expo-dev-client';
 import { registerRootComponent } from 'expo';
 
 import App from './App';
