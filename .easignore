@@ -144,7 +144,7 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+
 
 # Expo
 .expo/
@@ -153,5 +153,5 @@ dist/
 
 # @end expo-cli
 .eslintignore
-ios/*
+
 android/*
