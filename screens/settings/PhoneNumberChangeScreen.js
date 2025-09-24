@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
+import auth from '@react-native-firebase/auth';
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,7 +11,7 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { firebaseConfig } from '../../environment';
+
 import {
   getCustomerById,
   getCustomersByPhoneNumber,
@@ -120,6 +120,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
   openRecaptcha = async () => {
     Keyboard.dismiss();
+
     try {
       const customers = await getCustomersByPhoneNumber(
         this.state.values[inputFields.PHONENUM]
@@ -162,17 +163,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       // });
     }
     const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const confirmation = await auth().signInWithPhoneNumber('+1' + number);
     try {
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        '+1'.concat(number),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.recaptchaVerifier.current
-      );
-
       this.props.navigation.navigate('Verify', {
         number,
-        verificationId,
+        confirmation: confirmation,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
@@ -224,10 +219,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
+        {/* <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-        />
+        /> */}
         <BackButton onPress={() => this.props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>
