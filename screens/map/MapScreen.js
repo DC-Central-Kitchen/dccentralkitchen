@@ -279,6 +279,7 @@ export default function MapScreen(props) {
                   latitude: store.latitude ? Number(store.latitude) : 0,
                   longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
+                tracksInfoWindowChanges
                 zIndex={currentStore?.id === store.id ? 2 : 1}
                 {...(Platform.OS === 'android'
                   ? {
@@ -298,23 +299,25 @@ export default function MapScreen(props) {
                   />
                 )}
                 {Platform.OS === 'android' && (
-                  <View
-                    style={{
-                      backgroundColor: 'white',
-                      padding: 6,
-                      borderRadius: 8,
-                    }}>
-                    <Text
+                  <Callout tooltip={false}>
+                    <View
                       style={{
-                        zIndex:
-                          currentStore && currentStore.id === store.id
-                            ? 1000
-                            : 100,
-                      }}
-                      focused={currentStore && currentStore.id === store.id}>
-                      {store.storeName}
-                    </Text>
-                  </View>
+                        backgroundColor: 'white',
+                        padding: 6,
+                        borderRadius: 8,
+                      }}>
+                      <Text
+                        style={{
+                          zIndex:
+                            currentStore && currentStore.id === store.id
+                              ? 1000
+                              : 100,
+                        }}
+                        focused={currentStore && currentStore.id === store.id}>
+                        {store.storeName}
+                      </Text>
+                    </View>
+                  </Callout>
                 )}
               </Marker>
             ))}
@@ -325,6 +328,7 @@ export default function MapScreen(props) {
               <Marker
                 key={store.id}
                 title="Custom Marker"
+                tracksInfoWindowChanges
                 coordinate={{
                   latitude: store.latitude ? Number(store.latitude) : 0,
                   longitude: store.longitude ? Number(store.longitude) : 0,
@@ -348,7 +352,7 @@ export default function MapScreen(props) {
                   />
                 )}
                 {Platform.OS === 'android' && (
-                  <Callout tooltip>
+                  <Callout tooltip={true}>
                     <View
                       style={{
                         backgroundColor: 'white',
