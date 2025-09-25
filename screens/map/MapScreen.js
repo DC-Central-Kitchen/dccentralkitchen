@@ -10,8 +10,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import {
+  ActivityIndicator,
+  PixelRatio,
+  StyleSheet,
+  View,
+  Platform,
+  Text,
+} from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
 import {
   NavHeaderContainer,
   Subtitle,
@@ -36,7 +43,12 @@ import {
   useStores,
 } from '../../lib/mapUtils';
 
-import { BottomSheetContainer, SearchBar } from '../../styled/store';
+import {
+  BottomSheetContainer,
+  MarkerContainer,
+  MarkerStoreName,
+  SearchBar,
+} from '../../styled/store';
 
 export default function MapScreen(props) {
   const snapPoints = useMemo(() => ['25%', '50%'], []);
@@ -180,6 +192,28 @@ export default function MapScreen(props) {
     }
   };
 
+  const getImageSource = (focused) => {
+    let imageSource;
+    if (mapFilterObj.couponProgramPartner && mapFilterObj.wic) {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_snap_wic_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_snap_wic_2x.png');
+    } else if (mapFilterObj.couponProgramPartner) {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_snap_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_snap_2x.png');
+    } else if (mapFilterObj.wic) {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_wic_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_wic_2x.png');
+    } else {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_2x.png');
+    }
+    return imageSource;
+  };
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <NavHeaderContainer
@@ -245,14 +279,43 @@ export default function MapScreen(props) {
                   latitude: store.latitude ? Number(store.latitude) : 0,
                   longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
+                zIndex={currentStore?.id === store.id ? 2 : 1}
+                {...(Platform.OS === 'android'
+                  ? {
+                      icon: getImageSource(
+                        currentStore && currentStore.id === store.id
+                      ),
+                    }
+                  : {})}
                 onPress={() => changeCurrentStore(store)}>
-                <StoreMarker
-                  showName={region.longitudeDelta < 0.07}
-                  storeName={store.storeName ?? ''}
-                  focused={currentStore && currentStore.id === store.id}
-                  wic={mapFilterObj.wic}
-                  couponProgramPartner={mapFilterObj.couponProgramPartner}
-                />
+                {Platform.OS === 'ios' && (
+                  <StoreMarker
+                    showName={region.longitudeDelta < 0.07}
+                    storeName={store.storeName ?? ''}
+                    focused={currentStore && currentStore.id === store.id}
+                    wic={mapFilterObj.wic}
+                    couponProgramPartner={mapFilterObj.couponProgramPartner}
+                  />
+                )}
+                {Platform.OS === 'android' && (
+                  <View
+                    style={{
+                      backgroundColor: 'white',
+                      padding: 6,
+                      borderRadius: 8,
+                    }}>
+                    <Text
+                      style={{
+                        zIndex:
+                          currentStore && currentStore.id === store.id
+                            ? 1000
+                            : 100,
+                      }}
+                      focused={currentStore && currentStore.id === store.id}>
+                      {store.storeName}
+                    </Text>
+                  </View>
+                )}
               </Marker>
             ))}
           {/* Display Focused store markers */}
@@ -261,18 +324,50 @@ export default function MapScreen(props) {
             .map((store) => (
               <Marker
                 key={store.id}
+                title="Custom Marker"
                 coordinate={{
                   latitude: store.latitude ? Number(store.latitude) : 0,
                   longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
+                zIndex={currentStore?.id === store.id ? 2 : 1}
+                {...(Platform.OS === 'android'
+                  ? {
+                      icon: getImageSource(
+                        currentStore && currentStore.id === store.id
+                      ),
+                    }
+                  : {})}
                 onPress={() => changeCurrentStore(store)}>
-                <StoreMarker
-                  showName={region.longitudeDelta < 0.07}
-                  storeName={store.storeName ?? ''}
-                  focused={currentStore && currentStore.id === store.id}
-                  wic={mapFilterObj.wic}
-                  couponProgramPartner={mapFilterObj.couponProgramPartner}
-                />
+                {Platform.OS === 'ios' && (
+                  <StoreMarker
+                    showName={region.longitudeDelta < 0.07}
+                    storeName={store.storeName ?? ''}
+                    focused={currentStore && currentStore.id === store.id}
+                    wic={mapFilterObj.wic}
+                    couponProgramPartner={mapFilterObj.couponProgramPartner}
+                  />
+                )}
+                {Platform.OS === 'android' && (
+                  <Callout tooltip>
+                    <View
+                      style={{
+                        backgroundColor: 'white',
+                        padding: 6,
+                        borderRadius: 8,
+                      }}>
+                      <Text
+                        style={{
+                          zIndex:
+                            currentStore && currentStore.id === store.id
+                              ? 1000
+                              : 100,
+                        }}
+                        focused={currentStore && currentStore.id === store.id}>
+                        {store.storeName}
+                      </Text>
+                    </View>
+                  </Callout>
+                )}
               </Marker>
             ))}
         </MapView>
