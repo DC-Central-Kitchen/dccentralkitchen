@@ -95,7 +95,7 @@ function DrawerNavigator() {
         }}>
         {(props) => (
           <WebComponent
-            URL="http://tiny.cc/RewardsFeedback"
+            URL="https://airtable.com/appnUhTFzISQ6jOJh/shr1Rh6ZUaJNQTQqf"
             title="Submit Feedback"
             props={props}
           />
