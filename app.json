@@ -47,6 +47,9 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app requires access to your location even when closed.",
+        "NSCameraUsageDescription": "We use the camera to scan product barcodes in HealthyCorners.",
+        "NSMicrophoneUsageDescription": "We use the microphone for video capture when scanning if you enable audio.",
+        "NSPhotoLibraryUsageDescription": "We let you pick or save photos for receipts and product images.",
         "LSApplicationQueriesSchemes": [
           "comgooglemaps",
           "citymapper",
