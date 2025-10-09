@@ -298,27 +298,6 @@ export default function MapScreen(props) {
                     couponProgramPartner={mapFilterObj.couponProgramPartner}
                   />
                 )}
-                {Platform.OS === 'android' && (
-                  <Callout tooltip={false}>
-                    <View
-                      style={{
-                        backgroundColor: 'white',
-                        padding: 6,
-                        borderRadius: 8,
-                      }}>
-                      <Text
-                        style={{
-                          zIndex:
-                            currentStore && currentStore.id === store.id
-                              ? 1000
-                              : 100,
-                        }}
-                        focused={currentStore && currentStore.id === store.id}>
-                        {store.storeName}
-                      </Text>
-                    </View>
-                  </Callout>
-                )}
               </Marker>
             ))}
           {/* Display Focused store markers */}
@@ -350,27 +329,6 @@ export default function MapScreen(props) {
                     wic={mapFilterObj.wic}
                     couponProgramPartner={mapFilterObj.couponProgramPartner}
                   />
-                )}
-                {Platform.OS === 'android' && (
-                  <Callout tooltip={true}>
-                    <View
-                      style={{
-                        backgroundColor: 'white',
-                        padding: 6,
-                        borderRadius: 8,
-                      }}>
-                      <Text
-                        style={{
-                          zIndex:
-                            currentStore && currentStore.id === store.id
-                              ? 1000
-                              : 100,
-                        }}
-                        focused={currentStore && currentStore.id === store.id}>
-                        {store.storeName}
-                      </Text>
-                    </View>
-                  </Callout>
                 )}
               </Marker>
             ))}
