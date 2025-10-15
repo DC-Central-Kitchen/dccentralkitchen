@@ -306,7 +306,6 @@ export default function MapScreen(props) {
             .map((store) => (
               <Marker
                 key={store.id}
-                title="Custom Marker"
                 tracksInfoWindowChanges
                 coordinate={{
                   latitude: store.latitude ? Number(store.latitude) : 0,
