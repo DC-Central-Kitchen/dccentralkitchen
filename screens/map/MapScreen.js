@@ -172,13 +172,12 @@ export default function MapScreen(props) {
     //   products_in_stock:
     //     store && 'productIds' in store ? store.productIds.length : 0,
     // });
-
+    const factor = 0.2;
     const newRegion = {
-      latitude: store
-        ? store.latitude - deltas.latitudeDelta / 3.5
-        : region.latitude,
+      latitude: store ? store.latitude : region.latitude,
       longitude: store ? store.longitude : region.longitude,
-      ...deltas,
+      latitudeDelta: deltas.latitudeDelta * factor,
+      longitudeDelta: deltas.longitudeDelta * factor,
     };
     setCurrentStore(store);
 
