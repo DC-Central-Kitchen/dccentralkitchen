@@ -197,7 +197,7 @@ export default function StoreDetailsScreen(props) {
           </InLineContainer>
         </ButtonContainer>
         {/* Store Hours */}
-        <InLineContainer style={{ paddingBottom: 32 }}>
+        {/* <InLineContainer style={{ paddingBottom: 32 }}>
           <FontAwesome5
             name="clock"
             solid
@@ -217,7 +217,7 @@ export default function StoreDetailsScreen(props) {
             </Body>
             <StoreHours hours={store.storeHours} />
           </CardContainer>
-        </InLineContainer>
+        </InLineContainer> */}
       </ScrollView>
     </View>
   );
