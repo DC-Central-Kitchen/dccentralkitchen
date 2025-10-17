@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
@@ -13,7 +12,6 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { inputFields } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -77,12 +75,8 @@ export default class VerificationScreen extends React.Component {
 
   verifyCode = async (code) => {
     try {
-      const { verificationId, callBack } = this.props.route.params;
-      const credential = firebase.auth.PhoneAuthProvider.credential(
-        verificationId,
-        code
-      );
-      await firebase.auth().signInWithCredential(credential);
+      const { confirmation, callBack } = this.props.route.params;
+      await confirmation.confirm(code);
       // Analytics.logEvent('phone_number_verified');
       await callBack();
       this.setState({ isVerifyLoading: false });
@@ -98,11 +92,11 @@ export default class VerificationScreen extends React.Component {
         },
         isVerifyLoading: false,
       }));
-      logErrorToSentry({
-        screen: 'VerificationScreen',
-        action: 'verifyCode',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'VerificationScreen',
+      //   action: 'verifyCode',
+      //   error: err,
+      // });
     }
   };
 

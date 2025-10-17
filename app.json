@@ -2,25 +2,30 @@
   "expo": {
     "name": "Healthy Corners",
     "slug": "healthy-corners",
-    "privacy": "public",
     "platforms": ["ios", "android", "web"],
     "plugins": [
-      "./react-native-maps-plugin",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 33,
-            "targetSdkVersion": 33,
-            "buildToolsVersion": "33.0.0"
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "minSdkVersion": 24
           },
           "ios": {
-            "useFrameworks": "static"
+            "useFrameworks": "static",
+            "deploymentTarget": "15.1"
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-asset",
+      "expo-web-browser"
     ],
-    "version": "1.6.49",
+    "version": "1.6.51",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,10 +42,14 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.6.26",
+      "buildNumber": "1.6.30",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app requires access to your location even when closed.",
+        "NSCameraUsageDescription": "We use the camera to scan product barcodes in HealthyCorners.",
+        "NSMicrophoneUsageDescription": "We use the microphone for video capture when scanning if you enable audio.",
+        "NSPhotoLibraryUsageDescription": "We let you pick or save photos for receipts and product images.",
         "LSApplicationQueriesSchemes": [
           "comgooglemaps",
           "citymapper",
@@ -51,10 +60,7 @@
         "ITSAppUsesNonExemptEncryption": "NO"
       },
       "config": {
-        "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU",
-        "branch": {
-          "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
-        }
+        "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU"
       }
     },
     "android": {
@@ -62,10 +68,7 @@
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR GCP API KEY HERE"
-        },
-        "branch": {
-          "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
+          "apiKey": "AIzaSyBBIG3diSgp3gpqARxs8onV4dmzXDE69D0"
         }
       },
       "permissions": [
@@ -74,14 +77,7 @@
         "FOREGROUND_SERVICE",
         "VIBRATE"
       ],
-      "versionCode": 49
-    },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps"
-        }
-      ]
+      "versionCode": 53
     },
     "description": "",
     "extra": {

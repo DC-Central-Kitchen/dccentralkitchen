@@ -2,7 +2,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard, View } from 'react-native';
-import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,
@@ -13,11 +12,6 @@ import Colors from '../../constants/Colors';
 import { newSignUpBonus } from '../../constants/Rewards';
 import { createCustomer, createPushToken } from '../../lib/airtable/request';
 import { inputFields, setAsyncCustomerAuth } from '../../lib/authUtils';
-import {
-  logAuthErrorToSentry,
-  logErrorToSentry,
-  setUserLog,
-} from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -43,12 +37,12 @@ export default class CompleteSignUpScreen extends React.Component {
     try {
       this.completeSignUp();
     } catch (err) {
-      logAuthErrorToSentry({
-        screen: 'CompleteSignUpScreen',
-        action: 'handleSubmit',
-        attemptedPhone: null,
-        error: err,
-      });
+      // logAuthErrorToSentry({
+      //   screen: 'CompleteSignUpScreen',
+      //   action: 'handleSubmit',
+      //   attemptedPhone: null,
+      //   error: err,
+      // });
     }
     Keyboard.dismiss();
   };
@@ -110,19 +104,19 @@ export default class CompleteSignUpScreen extends React.Component {
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
       // If signup succeeds, register the user for analytics and logging
-      setUserLog({ id: customerId, name, phoneNumber });
+      // setUserLog({ id: customerId, name, phoneNumber });
       // Analytics.logEvent('sign_up_complete', {
       //   customer_id: customerId,
       // });
-      Sentry.Native.captureMessage('Sign Up Successful');
+      // Sentry.Native.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
       // console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
-      logErrorToSentry({
-        screen: 'CompleteSignUpScreen',
-        action: 'addCustomer',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'CompleteSignUpScreen',
+      //   action: 'addCustomer',
+      //   error: err,
+      // });
     }
     return null;
   };

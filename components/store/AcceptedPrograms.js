@@ -15,7 +15,7 @@ const programToDesc = {
   'SNAP/EBT': 'Accepts SNAP/EBT',
   WIC: 'DC WIC approved',
   'SNAP Match':
-    'Spend $5 with SNAP and include fresh produce in purchase to get $5 free on fresh produce',
+    'Buy any one piece of fresh or frozen fruit or vegetable (valued at 50¢ or more) with your EBT card, get a $5 coupon for FREE fresh and frozen fruits and vegetables.',
   'Healthy Rewards': 'Participates in Healthy Rewards',
 };
 

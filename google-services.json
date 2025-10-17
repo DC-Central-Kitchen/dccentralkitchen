@@ -13,12 +13,7 @@
           "package_name": "org.calblueprint.HealthyCornersRewards"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "683063775827-b62ni46crodvu3qmqcv69urt9jqtomje.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyA49XqGp-0XSsYH_w2jpAjV_nTKZVsEqJ8"
@@ -28,8 +23,12 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "683063775827-b62ni46crodvu3qmqcv69urt9jqtomje.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "683063775827-osi81o6gn0re6db41tprk9qirth1op06.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.calblueprint.HealthyCornersRewards",
+                "app_store_id": "1503424404"
+              }
             }
           ]
         }

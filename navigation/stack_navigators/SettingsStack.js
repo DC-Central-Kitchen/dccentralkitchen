@@ -3,8 +3,8 @@ import React from 'react';
 import Colors from '../../constants/Colors';
 import NameChangeScreen from '../../screens/settings/NameChangeScreen';
 import NotificationsScreen from '../../screens/settings/NotificationsScreen';
-import PhoneNumberChangeScreen from '../../screens/settings/PhoneNumberChangeScreen';
 import SettingsScreen from '../../screens/settings/SettingsScreen';
+import PhoneNumberChangeScreen from '../../screens/settings/PhoneNumberChangeScreen';
 
 const SettingsStack = createStackNavigator();
 

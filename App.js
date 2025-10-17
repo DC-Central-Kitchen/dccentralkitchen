@@ -7,18 +7,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import * as Sentry from 'sentry-expo';
 import Colors from './constants/Colors';
-import { env } from './environment';
-import { logErrorToSentry } from './lib/logUtils';
 import AppNavigator from './navigation/AppNavigator';
 
-Sentry.init({
-  dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
-  enableInExpoDevelopment: false,
-  debug: false,
-  environment: env,
-});
+// Sentry.init({
+//   dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
+//   enableInExpoDevelopment: false,
+//   debug: false,
+//   environment: env,
+// });
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
@@ -97,10 +94,10 @@ async function loadResourcesAsync() {
 }
 
 function handleLoadingError(error) {
-  logErrorToSentry({
-    action: 'AppLoading',
-    error: err,
-  });
+  // logErrorToSentry({
+  //   action: 'AppLoading',
+  //   error: err,
+  // });
   // console.warn(error);
 }
 

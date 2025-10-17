@@ -25,7 +25,7 @@ const base = Airtable.base(BASE_ID);
 
 */
 
-import Constants from 'expo-constants';
+
 
 const DEV_BASE_ID = 'appYfW7a2loPD26Vg';
 const PROD_BASE_ID = 'app4fXK49bqcjDMEo';
@@ -75,7 +75,7 @@ const ENV_VARIABLES = {
 
 // If releaseChannel not set, use process.env.NODE_ENV as substitute
 const env =
-  Constants.manifest.releaseChannel || process.env.NODE_ENV === 'production'
+ process.env.NODE_ENV === 'production'
     ? 'prod'
     : 'dev';
 

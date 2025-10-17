@@ -10,7 +10,6 @@ import {
 import CategoryBar from '../../components/resources/CategoryBar';
 import ResourceCard from '../../components/resources/ResourceCard';
 import { getAllResources } from '../../lib/airtable/request';
-import { logErrorToSentry } from '../../lib/logUtils';
 
 export default class ResourcesScreen extends React.Component {
   constructor(props) {
@@ -61,11 +60,11 @@ export default class ResourcesScreen extends React.Component {
       this.setState({ sections });
     } catch (err) {
       // console.error('[ResourcesScreen] Airtable: ', err);
-      logErrorToSentry({
-        screen: 'ResourcesScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'ResourcesScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   }
 

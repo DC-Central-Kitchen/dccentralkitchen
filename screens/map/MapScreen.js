@@ -1,11 +1,24 @@
 /* eslint-disable no-else-return */
 import { FontAwesome5 } from '@expo/vector-icons';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { useFocusEffect } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import BottomSheet from 'reanimated-bottom-sheet';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import {
+  ActivityIndicator,
+  PixelRatio,
+  StyleSheet,
+  View,
+  Platform,
+  Text,
+} from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
 import {
   NavHeaderContainer,
   Subtitle,
@@ -29,15 +42,16 @@ import {
   useStoreProducts,
   useStores,
 } from '../../lib/mapUtils';
+
 import {
   BottomSheetContainer,
-  BottomSheetHeaderContainer,
-  DragBar,
+  MarkerContainer,
+  MarkerStoreName,
   SearchBar,
 } from '../../styled/store';
 
-const snapPoints = [185, 325, 488];
 export default function MapScreen(props) {
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
   const stores = useStores();
 
   const [_stores, setStores] = useState();
@@ -158,13 +172,12 @@ export default function MapScreen(props) {
     //   products_in_stock:
     //     store && 'productIds' in store ? store.productIds.length : 0,
     // });
-
+    const factor = 0.2;
     const newRegion = {
-      latitude: store
-        ? store.latitude - deltas.latitudeDelta / 3.5
-        : region.latitude,
+      latitude: store ? store.latitude : region.latitude,
       longitude: store ? store.longitude : region.longitude,
-      ...deltas,
+      latitudeDelta: deltas.latitudeDelta * factor,
+      longitudeDelta: deltas.longitudeDelta * factor,
     };
     setCurrentStore(store);
 
@@ -178,39 +191,26 @@ export default function MapScreen(props) {
     }
   };
 
-  const renderContent = () => {
-    return (
-      <View>
-        <View
-          style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-          }}>
-          {!showDefaultStore && currentLocation && (
-            <CenterLocation
-              callBack={async () => {
-                // Analytics.logEvent('center_location', {
-                //   purpose: 'Centers map to current location',
-                // });
-                await mapRef.current?.animateToRegion(currentLocation, 1000);
-              }}
-            />
-          )}
-        </View>
-        <BottomSheetContainer>
-          <BottomSheetHeaderContainer>
-            <DragBar />
-          </BottomSheetHeaderContainer>
-          {currentStore && (
-            <StoreProducts
-              navigation={props.navigation}
-              store={currentStore}
-              products={storeProducts}
-            />
-          )}
-        </BottomSheetContainer>
-      </View>
-    );
+  const getImageSource = (focused) => {
+    let imageSource;
+    if (mapFilterObj.couponProgramPartner && mapFilterObj.wic) {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_snap_wic_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_snap_wic_2x.png');
+    } else if (mapFilterObj.couponProgramPartner) {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_snap_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_snap_2x.png');
+    } else if (mapFilterObj.wic) {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_wic_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_wic_2x.png');
+    } else {
+      imageSource = focused
+        ? require('../../assets/images/mix/map/Marker_Focused_2x.png')
+        : require('../../assets/images/mix/map/Marker_Regular_2x.png');
+    }
+    return imageSource;
   };
 
   return (
@@ -260,7 +260,6 @@ export default function MapScreen(props) {
           style={{
             marginTop: -200,
             flex: 100,
-            zIndex: -1,
           }}
           rotateEnabled={false}
           loadingEnabled
@@ -276,17 +275,28 @@ export default function MapScreen(props) {
               <Marker
                 key={store.id}
                 coordinate={{
-                  latitude: store.latitude ? store.latitude : 0,
-                  longitude: store.longitude ? store.longitude : 0,
+                  latitude: store.latitude ? Number(store.latitude) : 0,
+                  longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
+                tracksInfoWindowChanges
+                zIndex={currentStore?.id === store.id ? 2 : 1}
+                {...(Platform.OS === 'android'
+                  ? {
+                      icon: getImageSource(
+                        currentStore && currentStore.id === store.id
+                      ),
+                    }
+                  : {})}
                 onPress={() => changeCurrentStore(store)}>
-                <StoreMarker
-                  showName={region.longitudeDelta < 0.07}
-                  storeName={store.storeName ?? ''}
-                  focused={currentStore && currentStore.id === store.id}
-                  wic={mapFilterObj.wic}
-                  couponProgramPartner={mapFilterObj.couponProgramPartner}
-                />
+                {Platform.OS === 'ios' && (
+                  <StoreMarker
+                    showName={region.longitudeDelta < 0.07}
+                    storeName={store.storeName ?? ''}
+                    focused={currentStore && currentStore.id === store.id}
+                    wic={mapFilterObj.wic}
+                    couponProgramPartner={mapFilterObj.couponProgramPartner}
+                  />
+                )}
               </Marker>
             ))}
           {/* Display Focused store markers */}
@@ -295,36 +305,72 @@ export default function MapScreen(props) {
             .map((store) => (
               <Marker
                 key={store.id}
+                tracksInfoWindowChanges
                 coordinate={{
-                  latitude: store.latitude ? store.latitude : 0,
-                  longitude: store.longitude ? store.longitude : 0,
+                  latitude: store.latitude ? Number(store.latitude) : 0,
+                  longitude: store.longitude ? Number(store.longitude) : 0,
                 }}
+                zIndex={currentStore?.id === store.id ? 2 : 1}
+                {...(Platform.OS === 'android'
+                  ? {
+                      icon: getImageSource(
+                        currentStore && currentStore.id === store.id
+                      ),
+                    }
+                  : {})}
                 onPress={() => changeCurrentStore(store)}>
-                <StoreMarker
-                  showName={region.longitudeDelta < 0.07}
-                  storeName={store.storeName ?? ''}
-                  focused={currentStore && currentStore.id === store.id}
-                  wic={mapFilterObj.wic}
-                  couponProgramPartner={mapFilterObj.couponProgramPartner}
-                />
+                {Platform.OS === 'ios' && (
+                  <StoreMarker
+                    showName={region.longitudeDelta < 0.07}
+                    storeName={store.storeName ?? ''}
+                    focused={currentStore && currentStore.id === store.id}
+                    wic={mapFilterObj.wic}
+                    couponProgramPartner={mapFilterObj.couponProgramPartner}
+                  />
+                )}
               </Marker>
             ))}
         </MapView>
       )}
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-      <View style={{ flex: 1, marginBottom: 20 }}>
-        <BottomSheet
-          initialSnap={1}
-          enabledInnerScrolling={false}
-          enabledBottomClamp
-          overdragResistanceFactor={1}
-          enabledContentTapInteraction={false}
-          snapPoints={snapPoints}
-          renderContent={renderContent}
-          ref={bottomSheetRef}
-        />
-      </View>
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        handleIndicatorStyle={{ backgroundColor: 'black' }}
+        backgroundStyle={{ backgroundColor: 'white' }}>
+        <View
+          style={{
+            flex: 1,
+
+            alignItems: 'center',
+          }}>
+          <View>
+            {!showDefaultStore && currentLocation && (
+              <CenterLocation
+                callBack={async () => {
+                  // Analytics.logEvent('center_location', {
+                  //   purpose: 'Centers map to current location',
+                  // });
+                  await mapRef.current?.animateToRegion(currentLocation, 1000);
+                }}
+              />
+            )}
+          </View>
+          <BottomSheetContainer>
+            {currentStore && (
+              <StoreProducts
+                navigation={props.navigation}
+                store={currentStore}
+                products={storeProducts}
+              />
+            )}
+          </BottomSheetContainer>
+        </View>
+      </BottomSheet>
+
       {/* request hide healthy rewards */}
 
       {/* <RewardsFooter navigation={props.navigation} /> */}

@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/app';
+import auth from '@react-native-firebase/auth';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Keyboard, View } from 'react-native';
@@ -13,21 +13,17 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
-import { env, firebaseConfig } from '../../environment';
+import { env } from '../../environment';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
   formatPhoneNumberInput,
   inputFields,
   setAsyncCustomerAuth,
 } from '../../lib/authUtils';
-import { logErrorToSentry, setUserLog } from '../../lib/logUtils';
 import { AuthScreenContainer, BackButton } from '../../styled/auth';
 import { CardContainer } from '../../styled/shared';
 import validate from './validation';
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+// Initialize Firebase (if not already done)
 
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
@@ -38,6 +34,8 @@ export default class PhoneNumberScreen extends React.Component {
       values: {
         [inputFields.PHONENUM]: '',
       },
+      confirmation: '',
+      verificationCode: '',
       errors: {
         [inputFields.PHONENUM]: '',
         submit: '',
@@ -129,30 +127,30 @@ export default class PhoneNumberScreen extends React.Component {
 
   openRecaptcha = async () => {
     const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+
     try {
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        '+1'.concat(number),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.recaptchaVerifier.current
-      );
+      const confirmation = await auth().signInWithPhoneNumber('+1' + number);
+      this.setState((prevState) => ({
+        confirmation: confirmation,
+      }));
       this.props.navigation.navigate('Verify', {
         number,
-        verificationId,
+        confirmation: confirmation,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
     } catch (err) {
+      console.error(err, '+1' + number);
       this.setState({
         errors: {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
         },
       });
-      logErrorToSentry({
-        screen: 'PhoneNumberScreen',
-        action: 'openRecaptcha',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberScreen',
+      //   action: 'openRecaptcha',
+      //   error: err,
+      // });
     }
   };
 
@@ -167,11 +165,11 @@ export default class PhoneNumberScreen extends React.Component {
       }
       return null;
     } catch (err) {
-      logErrorToSentry({
-        screen: 'PhoneNumberScreen',
-        action: 'findCustomer',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberScreen',
+      //   action: 'findCustomer',
+      //   error: err,
+      // });
     }
     return true;
   };
@@ -191,11 +189,11 @@ export default class PhoneNumberScreen extends React.Component {
       } else {
         this.props.navigation.navigate('Permissions');
       }
-      setUserLog({
-        id: customer.id,
-        name: customer.name,
-        phoneNumber: this.state.values[inputFields.PHONENUM],
-      });
+      // setUserLog({
+      //   id: customer.id,
+      //   name: customer.name,
+      //   phoneNumber: this.state.values[inputFields.PHONENUM],
+      // });
       // Analytics.logEvent('log_in_complete', {
       //   customer_id: customer.id,
       // });
@@ -214,10 +212,10 @@ export default class PhoneNumberScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
+        {/* <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-        />
+        /> */}
         <BackButton onPress={() => this.props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>

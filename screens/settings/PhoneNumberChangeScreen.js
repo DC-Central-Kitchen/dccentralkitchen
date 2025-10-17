@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Keyboard } from 'react-native';
@@ -11,7 +11,7 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { firebaseConfig } from '../../environment';
+
 import {
   getCustomerById,
   getCustomersByPhoneNumber,
@@ -22,7 +22,6 @@ import {
   getAsyncCustomerAuth,
   inputFields,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -58,11 +57,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       // console.error(err);
-      logErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   }
 
@@ -121,6 +120,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
   openRecaptcha = async () => {
     Keyboard.dismiss();
+
     try {
       const customers = await getCustomersByPhoneNumber(
         this.state.values[inputFields.PHONENUM]
@@ -136,12 +136,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
         }
         // console.log('Phone number already in use');
         const errorMsg = 'Phone number already in use';
-        logAuthErrorToSentry({
-          screen: 'PhoneNumberChangeScreen',
-          action: 'updatePhoneNumber',
-          attemptedPhone: this.state.values[inputFields.PHONENUM],
-          error: errorMsg,
-        });
+        // logAuthErrorToSentry({
+        //   screen: 'PhoneNumberChangeScreen',
+        //   action: 'updatePhoneNumber',
+        //   attemptedPhone: this.state.values[inputFields.PHONENUM],
+        //   error: errorMsg,
+        // });
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
@@ -155,25 +155,19 @@ export default class PhoneNumberChangeScreen extends React.Component {
       //   '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
       //   err
       // );
-      logAuthErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'checkDuplicateCustomers',
-        attemptedPhone: this.state.values[inputFields.PHONENUM],
-        error: err,
-      });
+      // logAuthErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'checkDuplicateCustomers',
+      //   attemptedPhone: this.state.values[inputFields.PHONENUM],
+      //   error: err,
+      // });
     }
     const number = this.state.values[inputFields.PHONENUM];
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const confirmation = await auth().signInWithPhoneNumber('+1' + number);
     try {
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        '+1'.concat(number),
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.recaptchaVerifier.current
-      );
-
       this.props.navigation.navigate('Verify', {
         number,
-        verificationId,
+        confirmation: confirmation,
         resend: this.openRecaptcha,
         callBack: this.completeVerification,
       });
@@ -184,11 +178,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
         },
       });
       // console.log(err);
-      logErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   };
 
@@ -202,12 +196,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
       //   '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
       //   err
       // );
-      logAuthErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'updatePhoneNumber',
-        attemptedPhone: this.state.values[inputFields.PHONENUM],
-        error: err,
-      });
+      // logAuthErrorToSentry({
+      //   screen: 'PhoneNumberChangeScreen',
+      //   action: 'updatePhoneNumber',
+      //   attemptedPhone: this.state.values[inputFields.PHONENUM],
+      //   error: err,
+      // });
     }
   };
 
@@ -225,10 +219,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
+        {/* <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-        />
+        /> */}
         <BackButton onPress={() => this.props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>

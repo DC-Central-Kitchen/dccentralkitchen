@@ -10,7 +10,6 @@ import {
 } from '../../components/BaseComponents';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import { getAllRecipes } from '../../lib/airtable/request';
-import { logErrorToSentry } from '../../lib/logUtils';
 
 export default class RecipesScreen extends React.Component {
   constructor(props) {
@@ -27,11 +26,11 @@ export default class RecipesScreen extends React.Component {
       const recipes = await getAllRecipes();
       this.setState({ recipes, allRecipes: recipes });
     } catch (err) {
-      logErrorToSentry({
-        screen: 'RecipesScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'RecipesScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   }
 

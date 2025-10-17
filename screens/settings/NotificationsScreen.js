@@ -16,7 +16,6 @@ import {
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { getAsyncCustomerAuth, notificationTypes } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
 
 export default class NotificationsScreen extends React.Component {
@@ -66,11 +65,11 @@ export default class NotificationsScreen extends React.Component {
       }
     } catch (err) {
       // console.error('[NotificationsScreen] Airtable:', err);
-      logErrorToSentry({
-        screen: 'NotificationsScreen',
-        action: 'componentDidMount',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'NotificationsScreen',
+      //   action: 'componentDidMount',
+      //   error: err,
+      // });
     }
   }
 
@@ -132,11 +131,11 @@ export default class NotificationsScreen extends React.Component {
       //   '[NotificationsScreen] (saveNotificationsSettings) Airtable:',
       //   err
       // );
-      logErrorToSentry({
-        screen: 'NotificationsScreen',
-        action: 'saveNotificationsSettings',
-        error: err,
-      });
+      // logErrorToSentry({
+      //   screen: 'NotificationsScreen',
+      //   action: 'saveNotificationsSettings',
+      //   error: err,
+      // });
     }
   };
 
