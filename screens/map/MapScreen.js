@@ -73,6 +73,33 @@ export default function MapScreen(props) {
 
   const bottomSheetRef = useRef(null);
   const mapRef = useRef(null);
+  // prevent multiple auto-centers
+  const didPickInitialRef = useRef(false);
+  // Helpers
+  const isFiniteCoord = (lat, lng) =>
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    Math.abs(lat) <= 90 &&
+    Math.abs(lng) <= 180;
+
+  const nearestStore = (userLoc, items) => {
+    if (!userLoc || !isFiniteCoord(userLoc.latitude, userLoc.longitude))
+      return null;
+    let best = null;
+    let bestDist = Infinity;
+    items.forEach((s) => {
+      const lat = Number(s.latitude);
+      const lng = Number(s.longitude);
+      if (isFiniteCoord(lat, lng)) {
+        const d = findStoreDistance(userLoc, s);
+        if (typeof d === 'number' && d < bestDist) {
+          bestDist = d;
+          best = s;
+        }
+      }
+    });
+    return { store: best, km: bestDist };
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -122,10 +149,31 @@ export default function MapScreen(props) {
       });
       setFilteredStores(filteredStoresCopy);
     }
-    if (!locationAccess) {
-      changeCurrentStore(filteredStoresCopy[0], true, false);
+    // Pick initial store ONCE with guards (avoid 0,0)
+    if (!didPickInitialRef.current && filteredStoresCopy.length > 0) {
+      didPickInitialRef.current = true;
+      if (
+        locationAccess &&
+        currentLocation &&
+        isFiniteCoord(currentLocation.latitude, currentLocation.longitude)
+      ) {
+        const result = nearestStore(currentLocation, filteredStoresCopy);
+        const candidate =
+          result && result.store && result.km <= 25
+            ? result.store
+            : filteredStoresCopy.find((s) =>
+                isFiniteCoord(Number(s.latitude), Number(s.longitude))
+              ) || filteredStoresCopy[0];
+        if (candidate) changeCurrentStore(candidate, true, true);
+      } else {
+        const firstValid =
+          filteredStoresCopy.find((s) =>
+            isFiniteCoord(Number(s.latitude), Number(s.longitude))
+          ) || filteredStoresCopy[0];
+        changeCurrentStore(firstValid, true, true);
+      }
     }
-  }, [mapFilterObj, _stores]); // eslint-disable-line
+  }, [mapFilterObj, _stores, locationPermissions, currentLocation]); // eslint-disable-line
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -152,10 +200,9 @@ export default function MapScreen(props) {
     if (props.route.params) {
       const store = props.route.params.currentStore;
       if (Object.keys(store).length) {
+        didPickInitialRef.current = true; // ensure we don't auto-pick again
         changeCurrentStore(store);
       }
-    } else {
-      changeCurrentStore(stores[0]);
     }
   }, [stores, props.route.params]);
 
@@ -173,18 +220,29 @@ export default function MapScreen(props) {
     //     store && 'productIds' in store ? store.productIds.length : 0,
     // });
     const factor = 0.2;
+    const lat = store ? Number(store.latitude) : NaN;
+    const lng = store ? Number(store.longitude) : NaN;
+    const hasValidCoords = isFiniteCoord(lat, lng);
     const newRegion = {
-      latitude: store ? store.latitude : region.latitude,
-      longitude: store ? store.longitude : region.longitude,
-      latitudeDelta: deltas.latitudeDelta * factor,
-      longitudeDelta: deltas.longitudeDelta * factor,
+      latitude: hasValidCoords ? lat : region.latitude,
+      longitude: hasValidCoords ? lng : region.longitude,
+      latitudeDelta: hasValidCoords
+        ? deltas.latitudeDelta * factor
+        : region.latitudeDelta,
+      longitudeDelta: hasValidCoords
+        ? deltas.longitudeDelta * factor
+        : region.longitudeDelta,
     };
     setCurrentStore(store);
 
     if (resetSheet) {
       bottomSheetRef.current.snapTo(1);
     }
-    if (animate && newRegion !== null) {
+    if (
+      animate &&
+      newRegion &&
+      isFiniteCoord(newRegion.latitude, newRegion.longitude)
+    ) {
       await mapRef.current?.animateToRegion(newRegion, 1000);
     } else {
       setRegion(newRegion);
@@ -193,15 +251,15 @@ export default function MapScreen(props) {
 
   const getImageSource = (focused) => {
     let imageSource;
-    if (mapFilterObj.couponProgramPartner && mapFilterObj.wic) {
+    if (mapFilterObj?.couponProgramPartner && mapFilterObj?.wic) {
       imageSource = focused
         ? require('../../assets/images/mix/map/Marker_Focused_snap_wic_2x.png')
         : require('../../assets/images/mix/map/Marker_Regular_snap_wic_2x.png');
-    } else if (mapFilterObj.couponProgramPartner) {
+    } else if (mapFilterObj?.couponProgramPartner) {
       imageSource = focused
         ? require('../../assets/images/mix/map/Marker_Focused_snap_2x.png')
         : require('../../assets/images/mix/map/Marker_Regular_snap_2x.png');
-    } else if (mapFilterObj.wic) {
+    } else if (mapFilterObj?.wic) {
       imageSource = focused
         ? require('../../assets/images/mix/map/Marker_Focused_wic_2x.png')
         : require('../../assets/images/mix/map/Marker_Regular_wic_2x.png');
@@ -293,7 +351,7 @@ export default function MapScreen(props) {
                     showName={region.longitudeDelta < 0.07}
                     storeName={store.storeName ?? ''}
                     focused={currentStore && currentStore.id === store.id}
-                    wic={mapFilterObj.wic}
+                    wic={mapFilterObj?.wic}
                     couponProgramPartner={mapFilterObj.couponProgramPartner}
                   />
                 )}
@@ -324,8 +382,8 @@ export default function MapScreen(props) {
                     showName={region.longitudeDelta < 0.07}
                     storeName={store.storeName ?? ''}
                     focused={currentStore && currentStore.id === store.id}
-                    wic={mapFilterObj.wic}
-                    couponProgramPartner={mapFilterObj.couponProgramPartner}
+                    wic={mapFilterObj?.wic}
+                    couponProgramPartner={mapFilterObj?.couponProgramPartner}
                   />
                 )}
               </Marker>
