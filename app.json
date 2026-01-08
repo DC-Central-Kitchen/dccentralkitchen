@@ -3,6 +3,10 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "platforms": ["ios", "android", "web"],
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
     "plugins": [
       "@react-native-firebase/app",
       "@react-native-firebase/auth",

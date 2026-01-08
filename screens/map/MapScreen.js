@@ -18,7 +18,7 @@ import {
   Platform,
   Text,
 } from 'react-native';
-import MapView, { Callout, Marker } from 'react-native-maps';
+
 import {
   NavHeaderContainer,
   Subtitle,
@@ -182,7 +182,7 @@ export default function MapScreen(props) {
     setCurrentStore(store);
 
     if (resetSheet) {
-      bottomSheetRef.current.snapTo(1);
+      // bottomSheetRef.current.snapTo(1);
     }
     if (animate && newRegion !== null) {
       await mapRef.current?.animateToRegion(newRegion, 1000);
@@ -253,9 +253,8 @@ export default function MapScreen(props) {
         }}>
         <MapFilterOptions setMapFilterObj={setMapFilterObj} />
       </View>
-
       {/* Display Map */}
-      {stores.length !== 0 && (
+      {/* {stores.length !== 0 && (
         <MapView
           style={{
             marginTop: -200,
@@ -269,72 +268,71 @@ export default function MapScreen(props) {
           showsUserLocation
           onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
           {/* Display Non-focused store markers */}
-          {filteredStores
-            .filter((store) => currentStore.id !== store.id)
-            .map((store) => (
-              <Marker
-                key={store.id}
-                coordinate={{
-                  latitude: store.latitude ? Number(store.latitude) : 0,
-                  longitude: store.longitude ? Number(store.longitude) : 0,
-                }}
-                tracksInfoWindowChanges
-                zIndex={currentStore?.id === store.id ? 2 : 1}
-                {...(Platform.OS === 'android'
-                  ? {
-                      icon: getImageSource(
-                        currentStore && currentStore.id === store.id
-                      ),
-                    }
-                  : {})}
-                onPress={() => changeCurrentStore(store)}>
-                {Platform.OS === 'ios' && (
-                  <StoreMarker
-                    showName={region.longitudeDelta < 0.07}
-                    storeName={store.storeName ?? ''}
-                    focused={currentStore && currentStore.id === store.id}
-                    wic={mapFilterObj.wic}
-                    couponProgramPartner={mapFilterObj.couponProgramPartner}
-                  />
-                )}
-              </Marker>
-            ))}
-          {/* Display Focused store markers */}
-          {filteredStores
-            .filter((store) => currentStore && currentStore.id === store.id)
-            .map((store) => (
-              <Marker
-                key={store.id}
-                tracksInfoWindowChanges
-                coordinate={{
-                  latitude: store.latitude ? Number(store.latitude) : 0,
-                  longitude: store.longitude ? Number(store.longitude) : 0,
-                }}
-                zIndex={currentStore?.id === store.id ? 2 : 1}
-                {...(Platform.OS === 'android'
-                  ? {
-                      icon: getImageSource(
-                        currentStore && currentStore.id === store.id
-                      ),
-                    }
-                  : {})}
-                onPress={() => changeCurrentStore(store)}>
-                {Platform.OS === 'ios' && (
-                  <StoreMarker
-                    showName={region.longitudeDelta < 0.07}
-                    storeName={store.storeName ?? ''}
-                    focused={currentStore && currentStore.id === store.id}
-                    wic={mapFilterObj.wic}
-                    couponProgramPartner={mapFilterObj.couponProgramPartner}
-                  />
-                )}
-              </Marker>
-            ))}
-        </MapView>
-      )}
+      {/* {filteredStores
+        .filter((store) => currentStore.id !== store.id)
+        .map((store) => (
+          <Marker
+            key={store.id}
+            coordinate={{
+              latitude: store.latitude ? Number(store.latitude) : 0,
+              longitude: store.longitude ? Number(store.longitude) : 0,
+            }}
+            tracksInfoWindowChanges
+            zIndex={currentStore?.id === store.id ? 2 : 1}
+            {...(Platform.OS === 'android'
+              ? {
+                  icon: getImageSource(
+                    currentStore && currentStore.id === store.id
+                  ),
+                }
+              : {})}
+            onPress={() => changeCurrentStore(store)}>
+            {Platform.OS === 'ios' && (
+              <StoreMarker
+                showName={region.longitudeDelta < 0.07}
+                storeName={store.storeName ?? ''}
+                focused={currentStore && currentStore.id === store.id}
+                wic={mapFilterObj.wic}
+                couponProgramPartner={mapFilterObj.couponProgramPartner}
+              />
+            )}
+          </Marker>
+        ))} */}
+      {/* Display Focused store markers */}
+      {/* {filteredStores
+        .filter((store) => currentStore && currentStore.id === store.id)
+        .map((store) => (
+          <Marker
+            key={store.id}
+            tracksInfoWindowChanges
+            coordinate={{
+              latitude: store.latitude ? Number(store.latitude) : 0,
+              longitude: store.longitude ? Number(store.longitude) : 0,
+            }}
+            zIndex={currentStore?.id === store.id ? 2 : 1}
+            {...(Platform.OS === 'android'
+              ? {
+                  icon: getImageSource(
+                    currentStore && currentStore.id === store.id
+                  ),
+                }
+              : {})}
+            onPress={() => changeCurrentStore(store)}>
+            {Platform.OS === 'ios' && (
+              <StoreMarker
+                showName={region.longitudeDelta < 0.07}
+                storeName={store.storeName ?? ''}
+                focused={currentStore && currentStore.id === store.id}
+                wic={mapFilterObj.wic}
+                couponProgramPartner={mapFilterObj.couponProgramPartner}
+              />
+            )}
+          </Marker>
+        ))} */}
+      {/* </MapView> */}
+      {/* )} */}
       {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-
       <BottomSheet
         ref={bottomSheetRef}
         index={0}
@@ -370,9 +368,7 @@ export default function MapScreen(props) {
           </BottomSheetContainer>
         </View>
       </BottomSheet>
-
       {/* request hide healthy rewards */}
-
       {/* <RewardsFooter navigation={props.navigation} /> */}
       {(!locationPermissions || stores.length === 0) && (
         <View
