@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "skipLibCheck": true
+  },
+  "extends": "expo/tsconfig.base"
+}
